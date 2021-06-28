@@ -13,6 +13,7 @@ import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -48,6 +49,9 @@ public class ProjectController {
                 js = new JSONObject(body);
                 if(db.nadjiUser("username",js.getString("username")))lista.add(new errorCode("UsernameVecPostoji"));
                 if(db.nadjiUser("email", js.getString("email")))lista.add(new errorCode("EmailVecPostoji"));
+                if(lista.isEmpty()){
+                    lista.add(new errorCode("OK"));
+                }
                 return lista;
             } catch (JSONException e) {
                 // TODO Auto-generated catch block
@@ -65,6 +69,7 @@ public class ProjectController {
     @PostMapping("/signin")
     public @ResponseBody List<errorCode> login(@RequestBody String body,HttpServletRequest req,HttpServletResponse res){
         JSONObject js;
+        System.out.println(body);
         List<errorCode> lista = new ArrayList<errorCode>();
         if(body!=null){
             try {
@@ -85,4 +90,11 @@ public class ProjectController {
         return lista;
     }
 
+    @GetMapping("/profile")
+    public String necijiProfil(@RequestParam String user,HttpServletRequest req,HttpServletResponse res){
+        if((user == null && CookieManager.getCookie(req) != null ) || db.dajId(CookieManager.getCookie(req).getValue()).toString() == user){
+            return "Mainprofile";
+        }
+        return "profile";
+    }
 }

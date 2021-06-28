@@ -2,11 +2,13 @@ package com.example.Project;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class DatabaseConnector {
     Connection connection = null;
@@ -39,9 +41,11 @@ public class DatabaseConnector {
 
     public boolean nadjiUser(String tip,String ime){
         try {
-            ResultSet result = statement.executeQuery("SELECT * FROM testtest WHERE "+tip+"='"+ime+"'");
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM person WHERE ?=?");
+            statement.setString(1,tip);
+            statement.setString(2,ime);
+            ResultSet result = statement.executeQuery();
             if(result.next()){
-
                 if(result.getString("ime")!=null)return true;
             }
         } catch (SQLException e) {
@@ -51,6 +55,21 @@ public class DatabaseConnector {
         return false;
     }
 
+    public Integer dajId(String ime){
+        try {
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM person WHERE username=?");
+            statement.setString(1,ime);
+            ResultSet result = statement.executeQuery();
+            if(result.next()){
+                return result.getInt("id");
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return null;
+    
+    }
 
     public List<Oglas> sviOglasi(){
         List<Oglas> lista = new ArrayList<Oglas>();
