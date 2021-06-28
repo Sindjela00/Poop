@@ -62,5 +62,27 @@ public class ProjectController {
         if(CookieManager.getCookie(req)!=null)return "redirect:/";
         return "signin";
     }
+    @PostMapping("/signin")
+    public @ResponseBody List<errorCode> login(@RequestBody String body,HttpServletRequest req,HttpServletResponse res){
+        JSONObject js;
+        List<errorCode> lista = new ArrayList<errorCode>();
+        if(body!=null){
+            try {
+                js = new JSONObject(body);
+                if(db.nadjiUser("username",js.getString("username")))lista.add(new errorCode("PasswordIliUsernameNisuUredu"));
+                if(db.nadjiUser("password", js.getString("password")))lista.add(new errorCode("PasswordIliUsernameNisuUredu"));
+                if(lista.isEmpty()){
+                    CookieManager.makeCookie(req, res, js.getString("username"));
+                    lista.add(new errorCode("OK"));
+                }
+                return lista;
+            } catch (JSONException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+        lista.add(new errorCode("losBody"));
+        return lista;
+    }
 
 }
