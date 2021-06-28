@@ -18,38 +18,45 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class ProjectController {
-    
+
     DatabaseConnector db = new DatabaseConnector();
 
     @GetMapping("/")
-    public String home(HttpServletRequest req,HttpServletResponse res){
+    public String home(HttpServletRequest req, HttpServletResponse res) {
         Cookie cookie;
-        if((cookie = CookieManager.getCookie(req)) !=null){
-            if(db.nadjiUser("username",CookieManager.getContent(cookie)))return "LogovanHome";
+        if ((cookie = CookieManager.getCookie(req)) != null) {
+            if (db.nadjiUser("username", CookieManager.getContent(cookie)))
+                return "LogovanHome";
         }
         return "Home";
     }
+
     @GetMapping("/all")
-    public @ResponseBody List<Oglas> all(){
+    public @ResponseBody List<Oglas> all() {
         return db.sviOglasi();
     }
+
     @GetMapping("/signup")
-    public String signup(HttpServletRequest req,HttpServletResponse res){
-        if(CookieManager.getCookie(req)!=null){
+    public String signup(HttpServletRequest req, HttpServletResponse res) {
+        if (CookieManager.getCookie(req) != null) {
             return "redirect:/";
         }
         return "signup";
     }
+
     @PostMapping("/signup")
-    public @ResponseBody List<errorCode> register(@RequestBody String body,HttpServletRequest req,HttpServletResponse res){
+    public @ResponseBody List<errorCode> register(@RequestBody String body, HttpServletRequest req,
+            HttpServletResponse res) {
         JSONObject js;
         List<errorCode> lista = new ArrayList<errorCode>();
-        if(body!=null){
+        if (body != null) {
             try {
                 js = new JSONObject(body);
-                if(db.nadjiUser("username",js.getString("username")))lista.add(new errorCode("UsernameVecPostoji"));
-                if(db.nadjiUser("email", js.getString("email")) != true)lista.add(new errorCode("EmailVecPostoji"));
-                if(lista.isEmpty()){
+                if (db.nadjiUser("username", js.getString("username")))
+                    lista.add(new errorCode("UsernameVecPostoji"));
+                if (db.nadjiUser("email", js.getString("email")) != true)
+                    lista.add(new errorCode("EmailVecPostoji"));
+                if (lista.isEmpty()) {
                     lista.add(new errorCode("OK"));
                 }
                 return lista;
@@ -61,22 +68,28 @@ public class ProjectController {
         lista.add(new errorCode("LosBody"));
         return lista;
     }
+
     @GetMapping("/signin")
-    public String signin(HttpServletRequest req,HttpServletResponse res){
-        if(CookieManager.getCookie(req)!=null)return "redirect:/";
+    public String signin(HttpServletRequest req, HttpServletResponse res) {
+        if (CookieManager.getCookie(req) != null)
+            return "redirect:/";
         return "signin";
     }
+
     @PostMapping("/signin")
-    public @ResponseBody List<errorCode> login(@RequestBody String body,HttpServletRequest req,HttpServletResponse res){
+    public @ResponseBody List<errorCode> login(@RequestBody String body, HttpServletRequest req,
+            HttpServletResponse res) {
         JSONObject js;
         System.out.println(body);
         List<errorCode> lista = new ArrayList<errorCode>();
-        if(body!=null){
+        if (body != null) {
             try {
                 js = new JSONObject(body);
-                if(db.nadjiUser("username",js.getString("username")))lista.add(new errorCode("PasswordIliUsernameNisuUredu"));
-                if(db.nadjiUser("password", js.getString("password")))lista.add(new errorCode("PasswordIliUsernameNisuUredu"));
-                if(lista.isEmpty()){
+                if (db.nadjiUser("username", js.getString("username")))
+                    lista.add(new errorCode("PasswordIliUsernameNisuUredu"));
+                if (db.nadjiUser("password", js.getString("password")))
+                    lista.add(new errorCode("PasswordIliUsernameNisuUredu"));
+                if (lista.isEmpty()) {
                     CookieManager.makeCookie(req, res, js.getString("username"));
                     lista.add(new errorCode("OK"));
                 }
@@ -91,10 +104,12 @@ public class ProjectController {
     }
 
     @GetMapping("/profile")
-    public String necijiProfil(@RequestParam String user,HttpServletRequest req,HttpServletResponse res){
-        if((user == null && CookieManager.getCookie(req) != null ) || db.dajId(CookieManager.getCookie(req).getValue()).toString() == user){
-            return "Mainprofile";
-        }
-        return "profile";
+    public String necijiProfil(@RequestParam(required = false) String user, HttpServletRequest req, HttpServletResponse res) {
+        if(CookieManager.getCookie(req) == null && user == null) return "redirect:/";
+        if(CookieManager.getCookie(req) != null && user == null) return "Mainprofile";
+        if(CookieManager.getCookie(req) == null && user != null) return "profile";
+        if (db.dajId(CookieManager.getCookie(req).getValue()).toString() == user) 
+                return "Mainprofile";
+        return "profil";
     }
 }
