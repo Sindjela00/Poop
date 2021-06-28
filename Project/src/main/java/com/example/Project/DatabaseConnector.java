@@ -25,19 +25,6 @@ public class DatabaseConnector {
         }
     }
 
-    public boolean nadjiUser(String ime){
-        try {
-            ResultSet result = statement.executeQuery("SELECT * FROM person WHERE username='"+ime+"'");
-            if(result.next()){
-
-                if(result.getString("ime")!=null)return true;
-            }
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return false;
-    }
 
     public boolean nadjiUser(String tip,String ime){
         try {
@@ -55,6 +42,9 @@ public class DatabaseConnector {
         return false;
     }
 
+
+
+    
     public Integer dajId(String ime){
         try {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM person WHERE username=?");
