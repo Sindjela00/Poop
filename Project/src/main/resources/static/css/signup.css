@@ -1,0 +1,86 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+
+
+/* 
+    Created on : Jun 27, 2021, 2:13:42 AM
+    Author     : jefimija.stamenovic
+*/
+
+html,
+body {
+    background-color: #8080ff;
+    height: 100%;
+    font-family: 'Verdana', sans-serif;
+    font-size: 14px;
+}
+
+.container {
+    height: 100%;
+    align-content: center;
+}
+
+.card {
+    height: 450px;
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 500px;
+    background-color: #8cc0ed;
+}
+
+.card-header h3 {
+    color: black;
+}
+
+.input-group-prepend span {
+    width: 40px;
+    background-color: #004d99;
+    color: white;
+    border: 0 !important;
+}
+
+input:focus {
+    outline: 0 0 0 0 !important;
+    box-shadow: 0 0 0 0 !important;
+}
+
+.user-type input {
+    width: 20px;
+    height: 20px;
+    margin-left: 15px;
+    margin-right: 5px;
+}
+
+.user-type select {
+    width: 20px;
+    height: 20px;
+    margin-left: 15px;
+    margin-right: 5px;
+}
+
+.register-btn {
+    color: white;
+    background-color: #004d99;
+    width: 100px;
+}
+
+.register-btn:hover {
+    color: black;
+    font-weight: bold;
+    background-color: white;
+}
+
+.links {
+    color: black;
+}
+
+.links>a {
+    color: white;
+}
+
+a {
+    color: #004d99;
+}
