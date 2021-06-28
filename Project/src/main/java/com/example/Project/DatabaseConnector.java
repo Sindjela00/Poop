@@ -25,7 +25,7 @@ public class DatabaseConnector {
 
     public boolean nadjiUser(String ime){
         try {
-            ResultSet result = statement.executeQuery("SELECT * FROM testtest WHERE ime='"+ime+"'");
+            ResultSet result = statement.executeQuery("SELECT * FROM person WHERE username='"+ime+"'");
             if(result.next()){
 
                 if(result.getString("ime")!=null)return true;
