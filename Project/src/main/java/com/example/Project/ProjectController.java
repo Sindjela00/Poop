@@ -57,5 +57,10 @@ public class ProjectController {
         lista.add(new errorCode("LosBody"));
         return lista;
     }
+    @GetMapping("/signin")
+    public String signin(HttpServletRequest req,HttpServletResponse res){
+        if(CookieManager.getCookie(req)!=null)return "redirect:/";
+        return "signin";
+    }
 
 }
