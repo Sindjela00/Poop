@@ -25,7 +25,7 @@ public class ProjectController {
     public String home(HttpServletRequest req,HttpServletResponse res){
         Cookie cookie;
         if((cookie = CookieManager.getCookie(req)) !=null){
-            if(db.nadjiUser(CookieManager.getContent(cookie)))return "LogovanHome";
+            if(db.nadjiUser("username",CookieManager.getContent(cookie)))return "LogovanHome";
         }
         return "Home";
     }
@@ -48,7 +48,7 @@ public class ProjectController {
             try {
                 js = new JSONObject(body);
                 if(db.nadjiUser("username",js.getString("username")))lista.add(new errorCode("UsernameVecPostoji"));
-                if(db.nadjiUser("email", js.getString("email")))lista.add(new errorCode("EmailVecPostoji"));
+                if(db.nadjiUser("email", js.getString("email")) != true)lista.add(new errorCode("EmailVecPostoji"));
                 if(lista.isEmpty()){
                     lista.add(new errorCode("OK"));
                 }
