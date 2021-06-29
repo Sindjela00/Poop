@@ -92,7 +92,7 @@ public class ProjectController {
         List<errorCode> lista = new ArrayList<errorCode>();
         try {
             js = new JSONObject(body);
-                if (body != null) {
+                if ( body != null) {
                 if (db.proveriSignin(js.getString("username"), js.getString("pass"),js.getBoolean("person")))
                     lista.add(new errorCode("PasswordIliUsernameNisuUredu"));
                 if (lista.isEmpty()) {
