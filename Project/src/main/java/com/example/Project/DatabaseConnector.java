@@ -27,12 +27,13 @@ public class DatabaseConnector {
 
     public boolean nadjiUser(String tip,String ime){
         try {
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM person WHERE ?=?");
-            statement.setString(1,tip);
-            statement.setString(2,ime);
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM person WHERE "+tip+"=?");
+            statement.setString(1,ime);
             ResultSet result = statement.executeQuery();
+            System.out.println(statement.toString());
             if(result.next()){
-                if(result.getString("ime")!=null)return true;
+                System.out.println(result.getString(tip));
+                if(result.getString(tip)!=null)return true;
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -62,7 +63,7 @@ public class DatabaseConnector {
     public List<Oglas> sviOglasi(){
         List<Oglas> lista = new ArrayList<Oglas>();
         try {
-            ResultSet result = statement.executeQuery("SELECT * FROM testtest");
+            ResultSet result = statement.executeQuery("SELECT * FROM Oglasi");
             while(result.next()){
                 lista.add(new Oglas(result.getInt(0),result.getString(1),result.getInt(2),result.getString(3),result.getString(4)));
             }
@@ -91,15 +92,15 @@ public class DatabaseConnector {
     }
 
 
-    public boolean ubaciUsera(String username,String pass,String ime,String email,String brojTelefona,String Place){
+    public boolean ubaciUsera(String username,String pass,String ime,String email,String brojTelefona){
         try {
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO person (username , pass , ime , email , phone , place ) values (?,?,?,?,?)");
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO person (username , pass , name , email , phone  ) values (?,?,?,?,?)");
             statement.setString(1,username);
             statement.setString(2,pass);
             statement.setString(3,ime);
             statement.setString(4,email);
             statement.setString(5,brojTelefona);
-            statement.setString(6,Place);
+            statement.executeUpdate();
             if(nadjiUser("ime", ime)) return true;
             else return false;
         } catch (SQLException e) {

@@ -49,30 +49,31 @@ public class ProjectController {
             HttpServletResponse res) {
         JSONObject js;
         List<errorCode> lista = new ArrayList<errorCode>();
-        if (body != null) {
-            try {
-                js = new JSONObject(body);
+        try {
+            js = new JSONObject(body);
+            if (body != null) {
                 if (db.nadjiUser("username", js.getString("username")))
                     lista.add(new errorCode("UsernameVecPostoji"));
                 if (db.nadjiUser("email", js.getString("email")))
                     lista.add(new errorCode("EmailVecPostoji"));
                 if (js.getString("pass") == null)
                     lista.add(new errorCode("NeOdgovarajucaSifra"));
-                if (js.getString("ime") == null)
+                if (js.getString("name") == null)
                     lista.add(new errorCode("NemaIme"));
-                if (js.getString("ime") == null)
+                if (js.getString("phone") == null)
                     lista.add(new errorCode("NemaTelefon"));
 
                 if (lista.isEmpty()) {
                     lista.add(new errorCode("OK"));
-                    db.ubaciUsera(js.getString("username"), js.getString("pass"), js.getString("ime"), js.getString("email"), js.getString("phone"), js.getString("Place"));
+                    db.ubaciUsera(js.getString("username"), js.getString("pass"), js.getString("name"), js.getString("email"), js.getString("phone"));
                 }
                 return lista;
+            }
             } catch (JSONException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-        }
+        
         lista.add(new errorCode("LosBody"));
         return lista;
     }
@@ -90,10 +91,10 @@ public class ProjectController {
         JSONObject js;
         System.out.println(body);
         List<errorCode> lista = new ArrayList<errorCode>();
-        if (body != null) {
-            try {
-                js = new JSONObject(body);
-                if (db.proveriSignin(js.getString("username"), js.getString("password")) !=true)
+        try {
+            js = new JSONObject(body);
+                if (body != null) {
+                if (db.proveriSignin(js.getString("username"), js.getString("pass")))
                     lista.add(new errorCode("PasswordIliUsernameNisuUredu"));
                 if (lista.isEmpty()) {
                     if (js.getBoolean("rememberMe") == true)
@@ -103,11 +104,12 @@ public class ProjectController {
                     lista.add(new errorCode("OK"));
                 }
                 return lista;
+            }
             } catch (JSONException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-        }
+        
         lista.add(new errorCode("losBody"));
         return lista;
     }
@@ -128,7 +130,7 @@ public class ProjectController {
         if (CookieManager.getCookie(req) != null && user == null)
             return "Mainprofile";
         if (CookieManager.getCookie(req) == null && user != null)
-            return "profile";
+            return "profil";
         if (db.dajId(CookieManager.getCookie(req).getValue()).toString() == user)
             return "Mainprofile";
         return "profil";
