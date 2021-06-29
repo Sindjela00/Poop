@@ -35,7 +35,6 @@ public class DatabaseConnector {
                 if(result.getString("ime")!=null)return true;
             }
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return false;
@@ -74,6 +73,39 @@ public class DatabaseConnector {
         }
         return null;
     }
+    public boolean proveriSignin(String username,String pass){
+        PreparedStatement statement;
+        try {
+            statement = connection.prepareStatement("Select * from person where username=? AND pass=?");
+            statement.setString(1,username);
+            statement.setString(2,pass);
+            ResultSet result = statement.executeQuery();
+            if(result.next()){
+                return true;
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return false;
+    }
 
 
+    public boolean ubaciUsera(String username,String pass,String ime,String email,String brojTelefona,String Place){
+        try {
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO person (username , pass , ime , email , phone , place ) values (?,?,?,?,?)");
+            statement.setString(1,username);
+            statement.setString(2,pass);
+            statement.setString(3,ime);
+            statement.setString(4,email);
+            statement.setString(5,brojTelefona);
+            statement.setString(6,Place);
+            if(nadjiUser("ime", ime)) return true;
+            else return false;
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

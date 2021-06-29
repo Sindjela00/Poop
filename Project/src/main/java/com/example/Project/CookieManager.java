@@ -16,9 +16,11 @@ public class CookieManager {
         }
         return null;
     }
-    public static boolean makeCookie(HttpServletRequest req,HttpServletResponse res,String name){//Ova funkcija proverava da li cookie postoji i ako ga nema pravi novi i return true,ako ga ima returna false;
+    public static boolean makeCookie(HttpServletRequest req,HttpServletResponse res,String name,boolean rememberMe){//Ova funkcija proverava da li cookie postoji i ako ga nema pravi novi i return true,ako ga ima returna false;
         if(getCookie(req) == null){
             Cookie cookie = new Cookie("session-id",AES256.encrypt(name));
+            if(rememberMe) cookie.setMaxAge(2147483647);
+            else cookie.setMaxAge(60*15);
             res.addCookie(cookie);
             return true;
         }

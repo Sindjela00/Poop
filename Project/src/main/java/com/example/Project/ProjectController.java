@@ -26,9 +26,9 @@ public class ProjectController {
         Cookie cookie;
         if ((cookie = CookieManager.getCookie(req)) != null) {
             if (db.nadjiUser("username", CookieManager.getContent(cookie)))
-                return "LogovanHome";
+                return "Logovanmain";
         }
-        return "Home";
+        return "main";
     }
 
     @GetMapping("/all")
@@ -54,10 +54,18 @@ public class ProjectController {
                 js = new JSONObject(body);
                 if (db.nadjiUser("username", js.getString("username")))
                     lista.add(new errorCode("UsernameVecPostoji"));
-                if (db.nadjiUser("email", js.getString("email")) != true)
+                if (db.nadjiUser("email", js.getString("email")))
                     lista.add(new errorCode("EmailVecPostoji"));
+                if (js.getString("pass") == null)
+                    lista.add(new errorCode("NeOdgovarajucaSifra"));
+                if (js.getString("ime") == null)
+                    lista.add(new errorCode("NemaIme"));
+                if (js.getString("ime") == null)
+                    lista.add(new errorCode("NemaTelefon"));
+
                 if (lista.isEmpty()) {
                     lista.add(new errorCode("OK"));
+                    db.ubaciUsera(js.getString("username"), js.getString("pass"), js.getString("ime"), js.getString("email"), js.getString("phone"), js.getString("Place"));
                 }
                 return lista;
             } catch (JSONException e) {
@@ -85,12 +93,13 @@ public class ProjectController {
         if (body != null) {
             try {
                 js = new JSONObject(body);
-                if (db.nadjiUser("username", js.getString("username")))
-                    lista.add(new errorCode("PasswordIliUsernameNisuUredu"));
-                if (db.nadjiUser("password", js.getString("password")))
+                if (db.proveriSignin(js.getString("username"), js.getString("password")) !=true)
                     lista.add(new errorCode("PasswordIliUsernameNisuUredu"));
                 if (lista.isEmpty()) {
-                    CookieManager.makeCookie(req, res, js.getString("username"));
+                    if (js.getBoolean("rememberMe") == true)
+                        CookieManager.makeCookie(req, res, js.getString("username"), true);
+                    else
+                        CookieManager.makeCookie(req, res, js.getString("username"), false);
                     lista.add(new errorCode("OK"));
                 }
                 return lista;
@@ -103,13 +112,25 @@ public class ProjectController {
         return lista;
     }
 
+    @PostMapping("/signout")
+    public String signout(HttpServletRequest req, HttpServletResponse res) {
+        Cookie cookie;
+        if ((cookie = CookieManager.getCookie(req)) != null)
+            CookieManager.deleteCookie(req, res);
+        return "redirect:/";
+    }
+
     @GetMapping("/profile")
-    public String necijiProfil(@RequestParam(required = false) String user, HttpServletRequest req, HttpServletResponse res) {
-        if(CookieManager.getCookie(req) == null && user == null) return "redirect:/";
-        if(CookieManager.getCookie(req) != null && user == null) return "Mainprofile";
-        if(CookieManager.getCookie(req) == null && user != null) return "profile";
-        if (db.dajId(CookieManager.getCookie(req).getValue()).toString() == user) 
-                return "Mainprofile";
+    public String Profil(@RequestParam(required = false) String user, HttpServletRequest req,
+            HttpServletResponse res) {
+        if (CookieManager.getCookie(req) == null && user == null)
+            return "redirect:/";
+        if (CookieManager.getCookie(req) != null && user == null)
+            return "Mainprofile";
+        if (CookieManager.getCookie(req) == null && user != null)
+            return "profile";
+        if (db.dajId(CookieManager.getCookie(req).getValue()).toString() == user)
+            return "Mainprofile";
         return "profil";
     }
 }
