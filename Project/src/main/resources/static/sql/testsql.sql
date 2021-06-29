@@ -253,3 +253,6 @@ select o.id,o.naslov,o.placanje,m.Mesto,f.name,p.podkategorija,ts.tag from oglas
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+Create USER 'MyLogin'@'localhost' identified by '123123';
+Grant ALL privileges on baza .* to 'MyLogin'@'localhost';

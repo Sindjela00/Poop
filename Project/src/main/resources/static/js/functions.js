@@ -139,7 +139,6 @@ function loadAds() {
                 " <h6 class='card-subtitle mb-2'><i class='far fa-clock'></i> " + vreme + "</h6>" +
                 " <a href='#' class='btn'>Pogledaj više</a>" +
                 " </div></div>";
-
         }
     }
     document.getElementById("ads").innerHTML = contentAds;

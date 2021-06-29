@@ -4,15 +4,11 @@ public class Oglas {
     Integer id;
     String naslov;
     Integer plata;
-    String tags;
-    String opis;
 
-    public Oglas(Integer id, String naslov, Integer plata, String tags, String opis) {
+    public Oglas(Integer id, String naslov, Integer plata) {
         this.id = id;
         this.naslov = naslov;
         this.plata = plata;
-        this.tags = tags;
-        this.opis = opis;
     }
 
     public Integer getId() {
@@ -37,21 +33,5 @@ public class Oglas {
 
     public void setPlata(Integer plata) {
         this.plata = plata;
-    }
-
-    public String getTags() {
-        return tags;
-    }
-
-    public void setTags(String tags) {
-        this.tags = tags;
-    }
-
-    public String getOpis() {
-        return opis;
-    }
-
-    public void setOpis(String opis) {
-        this.opis = opis;
     }
 }

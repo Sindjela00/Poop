@@ -65,7 +65,7 @@ public class ProjectController {
 
                 if (lista.isEmpty()) {
                     lista.add(new errorCode("OK"));
-                    db.ubaciUsera(js.getString("username"), js.getString("pass"), js.getString("name"), js.getString("email"), js.getString("phone"));
+                    db.ubaciUsera(js.getString("username"), js.getString("pass"), js.getString("name"), js.getString("email"), js.getString("phone"),js.getBoolean("person"));
                 }
                 return lista;
             }
@@ -89,12 +89,11 @@ public class ProjectController {
     public @ResponseBody List<errorCode> login(@RequestBody String body, HttpServletRequest req,
             HttpServletResponse res) {
         JSONObject js;
-        System.out.println(body);
         List<errorCode> lista = new ArrayList<errorCode>();
         try {
             js = new JSONObject(body);
                 if (body != null) {
-                if (db.proveriSignin(js.getString("username"), js.getString("pass")))
+                if (db.proveriSignin(js.getString("username"), js.getString("pass"),js.getBoolean("person")))
                     lista.add(new errorCode("PasswordIliUsernameNisuUredu"));
                 if (lista.isEmpty()) {
                     if (js.getBoolean("rememberMe") == true)
