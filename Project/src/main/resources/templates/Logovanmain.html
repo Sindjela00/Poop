@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+
+<head>
+    <title>Nadji posao brzo i lako</title>
+    <meta charset="UTF-8">
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.css" rel="stylesheet" id="bootstrap-css">
+
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/main.css" type="text/css">
+    <script src="/js/functions.js" type="text/javascript"></script>
+</head>
+
+<body onload="loadHomePage()">
+    <div id="header">
+        <nav class='navbar navbar-expand-lg'>
+            <div class='container'>
+                <a class='navbar-brand text-white' href='home.html'><i class='fas fa-user-md fa-lg mr-2'></i>Lako do posla</a>
+                <button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#nvbCollapse' aria-controls='nvbCollapse'>
+
+                <span class='navbar-toggler-icon'></span>
+                <div class='collapse navbar-collapse' id='nvbCollapse'>
+                    <ul class='navbar-nav ml-auto'>
+                        <li class='nav-item'>
+                            <a class='nav-link' href='#'>Features</a>
+                        </li>
+                        <li class='nav-item pl-1'>
+                            <a class='nav-link' href='signin.html'><i class='fa fa-user-plus fa-fw mr-1'></i>Profil</a>
+                        </li>
+                        <li class='nav-item pl-1'>
+                            <a class='nav-link' href='login.html'><i class='fas fa-sign-in-alt fa-fw mr-1'></i>Odjavi se</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="container-fluid px-1 px-sm-4 py-5 mx-auto">
+        <div class="row">
+            <aside class="col-sm-3 float-left">
+                <div class="card">
+                    <article class="card-group-item ">
+                        <header class="card-header">
+                            <h5 class="title">Pretraga </h5>
+                        </header>
+                        <div class="filter-content">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="poslodavac"><span class='filter-title'>Poslodavac:</span></label>
+                                    <input type="text" class="form-control" id="poslodavac" onkeyup="loadAds()">
+                                </div>
+                                <div class="form-group">
+                                    <label for="grad"><span class='filter-title'>Mesto rada:</span></label>
+                                    <select class="browser-default custom-select" id="grad" onchange="loadAds()">
+                                        </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="radnaOblast"><span class='filter-title' >Oblast rada: </span></label>
+                                    <select class="browser-default custom-select" id="radnaOblast" onchange="loadAds()">
+                                        </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="radniOdnos"><span class='filter-title'>Radni odnos: </span></label>
+                                    <select class="browser-default custom-select" id="radniOdnos" onchange="loadAds()">
+                                            <option>Prikaži sve</option>
+                                            <option>Posao na neodređeno</option>
+                                            <option>Honorarni posao</option>
+                                            <option>Posao preko zadruge</option>
+                                            <option>Posao na određeno</option>
+                                            <option>Rad od kuće </option>
+                                        </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="radnoVreme"><span class='filter-title'>Radno vreme: </span></label>
+                                    <select class="browser-default custom-select" id="radnoVreme" onchange="loadAds()">
+                                            <option>Prikaži sve</option>
+                                            <option>Puno radno vreme</option>
+                                            <option>Pola radnog vremena</option>
+                                            <option>Par sati nedeljno </option>
+                                            
+                                        </select>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </aside>
+            <div class="container col-md-9 mx-auto float-right">
+                <div class="row" id='ads'>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
