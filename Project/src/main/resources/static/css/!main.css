@@ -1,0 +1,60 @@
+body {
+    height: auto;
+    margin: auto;
+    text-align: center;
+    font-family: 'Verdana';
+    font-size: 14px;
+    background-color: lightgray; 
+    }
+.navbar {
+    background-color: #2952a3;
+}
+.navbar .navbar-nav .nav-link {
+    color: white;
+    font-size: 14px;
+}
+.navbar .navbar-nav .nav-link:hover {
+    color: black;
+    background-color: #85a3e0;
+    border-radius: 5px; 
+}
+.card{
+    margin-bottom: 5px;
+}
+.card-header {
+  padding: 7px 10px;
+  color: white;
+  text-shadow: 2px 2px 4px #000000;
+  text-transform: uppercase;  
+  text-align: center; 
+  margin-bottom: 0;
+  background-color: #2952a3;
+  border-bottom: #2952a3;
+}
+.filter-title{
+    margin-bottom: 5px;
+    text-transform: uppercase; 
+    font-weight: bold; 
+    text-align: left; 
+}
+.oglas{
+  background-color: #00004d;
+  color: white; 
+  text-align: left;
+  margin: 5px ;
+  padding: 10px; 
+}
+.card-title{
+    color: black;
+}
+.btn{
+  text-decoration: none;
+  color:white;
+  padding: 5px 10px;
+  background-color: #004d99; 
+}
+
+.btn:hover{
+  background-color: white;  
+  box-shadow: #222 1px 0 10px;
+}
