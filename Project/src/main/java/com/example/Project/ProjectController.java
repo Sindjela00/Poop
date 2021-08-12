@@ -26,9 +26,9 @@ public class ProjectController {
         Cookie cookie;
         if ((cookie = CookieManager.getCookie(req)) != null) {
             if (db.nadjiUser("username", CookieManager.getContent(cookie)))
-                return "Logovanmain";
+                return "index";
         }
-        return "index";
+        return "main";
     }
 
     @GetMapping("/all")
@@ -52,7 +52,7 @@ public class ProjectController {
         try {
             js = new JSONObject(body);
             if (body != null) {
-                if (db.nadjiUser("username", js.getString("username")))
+                if (db.nadjiUser("username", js.getString("user")))
                     lista.add(new errorCode("UsernameVecPostoji"));
                 if (db.nadjiUser("email", js.getString("email")))
                     lista.add(new errorCode("EmailVecPostoji"));
@@ -60,12 +60,12 @@ public class ProjectController {
                     lista.add(new errorCode("NeOdgovarajucaSifra"));
                 if (js.getString("name") == null)
                     lista.add(new errorCode("NemaIme"));
-                if (js.getString("phone") == null)
-                    lista.add(new errorCode("NemaTelefon"));
+                if (js.getString("person") == null)
+                    lista.add(new errorCode("nijeseoznacio"));
 
                 if (lista.isEmpty()) {
                     lista.add(new errorCode("OK"));
-                    db.ubaciUsera(js.getString("username"), js.getString("pass"), js.getString("name"), js.getString("email"), js.getString("phone"),js.getBoolean("person"));
+                    db.ubaciUsera(js.getString("user"), js.getString("pass"), js.getString("name"), js.getString("email"),js.getBoolean("person"));
                 }
                 return lista;
             }
@@ -93,13 +93,13 @@ public class ProjectController {
         try {
             js = new JSONObject(body);
                 if ( body != null) {
-                if (db.proveriSignin(js.getString("username"), js.getString("pass"),js.getBoolean("person")))
+                if (! db.proveriSignin(js.getString("user"), js.getString("pass"),js.getBoolean("rememberMe")))
                     lista.add(new errorCode("PasswordIliUsernameNisuUredu"));
                 if (lista.isEmpty()) {
                     if (js.getBoolean("rememberMe") == true)
-                        CookieManager.makeCookie(req, res, js.getString("username"), true);
+                        CookieManager.makeCookie(req, res, js.getString("user"), true);
                     else
-                        CookieManager.makeCookie(req, res, js.getString("username"), false);
+                        CookieManager.makeCookie(req, res, js.getString("user"), false);
                     lista.add(new errorCode("OK"));
                 }
                 return lista;
@@ -113,7 +113,7 @@ public class ProjectController {
         return lista;
     }
 
-    @PostMapping("/signout")
+    @GetMapping("/signout")
     public String signout(HttpServletRequest req, HttpServletResponse res) {
         Cookie cookie;
         if ((cookie = CookieManager.getCookie(req)) != null)
@@ -121,7 +121,7 @@ public class ProjectController {
         return "redirect:/";
     }
 
-    @GetMapping("/profile")
+    @GetMapping("/profil")
     public String Profil(@RequestParam(required = false) String user, HttpServletRequest req,
             HttpServletResponse res) {
         if (CookieManager.getCookie(req) == null && user == null)
@@ -135,16 +135,16 @@ public class ProjectController {
         return "profil";
     }
 
-    @PostMapping("/cities")
+    @GetMapping("/cities")
     public @ResponseBody List<errorCode> gradovi(HttpServletRequest req, HttpServletResponse res){
         List<errorCode> lista = db.Daj_gradove();
-        if(lista == null){
+        if(lista.isEmpty()){
             lista.add(new errorCode("Nema gradova"));
         }
         return lista;
     }
 
-    @PostMapping("/tags")
+    @GetMapping("/tags")
     public @ResponseBody List<errorCode> tagovi(HttpServletRequest req, HttpServletResponse res){
         List<errorCode> lista = db.Daj_gradove();
         if(lista.isEmpty()){

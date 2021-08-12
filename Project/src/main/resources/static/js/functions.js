@@ -189,3 +189,54 @@ function checkCity(grad) {
         return true;
     return false;
 }
+
+$(document).ready(function() {
+    json = $.getJSON("http://localhost:8080/cities", function() {
+            console.log("zavrsio");
+        })
+        .done(function(data) {
+            table = "<table>";
+            for (let i = 0; i < data.length; i++) {
+                table += "<tr><td>" + data[i].id + "</td><td>" + data[i].ime + "</td></tr>";
+            }
+            table += "</table>";
+            //alert(table);
+        });
+});
+
+function uradi() {
+
+    var aaaa = '{"count":100,"ime":"' + document.getElementById("tekst").value + '"}';
+    post("http://localhost:8080/add", aaaa);
+}
+
+function post(url, data) {
+    return fetch(url, { method: "POST", body: data });
+}
+
+
+function login() {
+    var proba = '{"user":"' + document.getElementById("user").value + '","pass":"' + document.getElementById("pass").value + '","rememberMe":"' + document.getElementById("rememberMe").checked + '"}';
+    var odgovor = post("http://localhost:8080/signin", proba);
+    odgovor.then(data => data.json())
+        .then(response => {
+            if (response[0].error == "OK") {
+                window.location.replace("http://localhost:8080/")
+            }
+            console.log(response[0].error);
+        })
+}
+
+function signup() {
+
+    var proba = '{"user":"' + document.getElementById("username").value + '","pass":"' + document.getElementById("password").value + '","email":"' + document.getElementById("email").value + '","name":"' + document.getElementById("name-surname").value + '","person":"' + document.getElementById("poslodavac").checked + '"}';
+    var odgovor = post("http://localhost:8080/signup", proba);
+    odgovor.then(data => data.json())
+        .then(response => {
+            if (response[0].error == "OK") {
+                window.location.replace("http://localhost:8080/")
+            }
+            console.log(response[0].error);
+        })
+
+}

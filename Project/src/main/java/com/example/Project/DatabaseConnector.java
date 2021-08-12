@@ -26,7 +26,7 @@ public class DatabaseConnector {
 
     public boolean nadjiUser(String tip, String ime) {
         try {
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM person WHERE " + tip + "=?");
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM Korisnik WHERE " + tip + "=?");
             statement.setString(1, ime);
             ResultSet result = statement.executeQuery();
             System.out.println(statement.toString());
@@ -40,7 +40,7 @@ public class DatabaseConnector {
         }
         return false;
     }
-
+    /*
     public boolean nadjifirmu(String tip, String ime) {
         try {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM firma WHERE " + tip + "=?");
@@ -56,11 +56,11 @@ public class DatabaseConnector {
             e.printStackTrace();
         }
         return false;
-    }
+    }*/
 
     public Integer dajId(String ime) {
         try {
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM person WHERE username=?");
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM Korisnik WHERE username=?");
             statement.setString(1, ime);
             ResultSet result = statement.executeQuery();
             if (result.next()) {
@@ -92,14 +92,15 @@ public class DatabaseConnector {
     public boolean proveriSignin(String username, String pass, boolean person) {
         PreparedStatement statement;
         try {
-            if (person)
-                statement = connection.prepareStatement("Select * from person where username=? AND pass=?");
-            else
-                statement = connection.prepareStatement("Select * from firma where username=? AND pass=?");
+            
+                statement = connection.prepareStatement("Select * from Korisnik where username=? AND password=?");
+            
 
             statement.setString(1, username);
             statement.setString(2, pass);
+            System.out.print(statement.toString());
             ResultSet result = statement.executeQuery();
+            
             if (result.next()) {
                 return true;
             }
@@ -111,19 +112,19 @@ public class DatabaseConnector {
         return false;
     }
 
-    public boolean ubaciUsera(String username, String pass, String ime, String email, String brojTelefona,boolean person) {
+    public boolean ubaciUsera(String username, String pass, String ime, String email,boolean person) {
         try {
             PreparedStatement statement;
-            if(person)
+            
                 statement = connection.prepareStatement(
-                    "INSERT INTO person (username , pass , name , email , phone  ) values (?,?,?,?,?)");
-            else statement = connection.prepareStatement(
-                "INSERT INTO firma (username , pass , name , email , phone  ) values (?,?,?,?,?)");
-            statement.setString(1, username);
-            statement.setString(2, pass);
-            statement.setString(3, ime);
+                    "INSERT INTO korisnik (ime,username , password  , email , poslodavac , admin  ) values (?,?,?,?,?,?)");
+            
+            statement.setString(2, username);
+            statement.setString(3, pass);
+            statement.setString(1, ime);
             statement.setString(4, email);
-            statement.setString(5, brojTelefona);
+            statement.setBoolean(5, person);
+            statement.setBoolean(6, false);
             statement.executeUpdate();
             if (nadjiUser("ime", ime))
                 return true;
@@ -143,11 +144,10 @@ public class DatabaseConnector {
             while (result.next()) {
                 lista.add(new errorCode(result.getString(1)));
             }
-            return lista;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return lista;
     }
     public List<errorCode> Daj_tagove(){
         List<errorCode> lista = new ArrayList<errorCode>();
@@ -156,11 +156,10 @@ public class DatabaseConnector {
             while (result.next()) {
                 lista.add(new errorCode(result.getString(1)));
             }
-            return lista;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return lista;
     }
 
 }
