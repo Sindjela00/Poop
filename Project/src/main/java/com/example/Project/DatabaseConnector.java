@@ -135,4 +135,32 @@ public class DatabaseConnector {
         }
         return false;
     }
+
+    public List<errorCode> Daj_gradove(){
+        List<errorCode> lista = new ArrayList<errorCode>();
+        try {
+            ResultSet result = statement.executeQuery("SELECT * FROM Mesto");
+            while (result.next()) {
+                lista.add(new errorCode(result.getString(1)));
+            }
+            return lista;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    public List<errorCode> Daj_tagove(){
+        List<errorCode> lista = new ArrayList<errorCode>();
+        try {
+            ResultSet result = statement.executeQuery("SELECT * FROM tags");
+            while (result.next()) {
+                lista.add(new errorCode(result.getString(1)));
+            }
+            return lista;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }

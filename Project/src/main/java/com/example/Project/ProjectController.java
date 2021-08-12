@@ -134,4 +134,23 @@ public class ProjectController {
             return "Mainprofile";
         return "profil";
     }
+
+    @PostMapping("/cities")
+    public @ResponseBody List<errorCode> gradovi(HttpServletRequest req, HttpServletResponse res){
+        List<errorCode> lista = db.Daj_gradove();
+        if(lista == null){
+            lista.add(new errorCode("Nema gradova"));
+        }
+        return lista;
+    }
+
+    @PostMapping("/tags")
+    public @ResponseBody List<errorCode> tagovi(HttpServletRequest req, HttpServletResponse res){
+        List<errorCode> lista = db.Daj_gradove();
+        if(lista.isEmpty()){
+            lista.add(new errorCode("Nema tagova"));
+        }
+        return lista;
+    }
 }
+
