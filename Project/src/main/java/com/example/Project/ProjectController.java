@@ -31,6 +31,24 @@ public class ProjectController {
         return "main";
     }
 
+    @GetMapping("/oglasi")
+    public String oglasi(HttpServletRequest req, HttpServletResponse res, @RequestParam(required = false) String poslodavac,@RequestParam(required = false) String mesto,@RequestParam(required = false) String radno_vreme){
+        Cookie cookie;
+        if ((cookie = CookieManager.getCookie(req)) != null) {
+            if (db.nadjiUser("username", CookieManager.getContent(cookie)))
+                return "Logovanmain";
+        }
+        return "main";
+    }
+
+    @GetMapping("/potrazi")
+    public @ResponseBody List<Oglas> potrazi(@RequestParam(required = false) String poslodavac,@RequestParam(required = false) String mesto,@RequestParam(required = false) String radno_vreme){
+        db.Daj_Oglase(poslodavac, Mesto, "1", radno_vreme);
+
+
+        return null;
+    }
+
     @GetMapping("/all")
     public @ResponseBody List<Oglas> all() {
         return db.sviOglasi();
@@ -39,7 +57,7 @@ public class ProjectController {
     @GetMapping("/signup")
     public String signup(HttpServletRequest req, HttpServletResponse res) {
         if (CookieManager.getCookie(req) != null) {
-            return "redirect:/";
+            return "redirect:/signin";
         }
         return "signup";
     }

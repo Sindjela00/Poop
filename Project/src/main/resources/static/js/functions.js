@@ -238,5 +238,12 @@ function signup() {
             }
             console.log(response[0].error);
         })
+}
+
+function oglasi() {
+    var queryString = windowl.location.search;
+    urlParams = new URLSearchParams(queryString);
+
+
 
 }

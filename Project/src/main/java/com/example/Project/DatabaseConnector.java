@@ -161,5 +161,8 @@ public class DatabaseConnector {
         }
         return lista;
     }
+    public List<oglas> Daj_Oglase(String poslodavac,String Mesto,String vrsta,String vreme){//glavna funkcija ima puno posla
 
+        return null;
+    }
 }
