@@ -43,7 +43,7 @@ public class ProjectController {
 
     @GetMapping("/potrazi")
     public @ResponseBody List<Oglas> potrazi(@RequestParam(required = false) String poslodavac,@RequestParam(required = false) String mesto,@RequestParam(required = false) String radno_vreme){
-        db.Daj_Oglase(poslodavac, Mesto, "1", radno_vreme);
+        //db.Daj_Oglase(poslodavac, Mesto, "1", radno_vreme);
 
 
         return null;
