@@ -48,6 +48,19 @@ public class ProjectController {
 
         return null;
     }
+    @GetMapping("/profile")
+    public @ResponseBody List<errorCode> nazivProfila(HttpServletRequest req, HttpServletResponse res){
+        Cookie cookie;
+        List<errorCode> lista = new ArrayList<errorCode>();
+        if ((cookie = CookieManager.getCookie(req)) != null) {
+            if (db.nadjiUser("username", CookieManager.getContent(cookie)))
+                lista.add(new errorCode( db.dajUser("username", CookieManager.getContent(cookie))));
+                return lista;
+        }
+        lista.add(new errorCode("greska"));
+        return lista;
+    }
+
 
     @GetMapping("/all")
     public @ResponseBody List<Oglas> all() {

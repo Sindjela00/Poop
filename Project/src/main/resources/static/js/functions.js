@@ -228,7 +228,6 @@ function login() {
 }
 
 function signup() {
-
     var proba = '{"user":"' + document.getElementById("username").value + '","pass":"' + document.getElementById("password").value + '","email":"' + document.getElementById("email").value + '","name":"' + document.getElementById("name-surname").value + '","person":"' + document.getElementById("poslodavac").checked + '"}';
     var odgovor = post("http://localhost:8080/signup", proba);
     odgovor.then(data => data.json())
@@ -241,9 +240,19 @@ function signup() {
 }
 
 function oglasi() {
-    var queryString = windowl.location.search;
-    urlParams = new URLSearchParams(queryString);
+    var queryString = "http://localhost:8080/oglasi";
+}
 
 
 
+function profile() {
+    json = $.getJSON("http://localhost:8080/profile", function() {
+            console.log("zavrsio");
+        })
+        .done(function(data) {
+            if (data[0].error != "greska") {
+                document.getElementById("profilime").innerHTML = data[0].error;
+            }
+            window.location.replace("http://localhost:8080/signout")
+        });
 }

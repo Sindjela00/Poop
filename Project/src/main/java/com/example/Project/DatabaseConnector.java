@@ -40,6 +40,24 @@ public class DatabaseConnector {
         }
         return false;
     }
+
+    public String dajUser(String tip, String ime) {
+        try {
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM Korisnik WHERE " + tip + "=?");
+            statement.setString(1, ime);
+            ResultSet result = statement.executeQuery();
+            System.out.println(statement.toString());
+            if (result.next()) {
+                System.out.println(result.getString(tip));
+                if (result.getString(tip) != null)
+                    return result.getString("ime");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     /*
     public boolean nadjifirmu(String tip, String ime) {
         try {
@@ -161,7 +179,7 @@ public class DatabaseConnector {
         }
         return lista;
     }
-    public List<oglas> Daj_Oglase(String poslodavac,String Mesto,String vrsta,String vreme){//glavna funkcija ima puno posla
+    public List<Oglas> Daj_Oglase(String poslodavac,String Mesto,String vrsta,String vreme){//glavna funkcija ima puno posla
 
         return null;
     }
