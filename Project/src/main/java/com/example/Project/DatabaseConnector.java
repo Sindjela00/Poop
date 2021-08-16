@@ -183,4 +183,21 @@ public class DatabaseConnector {
 
         return null;
     }
+
+    public boolean proveriCoveka(String username,Integer id){
+        PreparedStatement statement;
+            
+        try {
+            statement = connection.prepareStatement("Select username from korisnik where id=?");
+            statement.setInt(1, id);
+        ResultSet result = statement.executeQuery();
+            if (result.next()) {
+                return true;
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+            return false;
+    }
 }
