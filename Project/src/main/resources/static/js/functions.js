@@ -197,12 +197,27 @@ $(document).ready(function() {
         .done(function(data) {
             table = "<table>";
             for (let i = 0; i < data.length; i++) {
-                table += "<tr><td>" + data[i].id + "</td><td>" + data[i].ime + "</td></tr>";
+                table += "<tr><td>" + data[i].error + "</td></tr>";
             }
             table += "</table>";
-            //alert(table);
         });
 });
+
+//  pozoves funkciju Dajgradove kad se ucita html i on ce da popuni gradovi kao json i gradove uzimas kao gradovi[i].error
+// .error jer nisam pravio posebnu klasu za ovo,mozda se promeni kasnije 
+
+var gradovi;
+
+function Dajgradove() {
+    json = $.getJSON("http://localhost:8080/cities", function() {
+            console.log("zavrsio");
+        })
+        .done(function(data) {
+            gradovi = data;
+        });
+}
+
+
 
 function uradi() {
 
