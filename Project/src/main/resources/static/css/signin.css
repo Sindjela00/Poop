@@ -1,89 +1,127 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-
-
-/* 
-    Created on : Jun 27, 2021, 2:13:42 AM
-    Author     : jefimija.stamenovic
-*/
-
-html,
 body {
-    background-color: #8080ff;
-    height: 100%;
-    font-family: 'Verdana', sans-serif;
-    font-size: 14px;
+    background: #222D32;
+    font-family: 'Roboto', sans-serif;
 }
 
-.container {
-    height: 100%;
-    align-content: center;
+.login-box {
+    margin-top: 75px;
+    height: auto;
+    background: #1A2226;
+    text-align: center;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 
-.card {
-    height: 370px;
-    margin-top: auto;
-    margin-bottom: auto;
-    width: 400px;
-    background-color: #8cc0ed;
+.login-key {
+    height: 100px;
+    font-size: 80px;
+    line-height: 100px;
+    background: -webkit-linear-gradient(#27EF9F, #0DB8DE);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
-.card-header h3 {
-    color: black;
+.login-title {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 30px;
+    letter-spacing: 2px;
+    margin-top: 15px;
+    font-weight: bold;
+    color: #ECF0F5;
 }
 
-.social_icon {
-    position: absolute;
-    right: 20px;
-    top: -45px;
+.login-form {
+    margin-top: 25px;
+    text-align: left;
 }
 
-.input-group-prepend span {
-    width: 50px;
-    background-color: #004d99;
-    color: white;
-    border: 0 !important;
+.input-signin input[type=text] {
+    background-color: #1A2226;
+    border: none;
+    border-bottom: 2px solid #0DB8DE;
+    border-top: 0px;
+    border-radius: 0px;
+    font-weight: bold;
+    outline: 0;
+    margin-bottom: 20px;
+    padding-left: 0px;
+    color: #ECF0F5;
+}
+
+.input-signin input[type=password] {
+    background-color: #1A2226;
+    border: none;
+    border-bottom: 2px solid #0DB8DE;
+    border-top: 0px;
+    border-radius: 0px;
+    font-weight: bold;
+    outline: 0;
+    padding-left: 0px;
+    margin-bottom: 20px;
+    color: #ECF0F5;
+}
+
+.form-group-signin {
+    margin-bottom: 40px;
+    outline: 0px;
+}
+
+.form-control-signin:focus {
+    border-color: inherit;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-bottom: 2px solid #0DB8DE;
+    outline: 0;
+    background-color: #1A2226;
+    color: #ECF0F5;
 }
 
 input:focus {
-    outline: 0 0 0 0 !important;
-    box-shadow: 0 0 0 0 !important;
+    outline: none;
+    box-shadow: 0 0 0;
 }
 
-.remember {
-    color: black;
+label {
+    margin-bottom: 0px;
 }
 
-.remember input {
-    width: 20px;
-    height: 20px;
-    margin-left: 15px;
-    margin-right: 5px;
-}
-
-.login-btn {
-    color: white;
-    background-color: #004d99;
-    width: 100px;
-}
-
-.login-btn:hover {
-    color: black;
+.form-control-label {
+    font-size: 10px;
+    color: #6C6C6C;
     font-weight: bold;
-    background-color: white;
+    letter-spacing: 1px;
 }
 
-.links {
-    color: black;
+.btn-outline-primary {
+    border-color: #0DB8DE;
+    color: #0DB8DE;
+    border-radius: 0px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 }
 
-.links>a {
-    color: white;
+.btn-outline-primary:hover {
+    background-color: #0DB8DE;
+    right: 0px;
 }
 
-a {
-    color: #004d99;
+.login-btm {
+    float: left;
+}
+
+.login-button {
+    padding-right: 0px;
+    text-align: right;
+    margin-bottom: 25px;
+}
+
+.login-text {
+    text-align: left;
+    padding-left: 0px;
+    color: #A2A4A4;
+}
+
+.loginbttm {
+    padding: 0px;
 }

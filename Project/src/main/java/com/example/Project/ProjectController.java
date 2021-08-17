@@ -28,7 +28,7 @@ public class ProjectController {
             if (db.nadjiUser("username", CookieManager.getContent(cookie)))
                 return "index";
         }
-        return "main";
+        return "index";
     }
 
     @GetMapping("/oglasi")

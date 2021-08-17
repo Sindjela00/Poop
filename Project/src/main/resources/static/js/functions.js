@@ -191,7 +191,6 @@ function checkCity(grad) {
 }
 
 $(document).ready(function() {
-    //preuzimanje JSON sa servera
     json = $.getJSON("http://localhost:8080/cities", function() {
             console.log("zavrsio");
         })
