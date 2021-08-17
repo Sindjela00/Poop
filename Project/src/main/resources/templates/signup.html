@@ -1,79 +1,94 @@
-<!DOCTYPE html>
 <html>
 
 <head>
-    <title>Lako do posla</title>
+    <title>Lako do posla - Prijavi se</title>
     <meta charset="UTF-8">
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.css" rel="stylesheet" id="bootstrap-css">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="/css/signup.css">
-    <script type="text/javascript" src="/js/functions.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <script src="/js/functions.js" type="text/javascript"></script>
 </head>
 
 <body>
     <div class="container">
-        <div class="d-flex justify-content-center h-100">
-            <div class="card">
-                <div class="card-header">
-                    <h3>Registrujte se</h3>
+        <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand" href="#page-top">Lako do posla</a>
+                <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                Menu
+                <i class="fas fa-bars"></i>
+            </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="http://localhost:8080/">Početna</a></li>
+                    </ul>
                 </div>
-                <div class="card-body">
-                    <form>
-                        <div class="input-group form-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="far fa-id-card"></i></span>
-                            </div>
-                            <input type="text" class="form-control" id="name-surname" placeholder="Ime i prezime">
-                        </div>
-                        <div class="input-group form-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-user"></i></span>
-                            </div>
-                            <input type="text" class="form-control" id="username" placeholder="Korisničko ime">
-                        </div>
-                        <div class="input-group form-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                            </div>
-                            <input type="email" class="form-control" id="email" placeholder="Email">
-                        </div>
-                        <!----   <div class="input-group form-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-mobile"></i></span>
-                            </div>
-                            <input type="tel" class="form-control" id="mobile" placeholder="Broj telefona" pattern="[0-9]{10}">
-                        </div>---->
-                        <div class="input-group form-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-key"></i></span>
-                            </div>
-                            <input type="password" class="form-control" id="password" placeholder="Lozinka">
-                        </div>
-                        <div class="input-group form-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                            </div>
-                            <input type="password" class="form-control" id="re-password" placeholder="Potvrdite lozinku">
-                        </div>
-                        <div class="form-check">
-                            <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" id="poslodavac" name="uloga" value="poslodavac">Želim da postavljam oglase
-                                </label>
-                        </div>
-                        <div class="form-check">
-                            <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="uloga" value="radnik" checked>Želim da nađem posao
-                                </label>
-                        </div>
-                        <div class="form-group">
-                            <input type="button" value="Prijavi se" class="btn float-right register-btn" onclick="signup()">
-                        </div>
-                    </form>
+            </div>
+        </nav>
+        <div class="row" style="margin-top: 140px;">
+            <div class="col-lg-3 col-md-2"></div>
+            <div class="col-lg-6 col-md-8 login-box">
+                <div class="col-lg-12 login-user">
+                    <i class="far fa-user" aria-hidden="true"></i>
+                </div>
+                <div class="col-lg-12 login-title">
+                    PRIJAVI SE
                 </div>
 
+                <div class="col-lg-12 login-form">
+                    <div class="col-lg-12 login-form">
+                        <form>
+                            <div class="form-group">
+                                <label class="form-control-label">Ime</label>
+                                <input type="text" id="name-register" class="form-control" data-sb-validations="required">
+                                <div class="invalid-feedback" data-sb-feedback="name-register:required" style="color: white">Neophodno je da unesete ime!</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label">Prezime</label>
+                                <input type="text" id="surname-register" class="form-control" data-sb-validations="required">
+                                <div class="invalid-feedback" data-sb-feedback="surname-register:required">Neophodno je da unesete prezime!</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label">Mesto boravka</label>
+                                <input type="text" id="city-register" class="form-control" data-sb-validations="required">
+                                <div class="invalid-feedback" data-sb-feedback="city-register:required">Neophodno je da unesete mesto boravka!</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label">Email</label>
+                                <input type="email" id="email-register" class="form-control" data-sb-validations="required,email">
+                                <div class="invalid-feedback" data-sb-feedback="email-register:required">Neophodno je da unesete email!</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label">Telefon</label>
+                                <input type="text" id="tel-register" class="form-control" data-sb-validations="required">
+                                <div class="invalid-feedback" data-sb-feedback="tel-register:required">Neophodno je da unesete broj telefona!</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label">Korisničko ime</label>
+                                <input type="text" id="username-register" class="form-control" data-sb-validations="required">
+                                <div class="invalid-feedback" data-sb-feedback="username-register:required">Neophodno je da unesete korisničko ime!</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label">Lozinka</label>
+                                <input type="password" id="password-register" class="form-control" data-sb-validations="required">
+                                <div class="invalid-feedback" data-sb-feedback="password-register:required">Neophodno je da unesete korisničko ime!</div>
+                            </div>
+                            <div class="col-lg-12 loginbttm">
+                                <div class="col-lg-6 login-btm login-text">
+                                    <!-- Error Message -->
+                                </div>
+                                <div class="col-lg-6 login-btm login-button">
+                                    <button type="submit" class="btn btn-outline-primary">Registruj se</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-2"></div>
             </div>
         </div>
-    </div>
 </body>
 
 </html>
