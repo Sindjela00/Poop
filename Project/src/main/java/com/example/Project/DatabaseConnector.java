@@ -158,7 +158,7 @@ public class DatabaseConnector {
     public List<errorCode> Daj_gradove(){
         List<errorCode> lista = new ArrayList<errorCode>();
         try {
-            ResultSet result = statement.executeQuery("SELECT * FROM Mesto");
+            ResultSet result = statement.executeQuery("SELECT ime FROM Mesto");
             while (result.next()) {
                 lista.add(new errorCode(result.getString(1)));
             }
