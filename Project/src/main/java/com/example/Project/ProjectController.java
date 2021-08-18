@@ -38,7 +38,7 @@ public class ProjectController {
             if (db.nadjiUser("username", CookieManager.getContent(cookie)))
                 return "Logovanmain";
         }
-        return "main";
+        return "sviOglasi";
     }
 
     @GetMapping("/potrazi")

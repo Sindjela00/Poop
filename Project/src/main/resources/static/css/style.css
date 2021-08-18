@@ -4278,6 +4278,7 @@ textarea.form-control-lg {
 .card > .list-group {
   border-top: inherit;
   border-bottom: inherit;
+
 }
 .card > .list-group:first-child {
   border-top-width: 0;
@@ -4816,7 +4817,7 @@ textarea.form-control-lg {
   display: flex;
   flex-direction: column;
   padding-left: 0;
-  margin-bottom: 0;
+  margin: 10px 0;
   border-radius: 0.5rem;
 }
 
@@ -11124,14 +11125,14 @@ html {
     position: relative;
     margin-top: 50px;
     height: 100px;
-    font-size: 80px;
+    font-size: 85px;
     line-height: 100px;
     background: -webkit-linear-gradient(#27EF9F, #0DB8DE);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
- /*.login-title {
+ .login-title {
     margin-top: 15px;
     text-align: center;
     font-size: 30px;
@@ -11139,14 +11140,17 @@ html {
     margin-top: 15px;
     font-weight: bold;
     color: #ECF0F5;
-}*/
+}
 
 .login-form {
     margin-top: 30px;
     text-align: left;
 }
-
-.form-group input[type=text], .form-group input[type=email] {
+.form-group input[type=checkbox]{
+    width:   15px;
+    height:  15px;
+}
+.form-group input[type=text], .form-group input[type=email], .form-group select, .form-group input[type=checkbox]{
     background-color:  white;
     border: none;
     border: 3px solid #0DB8DE;
@@ -11190,8 +11194,8 @@ input:focus {
     box-shadow: 0 0 0;
 }
 
-label {
-    margin-bottom: 0px;
+label{
+    margin-bottom: 5px;
 }
 
 .form-control-label, .form-group p {
@@ -11235,5 +11239,27 @@ label {
 
 .loginbttm {
     padding: 0px;
+}
 
+/*SVI OGLASI*/
+
+.ostaleStrane{
+    background: linear-gradient(to right, #fff, #15967d);
+    min-height: 100vh;
+}
+
+.text-gray {
+    color: #aaa;
+}
+
+img {
+    height: 120px;
+    width: 60px
+}
+.list-group-item{
+margin: 20px 20px 0 20px;
+}
+
+.list-group-item:last-child{
+margin: 20px 20px 20px 20px;
 }
