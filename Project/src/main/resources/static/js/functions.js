@@ -213,7 +213,12 @@ function Dajgradove() {
             console.log("zavrsio");
         })
         .done(function(data) {
-            gradovi = data;
+            var select = "";
+            for (i = 0; i < data.length; i++) {
+                select += "<option>" + data[i].error + "</option>";
+            }
+            select += "";
+            document.getElementById("city-register").innerHTML = select;
         });
 }
 
