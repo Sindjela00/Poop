@@ -42,11 +42,15 @@ public class ProjectController {
     }
 
     @GetMapping("/potrazi")
-    public @ResponseBody List<Oglas> potrazi(@RequestParam(required = false) String poslodavac,@RequestParam(required = false) String mesto,@RequestParam(required = false) String radno_vreme){
-        //db.Daj_Oglase(poslodavac, Mesto, "1", radno_vreme);
-        return null;
-
-        
+    public @ResponseBody List<Oglas> potrazi(@RequestParam(required = false) Integer id,@RequestParam(required = false) String naslov,@RequestParam(required = false) String poslodavac,@RequestParam(required = false) String mesto,@RequestParam(required = false) Boolean vrsta){
+        List<Oglas> oglasi = db.Daj_Oglase(id,naslov,poslodavac,mesto,vrsta);
+        if(!oglasi.isEmpty()){
+            System.out.println("if");
+            return oglasi;
+        }
+        System.out.println("prosao");
+        oglasi.add(new Oglas(-1, null, null, false, null, null, null, null, null));
+        return oglasi; 
     }
     
 

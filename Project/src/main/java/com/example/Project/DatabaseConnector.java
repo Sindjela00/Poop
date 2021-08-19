@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.jdbc.ScriptRunner;
+import org.hibernate.transform.ResultTransformer;
 
 
 
@@ -215,10 +216,47 @@ public class DatabaseConnector {
         }
         return lista;
     }
-    public List<Oglas> Daj_Oglase(String poslodavac,String Mesto,String vrsta,String vreme){//glavna funkcija ima puno posla
-
-        return null;
+    public List<Oglas> Daj_Oglase(Integer id,String naslov,String poslodavac,String Mesto,Boolean vrsta){//glavna funkcija ima puno posla
+        List<Oglas> lista = new ArrayList<Oglas>();
+        try {
+            String query=" where 1=1 ";
+            if(id!= null)
+                query += " and id ="+id.toString();
+            if(naslov != null)
+                query += " and naslov ='"+naslov+"'";
+            if(poslodavac != null)
+                query += " and ime ='"+poslodavac+"'";
+            if(Mesto != null)
+                query += " and mesto ='"+Mesto+"'";
+            if(vrsta != null)
+                query += " and tip ="+vrsta;   
+            ResultSet result = statement.executeQuery("SELECT * FROM sveooglasu " + query);
+            while (result.next()) {
+                lista.add(new Oglas(result.getInt(1),result.getString(2),result.getString(3),result.getBoolean(4),result.getInt(5),result.getString(6),result.getString(7),result.getInt(8),result.getInt(9)));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lista;
     }
+
+    public Integer dajIdMesta(String mesto){
+        PreparedStatement statement;
+            
+        try {
+            statement = connection.prepareStatement("Select idMesto from mesto where ime=?");
+            statement.setString(1, mesto);
+        ResultSet result = statement.executeQuery();
+            if (result.next()) {
+                return result.getInt(1);
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
 
     public boolean proveriCoveka(String username,Integer id){
         PreparedStatement statement;
