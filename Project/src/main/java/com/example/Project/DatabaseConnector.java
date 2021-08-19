@@ -216,17 +216,24 @@ public class DatabaseConnector {
         }
         return lista;
     }
+    public boolean proveriString(String string){
+        if(string.matches(".*[\\\0\'\"\b\n\r\t].*"))return false;
+
+
+        return true;
+    }
     public List<Oglas> Daj_Oglase(Integer id,String naslov,String poslodavac,String Mesto,Boolean vrsta){//glavna funkcija ima puno posla
         List<Oglas> lista = new ArrayList<Oglas>();
         try {
             String query=" where 1=1 ";
             if(id!= null)
                 query += " and id ="+id.toString();
-            if(naslov != null)
-                query += " and naslov ='"+naslov+"'";
-            if(poslodavac != null)
+            if(naslov != null && naslov.isEmpty() == false)
+                if(proveriString(naslov))
+                    query += " and naslov ='"+naslov+"'";
+            if(poslodavac != null && poslodavac.isEmpty() == false)
                 query += " and ime ='"+poslodavac+"'";
-            if(Mesto != null)
+            if(Mesto != null && Mesto.isEmpty() == false)
                 query += " and mesto ='"+Mesto+"'";
             if(vrsta != null)
                 query += " and tip ="+vrsta;   
@@ -238,6 +245,46 @@ public class DatabaseConnector {
             e.printStackTrace();
         }
         return lista;
+    }
+    public List<Oglas> Daj_Oglase(List<Integer> tagovi){
+        List<Oglas> lista = new ArrayList<Oglas>();
+        if(tagovi.isEmpty() == false){
+            PreparedStatement statement;
+            try {
+            statement = connection.prepareStatement(
+                "Select idoglasa from tagovi where idtaga=?"); 
+                for(int i = 0;i<tagovi.size();i++){
+                    statement.setInt(tagovi.get(i), 1);
+                    ResultSet result = statement.executeQuery();
+                    while (result.next()) {
+                        PreparedStatement stm = connection.prepareStatement("Select * from sveooglasu where idoglas=?");
+                        stm.setInt(result.getInt(1), 1);
+                        ResultSet res = stm.executeQuery();
+                        while(res.next()){
+                            lista.add(new Oglas(result.getInt(1),result.getString(2),result.getString(3),result.getBoolean(4),result.getInt(5),result.getString(6),result.getString(7),result.getInt(8),result.getInt(9)));
+                        }
+                    }
+                }
+            } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+        return lista;
+    }
+    public Oglas Daj_Oglas(Integer id){
+        try {
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM sveooglasu where idoglas=?");
+                statement.setInt(id, 1);
+                ResultSet result = statement.executeQuery();
+                if(result.next()) {
+                    return new Oglas(result.getInt(1),result.getString(2),result.getString(3),result.getBoolean(4),result.getInt(5),result.getString(6),result.getString(7),result.getInt(8),result.getInt(9));
+                }
+            } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            return null;
     }
 
     public Integer dajIdMesta(String mesto){
@@ -274,4 +321,24 @@ public class DatabaseConnector {
         }
             return false;
     }
+
+
+    public Korisnik Daj_Korisnika(Integer id){
+        PreparedStatement statement;
+        try {
+            statement = connection.prepareStatement("Select * from sveokorisniku where idkorisnik=?");
+            statement.setInt(1, id);
+            ResultSet result = statement.executeQuery();
+            if(result.next()){
+                return new Korisnik(result.getInt(1),result.getString(2),result.getString(4),result.getString(3),result.getString(5),result.getString(6),result.getString(7),result.getInt(8),result.getInt(9),result.getInt(10),result.getInt(11),result.getInt(12));
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+
 }

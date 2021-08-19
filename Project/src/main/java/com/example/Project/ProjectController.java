@@ -161,16 +161,17 @@ public class ProjectController {
         return "profil";
     }
     @GetMapping("/profile")//ovo treba da zavrsim
-    public @ResponseBody List<errorCode> nazivProfila(@RequestParam(required = false) Integer user,HttpServletRequest req, HttpServletResponse res){
+    public @ResponseBody Korisnik nazivProfila(@RequestParam(required = false) Integer user,HttpServletRequest req, HttpServletResponse res){
         Cookie cookie;
-        List<errorCode> lista = new ArrayList<errorCode>();
+        return db.Daj_Korisnika(user);/*
         if ((cookie = CookieManager.getCookie(req)) != null) {
             if ( db.proveriCoveka(CookieManager.getContent(cookie), user))
-                lista.add(new errorCode("OK"));
-                return lista;
+                
+                return null;
         }
-        lista.add(new errorCode("greska"));
-        return lista;
+        
+        return null;
+        */
     }
 
     @GetMapping("/cities")
