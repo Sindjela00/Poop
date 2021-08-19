@@ -1,0 +1,1 @@
+insert into mesto (ime) values ("Kraljevo")

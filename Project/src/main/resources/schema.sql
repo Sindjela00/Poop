@@ -7,20 +7,14 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
--- -----------------------------------------------------
--- Schema baza
--- -----------------------------------------------------
+
 DROP SCHEMA IF EXISTS `baza` ;
 
--- -----------------------------------------------------
--- Schema baza
--- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `baza` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
+
+CREATE SCHEMA IF NOT EXISTS `baza`;
 USE `baza` ;
 
--- -----------------------------------------------------
--- Table `baza`.`tags`
--- -----------------------------------------------------
+
 DROP TABLE IF EXISTS `baza`.`tags` ;
 
 CREATE TABLE IF NOT EXISTS `baza`.`tags` (
@@ -30,9 +24,7 @@ CREATE TABLE IF NOT EXISTS `baza`.`tags` (
 ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `baza`.`Mesto`
--- -----------------------------------------------------
+
 DROP TABLE IF EXISTS `baza`.`Mesto` ;
 
 CREATE TABLE IF NOT EXISTS `baza`.`Mesto` (
@@ -307,7 +299,7 @@ CREATE TABLE IF NOT EXISTS `baza`.`SveOOglasu` (`idoglas` INT, `ime` INT, `naslo
 -- -----------------------------------------------------
 -- Placeholder table for view `baza`.`slozeniTagovi`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `baza`.`slozeniTagovi` (`idoglasa` INT, `concat(ta.tag,"-",pt.podkategorija)` INT);
+CREATE TABLE IF NOT EXISTS `baza`.`slozeniTagovi` (`idoglasa` INT, `concat(ta.tag,`-`,pt.podkategorija)` INT);
 
 -- -----------------------------------------------------
 -- View `baza`.`SveOKorisniku`
@@ -428,7 +420,7 @@ DROP TABLE IF EXISTS `baza`.`slozeniTagovi`;
 DROP VIEW IF EXISTS `baza`.`slozeniTagovi` ;
 USE `baza`;
 CREATE  OR REPLACE VIEW `slozeniTagovi` AS
-select t.idoglasa,concat(ta.tag,"-",pt.podkategorija)
+select t.idoglasa,concat(ta.tag,`-`,pt.podkategorija)
 from tagovi t join podtags pt on t.idtaga = pt.id
 join tags ta on pt.idkategorije = ta.id;
 

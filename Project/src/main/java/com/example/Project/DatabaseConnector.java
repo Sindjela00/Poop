@@ -1,5 +1,12 @@
 package com.example.Project;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -9,10 +16,14 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.jdbc.ScriptRunner;
+
+
+
 public class DatabaseConnector {
     Connection connection = null;
     Statement statement;
-
+    
     public DatabaseConnector() {// Ovo povezuje povezuje aplikaciju na bazu
         String dburl = "jdbc:mysql://localhost:3306/baza";
         try {
@@ -20,9 +31,26 @@ public class DatabaseConnector {
             statement = connection.createStatement();
         } catch (SQLException e) {
             // TODO Auto-generated catch block
+            databaseInit();
+        }
+    }
+
+    public void databaseInit(){
+        String dburl = "jdbc:mysql://localhost:3306/";
+        try {
+            Path init = Path.of("src/main/resources/schema.sql").toAbsolutePath();
+            connection = DriverManager.getConnection(dburl, "MyLogin", "123123");
+            statement = connection.createStatement();
+            ScriptRunner sr = new ScriptRunner(connection);
+            Reader reader = new BufferedReader(new FileReader(init.toString()));
+            sr.runScript(reader);
+            statement.executeQuery("use baza");
+        } catch (SQLException | IOException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
+
 
     public boolean nadjiUser(String tip, String ime) {
         try {
@@ -82,7 +110,7 @@ public class DatabaseConnector {
             statement.setString(1, ime);
             ResultSet result = statement.executeQuery();
             if (result.next()) {
-                return result.getInt("id");
+                return result.getInt(1);
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block
@@ -130,22 +158,30 @@ public class DatabaseConnector {
         return false;
     }
 
-    public boolean ubaciUsera(String username, String pass, String ime, String email,boolean person) {
+    public boolean ubaciUsera(String username, String pass, String ime, String email,Integer mesto,Integer broj,boolean person) {
         try {
             PreparedStatement statement;
             
                 statement = connection.prepareStatement(
-                    "INSERT INTO korisnik (ime,username , password  , email , poslodavac , admin  ) values (?,?,?,?,?,?)");
+                    "INSERT INTO korisnik (ime,username , password  , email ,idmesta, poslodavac , admin  ) values (?,?,?,?,?,?,?)");
             
             statement.setString(2, username);
             statement.setString(3, pass);
             statement.setString(1, ime);
             statement.setString(4, email);
-            statement.setBoolean(5, person);
-            statement.setBoolean(6, false);
+            statement.setInt(5, mesto);
+            statement.setBoolean(6, person);
+            statement.setBoolean(7, false);
             statement.executeUpdate();
-            if (nadjiUser("ime", ime))
+            if (nadjiUser("ime", ime)){
+                Integer id = dajId(username);
+                statement = connection.prepareStatement(
+                    "INSERT INTO telefoni  values (?,?)");
+                    statement.setInt(1, id);
+                    statement.setInt(2, broj);
+                    statement.executeUpdate();
                 return true;
+            }
             else
                 return false;
         } catch (SQLException e) {
@@ -155,12 +191,12 @@ public class DatabaseConnector {
         return false;
     }
 
-    public List<errorCode> Daj_gradove(){
-        List<errorCode> lista = new ArrayList<errorCode>();
+    public List<Mesto> Daj_gradove(){
+        List<Mesto> lista = new ArrayList<Mesto>();
         try {
-            ResultSet result = statement.executeQuery("SELECT ime FROM Mesto");
+            ResultSet result = statement.executeQuery("SELECT * FROM Mesto");
             while (result.next()) {
-                lista.add(new errorCode(result.getString(1)));
+                lista.add(new Mesto(result.getInt(1),result.getString(2)));
             }
         } catch (SQLException e) {
             e.printStackTrace();

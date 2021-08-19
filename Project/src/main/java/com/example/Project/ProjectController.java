@@ -80,12 +80,14 @@ public class ProjectController {
                     lista.add(new errorCode("NeOdgovarajucaSifra"));
                 if (js.getString("name") == null)
                     lista.add(new errorCode("NemaIme"));
+                if (js.getString("telefon") == null)
+                    lista.add(new errorCode("nemabroj"));
                 if (js.getString("person") == null)
                     lista.add(new errorCode("nijeseoznacio"));
 
                 if (lista.isEmpty()) {
                     lista.add(new errorCode("OK"));
-                    db.ubaciUsera(js.getString("user"), js.getString("pass"), js.getString("name"), js.getString("email"),js.getBoolean("person"));
+                    db.ubaciUsera(js.getString("user"), js.getString("pass"), js.getString("name"), js.getString("email"),js.getInt("mesto"),js.getInt("telefon"),js.getBoolean("person"));
                 }
                 return lista;
             }
@@ -168,17 +170,17 @@ public class ProjectController {
     }
 
     @GetMapping("/cities")
-    public @ResponseBody List<errorCode> gradovi(HttpServletRequest req, HttpServletResponse res){
-        List<errorCode> lista = db.Daj_gradove();
+    public @ResponseBody List<Mesto> gradovi(HttpServletRequest req, HttpServletResponse res){
+        List<Mesto> lista = db.Daj_gradove();
         if(lista.isEmpty()){
-            lista.add(new errorCode("Nema gradova"));
+            lista.add(new Mesto(-1,"Nema gradova"));
         }
         return lista;
     }
 
     @GetMapping("/tags")
     public @ResponseBody List<errorCode> tagovi(HttpServletRequest req, HttpServletResponse res){
-        List<errorCode> lista = db.Daj_gradove();
+        List<errorCode> lista = db.Daj_tagove();
         if(lista.isEmpty()){
             lista.add(new errorCode("Nema tagova"));
         }

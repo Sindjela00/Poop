@@ -215,7 +215,7 @@ function Dajgradove() {
         .done(function(data) {
             var select = "";
             for (i = 0; i < data.length; i++) {
-                select += "<option>" + data[i].error + "</option>";
+                select += "<option value='" + data[i].id + "'>" + data[i].naziv + "</option>";
             }
             select += "";
             document.getElementById("city-register").innerHTML = select;
@@ -236,7 +236,7 @@ function post(url, data) {
 
 
 function login() {
-    var proba = '{"user":"' + document.getElementById("user").value + '","pass":"' + document.getElementById("pass").value + '","rememberMe":"' + document.getElementById("rememberMe").checked + '"}';
+    var proba = '{"user":"' + document.getElementById("user").value + '","pass":"' + document.getElementById("pass").value + '","rememberMe":' + document.getElementById("remember-me").checked + '}';
     var odgovor = post("http://localhost:8080/signin", proba);
     odgovor.then(data => data.json())
         .then(response => {
@@ -248,7 +248,7 @@ function login() {
 }
 
 function signup() {
-    var proba = '{"user":"' + document.getElementById("username").value + '","pass":"' + document.getElementById("password").value + '","email":"' + document.getElementById("email").value + '","name":"' + document.getElementById("name-surname").value + '","person":"' + document.getElementById("poslodavac").checked + '"}';
+    var proba = '{"user":"' + document.getElementById("username-register").value + '","pass":"' + document.getElementById("password-register").value + '","email":"' + document.getElementById("email-register").value + '","mesto":' + document.getElementById("city-register").value + ',"name":"' + document.getElementById("name-register").value + '","telefon":' + document.getElementById("tel-register").value + ',"person":"' + document.getElementById("poslodavac").checked + '"}';
     var odgovor = post("http://localhost:8080/signup", proba);
     odgovor.then(data => data.json())
         .then(response => {
