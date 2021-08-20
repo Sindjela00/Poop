@@ -13,6 +13,7 @@ import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -160,18 +161,48 @@ public class ProjectController {
             return "Mainprofile";
         return "profil";
     }
-    @GetMapping("/profile")//ovo treba da zavrsim
+    @GetMapping("/profile")
     public @ResponseBody Korisnik nazivProfila(@RequestParam(required = false) Integer user,HttpServletRequest req, HttpServletResponse res){
-        Cookie cookie;
-        return db.Daj_Korisnika(user);/*
-        if ((cookie = CookieManager.getCookie(req)) != null) {
-            if ( db.proveriCoveka(CookieManager.getContent(cookie), user))
-                
-                return null;
+        Cookie cookie= CookieManager.getCookie(req);
+        //Korisnik k =  db.Daj_Korisnika(user);
+        if (cookie == null && user == null)
+            return null;
+        if (cookie != null && user == null){
+            Korisnik k =  db.Daj_Korisnika(db.dajId(CookieManager.getContent(cookie)));
+            return k;
+        }
+        if(cookie!=null){
+            if (db.dajId(CookieManager.getContent(cookie)) == user){
+                Korisnik k =  db.Daj_Korisnika(user);
+                return k;
+            }
         }
         
+        if (user != null){
+            Korisnik k =  db.Daj_Korisnika(user);
+            if(k!=null)
+                k.password="";
+            return k;
+        } 
+            
         return null;
-        */
+    }
+
+    @PostMapping("/update")
+    public @ResponseBody String update (@RequestBody String body, HttpServletRequest req,
+    HttpServletResponse res){
+        JSONObject js;
+        try {
+            js = new JSONObject(body);
+                if ( body != null) {
+                db.update(js.getInt("id"),js.getString("ime"),js.getString("username"),js.getString("password"), js.getString("email"), js.getInt("mesto"), js.getString("opis"));
+                return "OK";
+            }
+            } catch (JSONException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        return "BAD";
     }
 
     @GetMapping("/cities")
@@ -191,5 +222,43 @@ public class ProjectController {
         }
         return lista;
     }
+
+    @PostMapping("/prijavi")
+    public @ResponseBody String prijavise(@RequestParam(required = false) Integer oglas, @RequestBody String body,HttpServletRequest req, HttpServletResponse res){
+        if(CookieManager.getCookie(req)!=null){
+            if(db.prijavise(db.dajId(CookieManager.getContent(CookieManager.getCookie(req))), oglas, body))
+            return "OK";
+        }
+        return "false";
+    }
+    
+    @PostMapping("/like")
+    public @ResponseBody String lajkuj(@RequestParam(required = false) Integer oglas, @RequestBody String body,HttpServletRequest req, HttpServletResponse res) {
+        if(CookieManager.getCookie(req)!=null){
+            if(db.lajkuj(db.dajId(CookieManager.getContent(CookieManager.getCookie(req))), oglas, body))
+            return "OK";
+        }
+        return "false";
+    }
+    @PostMapping("/oceni")
+    public @ResponseBody String oceni(@RequestParam(required = false) Integer covek, @RequestBody String body,HttpServletRequest req, HttpServletResponse res){
+        if(CookieManager.getCookie(req)!=null){
+            if(db.lajkuj(db.dajId(CookieManager.getContent(CookieManager.getCookie(req))), covek, body))
+            return "OK";
+        }
+        return "false";
+    }
+    @GetMapping("/ocena")
+    public @ResponseBody String ocena(@RequestParam(required = false) Integer covek, @RequestBody String body,HttpServletRequest req, HttpServletResponse res){
+        Integer ocena = -1;
+        if(CookieManager.getCookie(req)!=null){
+            ocena= db.dataOcena(db.dajId(CookieManager.getContent(CookieManager.getCookie(req))), covek);
+            if(ocena == null){
+                ocena=-1;
+            }
+        }
+        return ocena.toString();
+    }
+
 }
 

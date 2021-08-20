@@ -19,12 +19,10 @@ import java.util.List;
 import org.apache.ibatis.jdbc.ScriptRunner;
 import org.hibernate.transform.ResultTransformer;
 
-
-
 public class DatabaseConnector {
     Connection connection = null;
     Statement statement;
-    
+
     public DatabaseConnector() {// Ovo povezuje povezuje aplikaciju na bazu
         String dburl = "jdbc:mysql://localhost:3306/baza";
         try {
@@ -36,7 +34,7 @@ public class DatabaseConnector {
         }
     }
 
-    public void databaseInit(){
+    public void databaseInit() {
         String dburl = "jdbc:mysql://localhost:3306/";
         try {
             Path init = Path.of("src/main/resources/schema.sql").toAbsolutePath();
@@ -51,7 +49,6 @@ public class DatabaseConnector {
             e.printStackTrace();
         }
     }
-
 
     public boolean nadjiUser(String tip, String ime) {
         try {
@@ -79,7 +76,7 @@ public class DatabaseConnector {
             if (result.next()) {
                 System.out.println(result.getString(tip));
                 if (result.getString(tip) != null)
-                    return result.getString("ime");
+                    return result.getString(2);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -88,26 +85,19 @@ public class DatabaseConnector {
     }
 
     /*
-    public boolean nadjifirmu(String tip, String ime) {
-        try {
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM firma WHERE " + tip + "=?");
-            statement.setString(1, ime);
-            ResultSet result = statement.executeQuery();
-            System.out.println(statement.toString());
-            if (result.next()) {
-                System.out.println(result.getString(tip));
-                if (result.getString(tip) != null)
-                    return true;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }*/
+     * public boolean nadjifirmu(String tip, String ime) { try { PreparedStatement
+     * statement = connection.prepareStatement("SELECT * FROM firma WHERE " + tip +
+     * "=?"); statement.setString(1, ime); ResultSet result =
+     * statement.executeQuery(); System.out.println(statement.toString()); if
+     * (result.next()) { System.out.println(result.getString(tip)); if
+     * (result.getString(tip) != null) return true; } } catch (SQLException e) {
+     * e.printStackTrace(); } return false; }
+     */
 
     public Integer dajId(String ime) {
         try {
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM Korisnik WHERE username=?");
+            PreparedStatement statement = connection
+                    .prepareStatement("SELECT idKorisnik FROM Korisnik WHERE username=?");
             statement.setString(1, ime);
             ResultSet result = statement.executeQuery();
             if (result.next()) {
@@ -126,7 +116,8 @@ public class DatabaseConnector {
         try {
             ResultSet result = statement.executeQuery("SELECT * FROM Oglasi");
             while (result.next()) {
-                //lista.add(new Oglas(result.getInt(0), result.getString(1), result.getInt(2), result.getString(3),result.getString(4)));
+                // lista.add(new Oglas(result.getInt(0), result.getString(1), result.getInt(2),
+                // result.getString(3),result.getString(4)));
             }
             return lista;
         } catch (SQLException e) {
@@ -139,15 +130,14 @@ public class DatabaseConnector {
     public boolean proveriSignin(String username, String pass, boolean person) {
         PreparedStatement statement;
         try {
-            
-                statement = connection.prepareStatement("Select * from Korisnik where username=? AND password=?");
-            
+
+            statement = connection.prepareStatement("Select * from Korisnik where username=? AND password=?");
 
             statement.setString(1, username);
             statement.setString(2, pass);
             System.out.print(statement.toString());
             ResultSet result = statement.executeQuery();
-            
+
             if (result.next()) {
                 return true;
             }
@@ -158,14 +148,48 @@ public class DatabaseConnector {
         }
         return false;
     }
-
-    public boolean ubaciUsera(String username, String pass, String ime, String email,Integer mesto,Integer broj,boolean person) {
+    public boolean ubaciTelefon(Integer id , Integer broj){
         try {
             PreparedStatement statement;
+            statement = connection.prepareStatement("INSERT INTO telefoni  values (?,?)");
+            statement.setInt(1, id);
+            statement.setInt(2, broj);
+            statement.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public List<Integer> listaTelefona(Integer id){
+        List<Integer> lista = new ArrayList<Integer>();
+        try {
+            PreparedStatement statement;
+            statement = connection.prepareStatement("SELECT * FROM telefoni WHERE idkorisnika=?");
+            statement.setInt(1, id);
+            ResultSet result = statement.executeQuery();
+            while(result.next()){
+                lista.add(result.getInt(1));
+            }
             
-                statement = connection.prepareStatement(
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return lista;
+    }
+
+
+    public boolean ubaciUsera(String username, String pass, String ime, String email, Integer mesto, Integer broj,
+            boolean person) {
+        try {
+            PreparedStatement statement;
+
+            statement = connection.prepareStatement(
                     "INSERT INTO korisnik (ime,username , password  , email ,idmesta, poslodavac , admin  ) values (?,?,?,?,?,?,?)");
-            
+
             statement.setString(2, username);
             statement.setString(3, pass);
             statement.setString(1, ime);
@@ -174,16 +198,14 @@ public class DatabaseConnector {
             statement.setBoolean(6, person);
             statement.setBoolean(7, false);
             statement.executeUpdate();
-            if (nadjiUser("ime", ime)){
+            if (nadjiUser("ime", ime)) {
                 Integer id = dajId(username);
-                statement = connection.prepareStatement(
-                    "INSERT INTO telefoni  values (?,?)");
-                    statement.setInt(1, id);
-                    statement.setInt(2, broj);
-                    statement.executeUpdate();
+                statement = connection.prepareStatement("INSERT INTO telefoni  values (?,?)");
+                statement.setInt(1, id);
+                statement.setInt(2, broj);
+                statement.executeUpdate();
                 return true;
-            }
-            else
+            } else
                 return false;
         } catch (SQLException e) {
             // TODO Auto-generated catch block
@@ -192,19 +214,20 @@ public class DatabaseConnector {
         return false;
     }
 
-    public List<Mesto> Daj_gradove(){
+    public List<Mesto> Daj_gradove() {
         List<Mesto> lista = new ArrayList<Mesto>();
         try {
             ResultSet result = statement.executeQuery("SELECT * FROM Mesto");
             while (result.next()) {
-                lista.add(new Mesto(result.getInt(1),result.getString(2)));
+                lista.add(new Mesto(result.getInt(1), result.getString(2)));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return lista;
     }
-    public List<errorCode> Daj_tagove(){
+
+    public List<errorCode> Daj_tagove() {
         List<errorCode> lista = new ArrayList<errorCode>();
         try {
             ResultSet result = statement.executeQuery("SELECT * FROM tags");
@@ -216,52 +239,62 @@ public class DatabaseConnector {
         }
         return lista;
     }
-    public boolean proveriString(String string){
-        if(string.matches(".*[\\\0\'\"\b\n\r\t].*"))return false;
 
+    public boolean proveriString(String string) {
+        if (string.matches(".*[\\\0\'\"\b\n\r\t].*"))
+            return false;
 
         return true;
     }
-    public List<Oglas> Daj_Oglase(Integer id,String naslov,String poslodavac,String Mesto,Boolean vrsta){//glavna funkcija ima puno posla
+
+    public List<Oglas> Daj_Oglase(Integer id, String naslov, String poslodavac, String Mesto, Boolean vrsta) {// glavna
+                                                                                                              // funkcija
+                                                                                                              // ima
+                                                                                                              // puno
+                                                                                                              // posla
         List<Oglas> lista = new ArrayList<Oglas>();
         try {
-            String query=" where 1=1 ";
-            if(id!= null)
-                query += " and id ="+id.toString();
-            if(naslov != null && naslov.isEmpty() == false)
-                if(proveriString(naslov))
-                    query += " and naslov ='"+naslov+"'";
-            if(poslodavac != null && poslodavac.isEmpty() == false)
-                query += " and ime ='"+poslodavac+"'";
-            if(Mesto != null && Mesto.isEmpty() == false)
-                query += " and mesto ='"+Mesto+"'";
-            if(vrsta != null)
-                query += " and tip ="+vrsta;   
+            String query = " where 1=1 ";
+            if (id != null)
+                query += " and id =" + id.toString();
+            if (naslov != null && naslov.isEmpty() == false)
+                if (proveriString(naslov))
+                    query += " and naslov ='" + naslov + "'";
+            if (poslodavac != null && poslodavac.isEmpty() == false)
+                query += " and ime ='" + poslodavac + "'";
+            if (Mesto != null && Mesto.isEmpty() == false)
+                query += " and mesto ='" + Mesto + "'";
+            if (vrsta != null)
+                query += " and tip =" + vrsta;
             ResultSet result = statement.executeQuery("SELECT * FROM sveooglasu " + query);
             while (result.next()) {
-                lista.add(new Oglas(result.getInt(1),result.getString(2),result.getString(3),result.getBoolean(4),result.getInt(5),result.getString(6),result.getString(7),result.getInt(8),result.getInt(9)));
+                lista.add(new Oglas(result.getInt(1), result.getString(2), result.getString(3), result.getBoolean(4),
+                        result.getInt(5), result.getString(6), result.getString(7), result.getInt(8),
+                        result.getInt(9)));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return lista;
     }
-    public List<Oglas> Daj_Oglase(List<Integer> tagovi){
+
+    public List<Oglas> Daj_Oglase(List<Integer> tagovi) {
         List<Oglas> lista = new ArrayList<Oglas>();
-        if(tagovi.isEmpty() == false){
+        if (tagovi.isEmpty() == false) {
             PreparedStatement statement;
             try {
-            statement = connection.prepareStatement(
-                "Select idoglasa from tagovi where idtaga=?"); 
-                for(int i = 0;i<tagovi.size();i++){
+                statement = connection.prepareStatement("Select idoglasa from tagovi where idtaga=?");
+                for (int i = 0; i < tagovi.size(); i++) {
                     statement.setInt(tagovi.get(i), 1);
                     ResultSet result = statement.executeQuery();
                     while (result.next()) {
                         PreparedStatement stm = connection.prepareStatement("Select * from sveooglasu where idoglas=?");
                         stm.setInt(result.getInt(1), 1);
                         ResultSet res = stm.executeQuery();
-                        while(res.next()){
-                            lista.add(new Oglas(result.getInt(1),result.getString(2),result.getString(3),result.getBoolean(4),result.getInt(5),result.getString(6),result.getString(7),result.getInt(8),result.getInt(9)));
+                        while (res.next()) {
+                            lista.add(new Oglas(result.getInt(1), result.getString(2), result.getString(3),
+                                    result.getBoolean(4), result.getInt(5), result.getString(6), result.getString(7),
+                                    result.getInt(8), result.getInt(9)));
                         }
                     }
                 }
@@ -272,28 +305,30 @@ public class DatabaseConnector {
         }
         return lista;
     }
-    public Oglas Daj_Oglas(Integer id){
+
+    public Oglas Daj_Oglas(Integer id) {
         try {
-                PreparedStatement statement = connection.prepareStatement("SELECT * FROM sveooglasu where idoglas=?");
-                statement.setInt(id, 1);
-                ResultSet result = statement.executeQuery();
-                if(result.next()) {
-                    return new Oglas(result.getInt(1),result.getString(2),result.getString(3),result.getBoolean(4),result.getInt(5),result.getString(6),result.getString(7),result.getInt(8),result.getInt(9));
-                }
-            } catch (SQLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM sveooglasu where idoglas=?");
+            statement.setInt(id, 1);
+            ResultSet result = statement.executeQuery();
+            if (result.next()) {
+                return new Oglas(result.getInt(1), result.getString(2), result.getString(3), result.getBoolean(4),
+                        result.getInt(5), result.getString(6), result.getString(7), result.getInt(8), result.getInt(9));
             }
-            return null;
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return null;
     }
 
-    public Integer dajIdMesta(String mesto){
+    public Integer dajIdMesta(String mesto) {
         PreparedStatement statement;
-            
+
         try {
             statement = connection.prepareStatement("Select idMesto from mesto where ime=?");
             statement.setString(1, mesto);
-        ResultSet result = statement.executeQuery();
+            ResultSet result = statement.executeQuery();
             if (result.next()) {
                 return result.getInt(1);
             }
@@ -304,33 +339,35 @@ public class DatabaseConnector {
         return -1;
     }
 
-
-    public boolean proveriCoveka(String username,Integer id){
+    public boolean proveriCoveka(String username, Integer id) {
         PreparedStatement statement;
-            
+
         try {
             statement = connection.prepareStatement("Select username from korisnik where id=?");
             statement.setInt(1, id);
-        ResultSet result = statement.executeQuery();
+            ResultSet result = statement.executeQuery();
             if (result.next()) {
-                return true;
+                if (result.getString(1) == username)
+                    return true;
+                return false;
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-            return false;
+        return false;
     }
 
-
-    public Korisnik Daj_Korisnika(Integer id){
+    public Korisnik Daj_Korisnika(Integer id) {
         PreparedStatement statement;
         try {
             statement = connection.prepareStatement("Select * from sveokorisniku where idkorisnik=?");
             statement.setInt(1, id);
             ResultSet result = statement.executeQuery();
-            if(result.next()){
-                return new Korisnik(result.getInt(1),result.getString(2),result.getString(4),result.getString(3),result.getString(5),result.getString(6),result.getString(7),result.getInt(8),result.getInt(9),result.getInt(10),result.getInt(11),result.getInt(12));
+            if (result.next()) {
+                return new Korisnik(result.getInt(1), result.getString(2), result.getString(4), result.getString(3),
+                        result.getString(5), result.getString(6), result.getString(7), result.getInt(8),
+                        result.getInt(9), result.getInt(10), result.getInt(11), result.getInt(12));
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block
@@ -339,6 +376,225 @@ public class DatabaseConnector {
         return null;
     }
 
+    public List<Korisnik> Daj_Korisnike(Integer idoglasa) {
+        List<Korisnik> lista = new ArrayList<Korisnik>();
+        PreparedStatement statement;
+        try {
+            statement = connection.prepareStatement("Select * from prijave where idoglas=?");
+            statement.setInt(1, idoglasa);
+            ResultSet result = statement.executeQuery();
+            while (result.next()) {
+                PreparedStatement stm = connection.prepareStatement("Select * from sveookorisniku where idkorisnik=?");
+                stm.setInt(result.getInt(1), 1);
+                ResultSet res = stm.executeQuery();
+                while (res.next()) {
+                    lista.add(new Korisnik(res.getInt(1), res.getString(2), res.getString(4), res.getString(3), "",
+                            result.getString(3), res.getString(7), res.getInt(8), res.getInt(9), res.getInt(10),
+                            res.getInt(11), res.getInt(12)));
+                }
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return lista;
+    }
 
+    public String dajMail(String tip, String ime) {
+        try {
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM Korisnik WHERE " + tip + "=?");
+            statement.setString(1, ime);
+            ResultSet result = statement.executeQuery();
+            System.out.println(statement.toString());
+            if (result.next()) {
+                if (result.getString(tip) != null)
+                    return result.getString(4);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public boolean update(Integer id, String ime, String username, String passoword, String email, Integer mesto,
+            String opis) {
+        PreparedStatement statement;
+        try {
+            statement = connection.prepareStatement(
+                    "Update korisnik set ime=? , username=? , password=? , email=? , idmesta = ? , opis = ? where idkorisnik=?");
+            statement.setString(1, ime);
+            if ((dajId(username) != null && dajId(username) != id) || dajId(username) == null) {
+                statement.setString(2, username);
+            } else {
+                statement.setString(2, dajUser("idkorisnik", id.toString()));
+            }
+            statement.setString(3, passoword);
+            if (dajMail("email", email) != null && dajMail("idkorisnik", id.toString()) == email
+                    || dajMail("email", email) != null) {
+                statement.setString(4, email);
+            } else {
+                statement.setString(4, dajMail("idkorisnik", id.toString()));
+            }
+            statement.setInt(5, mesto);
+            statement.setString(6, opis);
+            ResultSet result = statement.executeQuery();
+            return true;
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean proveriprijavu(Integer idcoveka, Integer idoglasa) {
+        PreparedStatement statement;
+        try {
+            statement = connection.prepareStatement("SELECT * FROM prijave");
+            statement.setInt(1, idcoveka);
+            statement.setInt(2, idoglasa);
+
+            ResultSet result = statement.executeQuery();
+            if (result.next())
+                return true;
+            return false;
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean prijavise(Integer idcoveka, Integer idoglasa, String cv) {
+        PreparedStatement statement;
+        try {
+            if (proveriprijavu(idcoveka, idoglasa))
+                return false;
+            statement = connection.prepareStatement("INSERT INTO prijave values (?,?,?)");
+            statement.setInt(1, idcoveka);
+            statement.setInt(2, idoglasa);
+            statement.setString(3, cv);
+            ResultSet result = statement.executeQuery();
+            return true;
+
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean proverilajk(Integer idcoveka, Integer idoglasa) {
+        PreparedStatement statement;
+        try {
+            statement = connection.prepareStatement("SELECT * FROM lajkovi where idcoveka=? and idOglasa=?");
+            statement.setInt(1, idcoveka);
+            statement.setInt(2, idoglasa);
+
+            ResultSet result = statement.executeQuery();
+            if (result.next())
+                return true;
+            return false;
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean lajkuj(Integer idcoveka, Integer idoglasa, String like) {
+        PreparedStatement statement;
+        try {
+            if (proverilajk(idcoveka, idoglasa)) {
+                statement = connection.prepareStatement("DELETE FROM lajkovi WHERE idcoveka=? and idOglasa=?;");
+                statement.setInt(1, idcoveka);
+                statement.setInt(2, idoglasa);
+                ResultSet result = statement.executeQuery();
+                if (like == "izbrisi") {
+                    return true;
+                }
+            }
+            statement = connection.prepareStatement("INSERT INTO lajkovi values (?,?,?)");
+            statement.setInt(1, idcoveka);
+            statement.setInt(2, idoglasa);
+            if (like == "true") {
+                statement.setBoolean(3, true);
+            } else if (like == "false")
+                statement.setBoolean(3, false);
+            else
+                return false;
+            ResultSet result = statement.executeQuery();
+            return true;
+
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean proveriocenu(Integer idcoveka, Integer idcoveka2) {
+        PreparedStatement statement;
+        try {
+            statement = connection.prepareStatement("SELECT * FROM ocene where idcoveka=? and idocenjenog=?");
+            statement.setInt(1, idcoveka);
+            statement.setInt(2, idcoveka2);
+
+            ResultSet result = statement.executeQuery();
+            if (result.next())
+                return true;
+            return false;
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean oceni(Integer idcoveka, Integer idoglasa, Integer ocena) {
+        PreparedStatement statement;
+        try {
+            if (proverilajk(idcoveka, idoglasa)) {
+                statement = connection.prepareStatement("DELETE FROM ocena WHERE idcoveka=? and idOglasa=?;");
+                statement.setInt(1, idcoveka);
+                statement.setInt(2, idoglasa);
+                ResultSet result = statement.executeQuery();
+                if (ocena == -1) {
+                    return true;
+                }
+            }
+            statement = connection.prepareStatement("INSERT INTO ocena values (?,?,?)");
+            statement.setInt(1, idcoveka);
+            statement.setInt(2, idoglasa);
+            if (ocena == -1) {
+                return false;
+            }
+            statement.setInt(3, ocena);
+            ResultSet result = statement.executeQuery();
+            return true;
+
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public Integer dataOcena(Integer idcoveka, Integer idcoveka2) {
+        PreparedStatement statement;
+        try {
+            statement = connection.prepareStatement("SELECT * FROM ocene where idcoveka=? and idocenjenog=?");
+            statement.setInt(1, idcoveka);
+            statement.setInt(2, idcoveka2);
+
+            ResultSet result = statement.executeQuery();
+            if (result.next())
+                return result.getInt(3);
+            return -1;
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return -1;
+    }
 
 }
