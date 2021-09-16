@@ -304,28 +304,29 @@ function popuniProfil() {
 
     console.log("zavrsio");
     json = $.getJSON("http://localhost:8080/profile" + userid, function() {})
-    .done(function(data) {
-        console.log(data);
-        if (data != null) {
-            document.getElementById("profil-korisnicko-ime").innerHTML = data.username;
-            document.getElementsByName("ime")[0].value = data.ime;
-            document.getElementsByName("grad")[0].value = data.mesto;
-            document.getElementsByName("email")[0].value = data.email;
-        }
-    });
-
-    json = $.getJSON("http://localhost:8080/telefon" + userid , function() {
-        console.log("zavrsio");
-    })
-    .done(function(dataT) {
-        if (dataT[0].error != "greska") {
-            telefoni = document.getElementById("telefoni");
-            for (i = 1; i < dataT.length; i++) {
-                telefon = data[0].i;
-                txt += '<div class="form-group"> <label class="form-control-label">Telefon</label> <input type="text" id="profil-telefon'+i+'" name="telefon'+i+'" value="'+telefon+'" class="form-control"> </div>';
+        .done(function(data) {
+            console.log(data);
+            if (data != null) {
+                document.getElementById("profil-korisnicko-ime").innerHTML = data.username;
+                document.getElementsByName("ime")[0].value = data.ime;
+                document.getElementsByName("grad")[0].value = data.mesto;
+                document.getElementsByName("email")[0].value = data.email;
             }
-        }
-    });
+        });
 
-    telefoni.innerHTML = txt;
+    json = $.getJSON("http://localhost:8080/telefon" + userid, function() {
+            console.log("zavrsio");
+        })
+        .done(function(dataT) {
+            if (dataT != null) {
+                telefoni = document.getElementById("telefoni");
+                txt = "";
+                for (i = 0; i < dataT.length; i++) {
+                    telefon = dataT[i].error;
+                    txt += '<div class="form-group"> <label class="form-control-label">Telefon</label> <input type="text" id="profil-telefon' + i + '" name="telefon' + i + '" value="' + telefon + '" class="form-control"> </div>';
+                }
+                telefoni.innerHTML = txt;
+            }
+        });
+
 }
