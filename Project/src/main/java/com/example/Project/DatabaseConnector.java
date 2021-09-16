@@ -597,5 +597,47 @@ public class DatabaseConnector {
         }
         return -1;
     }
+    public List<Oglas> Daj_Mojeoglase(Integer idcoveka){
+        PreparedStatement statement;
+        List<Oglas> oglasi = new ArrayList<Oglas>();
+        try {
+            statement = connection.prepareStatement("SELECT idOglas FROM oglas where idcoveka=?");
+            statement.setInt(1, idcoveka);
 
+            ResultSet res = statement.executeQuery();
+            while(res.next()){
+                statement = connection.prepareStatement("Select * from sveooglasu where idoglas=?");
+                statement.setInt(1, res.getInt(1));
+                ResultSet result = statement.executeQuery();
+                if(result.next()){
+
+                    oglasi.add(new Oglas(result.getInt(1), result.getString(2), result.getString(3), result.getBoolean(4),
+                    result.getInt(5), result.getString(6), result.getString(7), result.getInt(8), result.getInt(9)));
+                }
+            }
+            return oglasi;
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return null;
+    }
+    public List<errorCode> Daj_telefone(Integer covek){
+        PreparedStatement statement;
+        List<errorCode> telefoni = new ArrayList<errorCode>();
+        try {
+            statement = connection.prepareStatement("SELECT * FROM telefoni where idkorisnika=?");
+            statement.setInt(1, covek);
+
+            ResultSet res = statement.executeQuery();
+            while(res.next()){
+                telefoni.add(new errorCode(res.getString(2)));
+            }
+            return telefoni;
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

@@ -172,7 +172,6 @@ public class ProjectController {
                 return k;
             }
         }
-        
         if (user != null){
             Korisnik k =  db.Daj_Korisnika(user);
             if(k!=null)
@@ -265,5 +264,28 @@ public class ProjectController {
             Oglas oglas = db.Daj_Oglas(id);
             return oglas;
         }
+
+    @GetMapping("/mojioglasi")
+    public @ResponseBody List<Oglas> mojioglasi(@RequestParam(required = false) Integer user,HttpServletRequest req, HttpServletResponse res){
+        Cookie cookie= CookieManager.getCookie(req);
+        List<Oglas> k;
+        if (cookie == null && user == null)
+            return null;
+        if (cookie != null && user == null){
+            k =  db.Daj_Mojeoglase(db.dajId(CookieManager.getContent(cookie)));
+        }
+        else{
+            k = db.Daj_Mojeoglase(user);
+        }
+        if(k != null){
+            return k;
+        }
+        return null;
+    }
+    @GetMapping("/telefon")
+    public @ResponseBody List<errorCode> telefon(@RequestParam(required = false) Integer user,HttpServletRequest req, HttpServletResponse res){
+        return db.Daj_telefone(user);
+    }
+
 }
 
