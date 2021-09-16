@@ -190,6 +190,8 @@ function checkCity(grad) {
     return false;
 }
 
+/*
+
 $(document).ready(function() {
     json = $.getJSON("http://localhost:8080/cities", function() {
             console.log("zavrsio");
@@ -202,6 +204,8 @@ $(document).ready(function() {
             table += "</table>";
         });
 });
+
+*/
 
 //  pozoves funkciju Dajgradove kad se ucita html i on ce da popuni gradovi kao json i gradove uzimas kao gradovi[i].error
 // .error jer nisam pravio posebnu klasu za ovo,mozda se promeni kasnije 
@@ -275,4 +279,20 @@ function profile() {
             }
             window.location.replace("http://localhost:8080/signout")
         });
+}
+
+function popuniProfil() {
+    var url_string = window.location.href;
+    var url = new URL(url_string);
+    var userID = url.searchParams.get("user");
+
+    json = $.getJSON("http://localhost:8080/profile?user=" + userID, function() {
+        console.log("zavrsio");
+    })
+    .done(function(data) {
+        if (data[0].error != "greska") {
+            document.getElementById("profilime").innerHTML = data[0].usename;
+        }
+        window.location.replace("http://localhost:8080/signout")
+    });
 }
