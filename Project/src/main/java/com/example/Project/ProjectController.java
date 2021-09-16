@@ -154,11 +154,11 @@ public class ProjectController {
         if (CookieManager.getCookie(req) == null && user == null)
             return "redirect:/";
         if (CookieManager.getCookie(req) != null && user == null)
-            return "Mainprofile";
+            return "profil";
         if (CookieManager.getCookie(req) == null && user != null)
             return "profil";
         if (db.dajId(CookieManager.getCookie(req).getValue()).toString() == user)
-            return "Mainprofile";
+            return "profil";
         return "profil";
     }
     @GetMapping("/profile")
@@ -260,5 +260,11 @@ public class ProjectController {
         return ocena.toString();
     }
 
+
+    @GetMapping("/oglas")
+        public String oglas(HttpServletRequest req, HttpServletResponse res){
+            return "stranicaOglasa";
+        }
+    
 }
 
