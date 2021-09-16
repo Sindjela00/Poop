@@ -218,7 +218,7 @@ function Dajgradove() {
                 select += "<option value='" + data[i].id + "'>" + data[i].naziv + "</option>";
             }
             select += "";
-            document.getElementById("city-register").innerHTML = select;
+            document.getElementById("profil-grad").innerHTML = select;
         });
 }
 
@@ -263,32 +263,15 @@ function oglasi() {
     var queryString = "http://localhost:8080/oglasi";
 }
 
-
-
-function profile() {
-    json = $.getJSON("http://localhost:8080/profile", function() {
-            console.log("zavrsio");
-        })
-        .done(function(data) {
-            if (data[0].error != "greska") {
-                document.getElementById("profilime").innerHTML = data[0].error;
-            }
-            window.location.replace("http://localhost:8080/signout")
-        });
+function selectCity(grad) {
+    select = document.getElementById("profil-grad");
+    options = select.getElementsByTagName("option");
+    for (i = 0; i < options.length; i++){
+        if(options[i].childNodes[0].nodeValue == grad){
+            select.selectedIndex = i;
+        }
+    }
 }
-
-function profile() {
-    json = $.getJSON("http://localhost:8080/profile", function() {
-            console.log("zavrsio");
-        })
-        .done(function(data) {
-            if (data[0].error != "greska") {
-                document.getElementById("profilime").innerHTML = data[0].error;
-            }
-            window.location.replace("http://localhost:8080/signout")
-        });
-}
-
 
 function popuniProfil() {
     var url_string = window.location.href;
@@ -309,8 +292,15 @@ function popuniProfil() {
             if (data != null) {
                 document.getElementById("profil-korisnicko-ime").innerHTML = data.username;
                 document.getElementsByName("ime")[0].value = data.ime;
-                document.getElementsByName("grad")[0].value = data.mesto;
+                selectCity(data.mesto);
                 document.getElementsByName("email")[0].value = data.email;
+                document.getElementsByName("opis")[0].value = data.opis;
+                document.getElementsByName("lozinka1")[0].value = data.password;
+                
+                lozinke = document.getElementById("sakriveno");
+                if(data.password == "" || data.password == null) {
+                    lozinke.style.display = 'none';
+                }
             }
         });
 
@@ -318,15 +308,37 @@ function popuniProfil() {
             console.log("zavrsio");
         })
         .done(function(dataT) {
-            if (dataT != null) {
-                telefoni = document.getElementById("telefoni");
-                txt = "";
-                for (i = 0; i < dataT.length; i++) {
-                    telefon = dataT[i].error;
-                    txt += '<div class="form-group"> <label class="form-control-label">Telefon</label> <input type="text" id="profil-telefon' + i + '" name="telefon' + i + '" value="' + telefon + '" class="form-control"> </div>';
-                }
-                telefoni.innerHTML = txt;
+        if (dataT != null) {
+            telefoni = document.getElementById("telefoni");
+            txt = "";
+            for (i = 0; i < dataT.length; i++) {
+                telefon = dataT[i].error;
+                txt += '<div class="form-group"> <label class="form-control-label">Telefon</label> <input type="text" id="profil-telefon' + i + '" name="telefon' + i + '" value="' + telefon + '" class="form-control"> </div>';
             }
-        });
+        }
+        else {
+            txt = '<div class="form-group"> <label class="form-control-label">Telefon</label> <input type="text" id="profil-telefon" name="telefon" value="" class="form-control"> </div>';
+        }
+        telefoni.innerHTML = txt;
+    });
+}
 
+function Sacuvaj(){
+    username = document.getElementById("profil-korisnicko-ime").value;
+    ime = document.getElementsByName("ime")[0].value;
+    grad = document.getElementById("profil-grad").value;
+    email = document.getElementsByName("email")[0].value;
+    //telefon = document.getElementsByName("telefon")[0];
+    opis = document.getElementsByName("opis")[0].value;
+    lozinka1 = document.getElementsByName("lozinka1")[0].value;
+    lozinka2 = document.getElementsByName("lozinka2")[0].value;
+    lozinka3 = document.getElementsByName("lozinka3")[0].value;
+
+    // Provera da li je se podaci razlikuju sa onima u bazi i onda se azurira
+}
+
+function dodajOglase() {
+    txt = "";
+    lista = document.getElementById("lista");
+    
 }

@@ -11,18 +11,18 @@
     <script src="/js/functions.js" type="text/javascript"></script>
 </head>
 
-<body class="ostaleStrane" onload="popuniProfil()">
+<body class="ostaleStrane" onload="popuniProfil(); Dajgradove()">
     <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
         <div class="container">
-            <a class="navbar-brand" href="#page-top">Lako do posla</a>
+            <a class="navbar-brand" href="http://localhost:8080">Lako do posla</a>
             <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="sviOglasi.html">Oglasi</a></li>
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="index.html#about">O nama</a></li>
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="index.html#contact">Kontakt</a></li>
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#">Odjavi se</a></li>
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="http://localhost:8080/oglasi">Oglasi</a></li>
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="http://localhost:8080/#about">O nama</a></li>
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="http://localhost:8080/#contact">Kontakt</a></li>
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="http://localhost:8080/signout">Odjavi se</a></li>
                 </ul>
             </div>
         </div>
@@ -43,33 +43,39 @@
                         <form>
                             <div class="form-group">
                                 <label class="form-control-label">Ime i Prezime</label>
-                                <input type="text" value="Ime i Prezime" id="profil-grad" name="ime" class="form-control">
+                                <input type="text" value="Ime i Prezime" id="profil-ime" name="ime" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label class="form-control-label">Mesto boravka</label>
-                                <input type="text" id="profil-grad" name="grad" value="Mesto boravka" class="form-control">
+                                <select class="form-control" id="profil-grad" ata-sb-validations="required"></select>
                             </div>
                             <div class="form-group">
                                 <label class="form-control-label">Email</label>
-                                <input type="email" id="profil-email" name="email" value="imeprezime@email.com" class="form-control">
+                                <input type="text" id="profil-email" name="email" value="imeprezime@email.com" class="form-control">
                             </div>
                             <div id="telefoni">
                             </div>
                             <div class="form-group">
-                                <label class="form-control-label">Lozinka</label>
-                                <input type="password" id="profil-lozinka1" name="lozinka1" class="form-control">
+                                <label class="form-control-label">Opis</label>
+                                <input type="text" id="profil-opis" name="opis" value="Kratak opis" class="form-control">
                             </div>
-                            <div class="form-group">
-                                <label class="form-control-label">Potvrdite lozinku</label>
-                                <input type="password" id="profil-lozinka2" name="lozinka2" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-control-label">Stara lozinka</label>
-                                <input type="password" id="profil-stara-lozinka" name="stara-lozinka" class="form-control">
-                            </div>
-                            <div class="dugme">
-                                <button type="button" class="btn btn-outline-primary">Sačuvaj</button>
-                            </div>
+                            <div id="sakriveno">
+                                <div class="form-group">
+                                    <label class="form-control-label">Lozinka</label>
+                                    <input type="password" id="profil-lozinka1" name="lozinka1" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label">Nova lozinka</label>
+                                    <input type="password" id="profil-lozinka2" name="lozinka2" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label">Ponovite novu lozinku</label>
+                                    <input type="password" id="profil-lozinka3" name="lozinka3" class="form-control">
+                                </div>
+                                <div class="dugme">
+                                    <button type="button" class="btn btn-outline-primary">Sačuvaj</button>
+                                </div>
+                            </div>    
                         </form>
                     </div>
                 </div>
