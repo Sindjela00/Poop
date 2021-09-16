@@ -37,7 +37,7 @@ public class ProjectController {
         Cookie cookie;
         if ((cookie = CookieManager.getCookie(req)) != null) {
             if (db.nadjiUser("username", CookieManager.getContent(cookie)))
-                return "Logovanmain";
+                return "sviOglasi";
         }
         return "sviOglasi";
     }
@@ -153,13 +153,8 @@ public class ProjectController {
             HttpServletResponse res) {
         if (CookieManager.getCookie(req) == null && user == null)
             return "redirect:/";
-        if (CookieManager.getCookie(req) != null && user == null)
+        else
             return "profil";
-        if (CookieManager.getCookie(req) == null && user != null)
-            return "profil";
-        if (db.dajId(CookieManager.getCookie(req).getValue()).toString() == user)
-            return "profil";
-        return "profil";
     }
     @GetMapping("/profile")
     public @ResponseBody Korisnik nazivProfila(@RequestParam(required = false) Integer user,HttpServletRequest req, HttpServletResponse res){
