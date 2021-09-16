@@ -450,7 +450,7 @@ public class DatabaseConnector {
     public boolean proveriprijavu(Integer idcoveka, Integer idoglasa) {
         PreparedStatement statement;
         try {
-            statement = connection.prepareStatement("SELECT * FROM prijave");
+            statement = connection.prepareStatement("SELECT * FROM prijave where idcovek=? and idoglas=?");
             statement.setInt(1, idcoveka);
             statement.setInt(2, idoglasa);
 

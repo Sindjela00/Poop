@@ -216,7 +216,6 @@ public class ProjectController {
         }
         return lista;
     }
-
     @PostMapping("/prijavi")
     public @ResponseBody String prijavise(@RequestParam(required = false) Integer oglas, @RequestBody String body,HttpServletRequest req, HttpServletResponse res){
         if(CookieManager.getCookie(req)!=null){
@@ -259,11 +258,11 @@ public class ProjectController {
         public String oglas(HttpServletRequest req, HttpServletResponse res){
             return "stranicaOglasa";
         }
-        @GetMapping("/sveooglasu")
-        public @ResponseBody Oglas oglasu(@RequestParam Integer id,HttpServletRequest req, HttpServletResponse res){
-            Oglas oglas = db.Daj_Oglas(id);
-            return oglas;
-        }
+    @GetMapping("/sveooglasu")
+    public @ResponseBody Oglas oglasu(@RequestParam Integer id,HttpServletRequest req, HttpServletResponse res){
+        Oglas oglas = db.Daj_Oglas(id);
+        return oglas;
+    }
 
     @GetMapping("/mojioglasi")
     public @ResponseBody List<Oglas> mojioglasi(@RequestParam(required = false) Integer user,HttpServletRequest req, HttpServletResponse res){
@@ -284,7 +283,20 @@ public class ProjectController {
     }
     @GetMapping("/telefon")
     public @ResponseBody List<errorCode> telefon(@RequestParam(required = false) Integer user,HttpServletRequest req, HttpServletResponse res){
-        return db.Daj_telefone(user);
+        Cookie cookie= CookieManager.getCookie(req);
+        List<errorCode> k;
+        if (cookie == null && user == null)
+            return null;
+        if (cookie != null && user == null){
+            k =  db.Daj_telefone(db.dajId(CookieManager.getContent(cookie)));
+        }
+        else{
+            k = db.Daj_telefone(user);
+        }
+        if(k != null){
+            return k;
+        }
+        return null;
     }
 
 }
