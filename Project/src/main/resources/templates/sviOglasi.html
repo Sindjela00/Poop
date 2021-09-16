@@ -6,41 +6,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Lako do posla</title>
+    <title>Lako do posla - Svi Oglasi</title>
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
 </head>
 
 <body class="ostaleStrane">
     <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
         <div class="container">
-            <a class="navbar-brand" href="http://localhost:8080/#page-top">Lako do posla</a>
+            <a class="navbar-brand" href="#page-top">Lako do posla</a>
             <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-      Menu
-      <i class="fas fa-bars"></i>
-    </button>
+                    Menu
+                    <i class="fas fa-bars"></i>
+                </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="http://localhost:8080/#oglasi">Oglasi</a></li>
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="http://localhost:8080/#about">O nama</a></li>
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="http://localhost:8080/#contact">Kontakt</a></li>
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="sviOglasi.html">Oglasi</a></li>
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="index.html#about">O nama</a></li>
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="index.html#contact">Kontakt</a></li>
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="signin.html">Prijavi se</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
-
     <div class="container py-5">
-        <div class="row text-center text-white mb-5">
-            <div class="col-lg-7 mx-auto ">
-                <h1 class="display-4"></h1>
+        <div style="position: relative; margin-top: 50px;">
+        </div>
+        <div class="filters" id="pretraga" style="position: relative;">
+            <div class="row filter-main-row">
+                <div class="col-sm-5">
+                    <input class="filter-main" type="search" placeholder="Pretraži">
+                </div>
+                <div class="col-sm-3">
+                    <select class="filter-main" value="Odaberite oblast rada">
+                            <option>IT sektor</option>
+                        </select>
+                </div>
+                <div class="col-sm-3">
+                    <select class="filter-main" value="Odaberite lokaciju">
+                            <option>Svi gradovi</option>
+                            <option>Kragujevac</option>
+                        </select>
+                </div>
+                <div class="col-sm-1">
+                    <button class="btn btn-primary btn-xl" id="filter-btn-main"><i style="width: 80%; height: 80%" class="fas fa-search"></i></button>
+                </div>
             </div>
         </div>
+
+        <div class="row text-center text-white mb-1">
+            <div class="col-lg-7 mx-auto ">
+                <h1 class="display-4">Rezultat pretrage: </h1>
+            </div>
+        </div>
+
         <div class="row">
-            <div class="col-lg-10 mx-auto">
+            <div class="col-lg-12 mx-auto">
                 <!-- List group-->
                 <ul class="list-group shadow">
                     <!-- list group item-->
@@ -61,6 +86,7 @@
                                         <li class="list-inline-item m-0"><i class="fa fa-star-o text-gray"></i></li>
                                     </ul>
                                 </div>
+                                <button id=dugmeDetalji class=" btn btn-outline-primary" style="float: right"> Detaljnije </button>
                             </div><img src="https://i.imgur.com/KFojDGa.jpg" alt="Generic placeholder image" width="200" class="ml-lg-5 order-1 order-lg-2">
                         </div>
                         <!-- End -->
@@ -83,6 +109,7 @@
                                         <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
                                     </ul>
                                 </div>
+                                <button id=dugmeDetalji class=" btn btn-outline-primary" style="float: right"> Detaljnije </button>
                             </div><img src="https://i.imgur.com/KFojDGa.jpg" alt="Generic placeholder image" width="200" class="ml-lg-5 order-1 order-lg-2">
                         </div>
                         <!-- End -->
@@ -105,6 +132,8 @@
                                         <li class="list-inline-item m-0"><i class="fa fa-star-o text-gray"></i></li>
                                     </ul>
                                 </div>
+                                <button id=dugmeDetalji class=" btn btn-outline-primary" style="float: right"> Detaljnije </button>
+
                             </div><img src="https://i.imgur.com/KFojDGa.jpg" alt="Generic placeholder image" width="200" class="ml-lg-5 order-1 order-lg-2">
                         </div>
                         <!-- End -->
@@ -127,7 +156,9 @@
                                         <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
                                     </ul>
                                 </div>
-                            </div><img src="https://i.imgur.com/6IUbEME.jpg" alt="Generic placeholder image" width="200" class="ml-lg-5 order-1 order-lg-2">
+                                <button id="dugmeDetalji" class=" btn btn-outline-primary" style="float: right"> Detaljnije </button>
+                            </div>
+                            <img src="https://i.imgur.com/6IUbEME.jpg " alt="Generic placeholder image " width="200 " class="ml-lg-5 order-1 order-lg-2 ">
                         </div>
                         <!-- End -->
                     </li>
@@ -137,30 +168,30 @@
             </div>
         </div>
     </div>
-    <footer class="footer text-center">
-        <div class="container">
-            <div class="row">
+    <footer class="footer text-center ">
+        <div class="container ">
+            <div class="row ">
                 <!-- Footer Location-->
-                <div class="col-lg-4 mb-5 mb-lg-0">
-                    <h4 class="text-uppercase mb-4">Pronađite nas</h4>
-                    <p class="lead mb-0">
+                <div class="col-lg-4 mb-5 mb-lg-0 ">
+                    <h4 class="text-uppercase mb-4 ">Pronađite nas</h4>
+                    <p class="lead mb-0 ">
                         Radoja Domanovića 12
                         <br /> 34000 Kragujevac
                         <br /> Srbija
                     </p>
                 </div>
                 <!-- Footer Social Icons-->
-                <div class="col-lg-4 mb-5 mb-lg-0">
-                    <h4 class="text-uppercase mb-4">Posetite nas na društvenim mrežama</h4>
-                    <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-facebook-f"></i></a>
-                    <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-twitter"></i></a>
-                    <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-instagram"></i></a>
-                    <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-linkedin-in"></i></a>
+                <div class="col-lg-4 mb-5 mb-lg-0 ">
+                    <h4 class="text-uppercase mb-4 ">Posetite nas na društvenim mrežama</h4>
+                    <a class="btn btn-outline-light btn-social mx-1 " href="#! "><i class="fab fa-fw fa-facebook-f "></i></a>
+                    <a class="btn btn-outline-light btn-social mx-1 " href="#! "><i class="fab fa-fw fa-twitter "></i></a>
+                    <a class="btn btn-outline-light btn-social mx-1 " href="#! "><i class="fab fa-fw fa-instagram "></i></a>
+                    <a class="btn btn-outline-light btn-social mx-1 " href="#! "><i class="fab fa-fw fa-linkedin-in "></i></a>
                 </div>
                 <!-- Footer About Text-->
-                <div class="col-lg-4">
-                    <h4 class="text-uppercase mb-4">O nama</h4>
-                    <p class="lead mb-0">
+                <div class="col-lg-4 ">
+                    <h4 class="text-uppercase mb-4 ">O nama</h4>
+                    <p class="lead mb-0 ">
                         Sajt za brzu i jednostavnu pretragu poslova, kao i pronalaženja kandidata za posao.
                     </p>
                 </div>
@@ -168,8 +199,8 @@
         </div>
     </footer>
     <!-- Copyright Section-->
-    <div class="copyright py-4 text-center text-white">
-        <div class="container"><small>Copyright &copy; Lako do posla 2021</small></div>
+    <div class="copyright py-4 text-center text-white ">
+        <div class="container "><small>Copyright &copy; Lako do posla 2021</small></div>
     </div>
 </body>
 
