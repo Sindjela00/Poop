@@ -235,7 +235,7 @@ public class DatabaseConnector {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM tags");
             ResultSet result = statement.executeQuery();
             while (result.next()) {
-                lista.add(new Tagovi(result.getInt(1),result.getString(2),""));
+                lista.add(new Tagovi(0-result.getInt(1),result.getString(2),""));
                 statement = connection.prepareStatement("SELECT * FROM podtags where idkategorije=?");
                 statement.setInt(1, result.getInt(1));
                 ResultSet res = statement.executeQuery();
