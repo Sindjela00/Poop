@@ -11160,3 +11160,9 @@ img {
 #oglas-link:hover {
     color: white;
 }
+
+.dugme {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
