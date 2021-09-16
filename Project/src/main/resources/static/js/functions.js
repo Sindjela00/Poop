@@ -277,20 +277,55 @@ function profile() {
         });
 }
 
+function profile() {
+    json = $.getJSON("http://localhost:8080/profile", function() {
+            console.log("zavrsio");
+        })
+        .done(function(data) {
+            if (data[0].error != "greska") {
+                document.getElementById("profilime").innerHTML = data[0].error;
+            }
+            window.location.replace("http://localhost:8080/signout")
+        });
+}
+
+
 function popuniProfil() {
     var url_string = window.location.href;
     var url = new URL(url_string);
     var id = url.searchParams.get("user");
     var userid;
+    var telefoni;
+    var txt;
+
     if (id != null) {
         userid = "?user=" + id;
     }
+
     console.log("zavrsio");
     json = $.getJSON("http://localhost:8080/profile" + userid, function() {})
-        .done(function(data) {
-            console.log(data);
-            if (data != null) {
-                document.getElementsByName("ime")[0].value = data.ime;
+    .done(function(data) {
+        console.log(data);
+        if (data != null) {
+            document.getElementById("profil-korisnicko-ime").innerHTML = data.username;
+            document.getElementsByName("ime")[0].value = data.ime;
+            document.getElementsByName("grad")[0].value = data.mesto;
+            document.getElementsByName("email")[0].value = data.email;
+        }
+    });
+
+    json = $.getJSON("http://localhost:8080/telefon" + userid , function() {
+        console.log("zavrsio");
+    })
+    .done(function(dataT) {
+        if (dataT[0].error != "greska") {
+            telefoni = document.getElementById("telefoni");
+            for (i = 1; i < dataT.length; i++) {
+                telefon = data[0].i;
+                txt += '<div class="form-group"> <label class="form-control-label">Telefon</label> <input type="text" id="profil-telefon'+i+'" name="telefon'+i+'" value="'+telefon+'" class="form-control"> </div>';
             }
-        });
+        }
+    });
+
+    telefoni.innerHTML = txt;
 }
