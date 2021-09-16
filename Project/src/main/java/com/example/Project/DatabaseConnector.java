@@ -228,12 +228,20 @@ public class DatabaseConnector {
         return lista;
     }
 
-    public List<errorCode> Daj_tagove() {
-        List<errorCode> lista = new ArrayList<errorCode>();
+    public List<Tagovi> Daj_tagove() {
+        List<Tagovi > lista = new ArrayList<Tagovi>();
+        lista.add(new Tagovi(0,"Sve",""));
         try {
-            ResultSet result = statement.executeQuery("SELECT * FROM tags");
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM tags");
+            ResultSet result = statement.executeQuery();
             while (result.next()) {
-                lista.add(new errorCode(result.getString(1)));
+                lista.add(new Tagovi(result.getInt(1),result.getString(2),""));
+                statement = connection.prepareStatement("SELECT * FROM podtags where idkategorije=?");
+                statement.setInt(1, result.getInt(1));
+                ResultSet res = statement.executeQuery();
+                while(res.next()){
+                    lista.add(new Tagovi(res.getInt(1),result.getString(2),res.getString(3)));
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -645,18 +653,18 @@ public class DatabaseConnector {
         PreparedStatement statement;
         List<Korisnik> korisnik = new ArrayList<Korisnik>();
         try {
-            statement = connection.prepareStatement("SELECT idOglas FROM oglas where idcoveka=?");
+            statement = connection.prepareStatement("SELECT idcovek,opis FROM prijave where idoglas=?");
             statement.setInt(1, id);
 
             ResultSet result = statement.executeQuery();
             while(result.next()){
-                statement = connection.prepareStatement("Select * from sveooglasu where idoglas=?");
+                statement = connection.prepareStatement("Select * from sveokorisniku where idkorisnik=?");
                 statement.setInt(1, result.getInt(1));
                 ResultSet res = statement.executeQuery();
                 if(res.next()){
 
                     korisnik.add(new Korisnik(res.getInt(1), res.getString(2), res.getString(4), res.getString(3), "",
-                    result.getString(3), res.getString(7), res.getInt(8), res.getInt(9), res.getInt(10),
+                    result.getString(2), res.getString(7), res.getInt(8), res.getInt(9), res.getInt(10),
                     res.getInt(11), res.getInt(12)));
                 }
             }
@@ -666,8 +674,21 @@ public class DatabaseConnector {
             e.printStackTrace();
         }
         return null;
-
-
-
+    }
+    public boolean jelovomoje(Integer idcoveka ,Integer idoglasa){
+        PreparedStatement statement;
+        try {
+            statement = connection.prepareStatement("SELECT * FROM oglasi where idoglas=? and idcoveka=?");
+            statement.setInt(1, idoglasa);
+            statement.setInt(1, idcoveka);
+            ResultSet result = statement.executeQuery();
+            if(result.next())
+                return true;
+            return false;
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return false;
     }
 }

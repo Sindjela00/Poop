@@ -209,12 +209,8 @@ public class ProjectController {
     }
 
     @GetMapping("/tags")
-    public @ResponseBody List<errorCode> tagovi(HttpServletRequest req, HttpServletResponse res){
-        List<errorCode> lista = db.Daj_tagove();
-        if(lista.isEmpty()){
-            lista.add(new errorCode("Nema tagova"));
-        }
-        return lista;
+    public @ResponseBody List<Tagovi> tagovi(HttpServletRequest req, HttpServletResponse res){
+        return  db.Daj_tagove();
     }
     @PostMapping("/prijavi")
     public @ResponseBody String prijavise(@RequestParam(required = false) Integer oglas, @RequestBody String body,HttpServletRequest req, HttpServletResponse res){
@@ -258,7 +254,7 @@ public class ProjectController {
         public String oglas(HttpServletRequest req, HttpServletResponse res){
             return "stranicaOglasa";
         }
-        
+
     @GetMapping("/sveooglasu")
     public @ResponseBody Oglas oglasu(@RequestParam Integer id,HttpServletRequest req, HttpServletResponse res){
         Oglas oglas = db.Daj_Oglas(id);
@@ -299,6 +295,15 @@ public class ProjectController {
         }
         return null;
     }
-
+    @GetMapping("/prijavljeni")
+    public @ResponseBody List<Korisnik> prijavljeni(@RequestParam Integer id,HttpServletRequest req, HttpServletResponse res){
+        Cookie cookie = CookieManager.getCookie(req);
+        if(cookie!=null){
+            if(db.jelovomoje(db.dajId(CookieManager.getContent(cookie)), id)){
+                return db.prijavljeni(id);
+            }
+        }
+        return null;
+    }
 }
 
