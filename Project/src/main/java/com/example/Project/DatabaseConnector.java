@@ -101,6 +101,7 @@ public class DatabaseConnector {
             statement.setString(1, ime);
             ResultSet result = statement.executeQuery();
             if (result.next()) {
+                System.out.println(result.getInt(1));
                 return result.getInt(1);
             }
         } catch (SQLException e) {
