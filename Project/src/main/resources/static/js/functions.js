@@ -276,3 +276,21 @@ function profile() {
             window.location.replace("http://localhost:8080/signout")
         });
 }
+
+function popuniProfil() {
+    var url_string = window.location.href;
+    var url = new URL(url_string);
+    var id = url.searchParams.get("user");
+    var userid;
+    if (id != null) {
+        userid = "?user=" + id;
+    }
+    console.log("zavrsio");
+    json = $.getJSON("http://localhost:8080/profile" + userid, function() {})
+        .done(function(data) {
+            console.log(data);
+            if (data != null) {
+                document.getElementsByName("ime")[0].value = data.ime;
+            }
+        });
+}

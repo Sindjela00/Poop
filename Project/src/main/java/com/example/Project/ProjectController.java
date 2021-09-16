@@ -260,6 +260,10 @@ public class ProjectController {
         public String oglas(HttpServletRequest req, HttpServletResponse res){
             return "stranicaOglasa";
         }
-    
+        @GetMapping("/sveooglasu")
+        public @ResponseBody Oglas oglasu(@RequestParam Integer id,HttpServletRequest req, HttpServletResponse res){
+            Oglas oglas = db.Daj_Oglas(id);
+            return oglas;
+        }
 }
 
