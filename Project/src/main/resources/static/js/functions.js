@@ -218,7 +218,7 @@ function Dajgradove() {
                 select += "<option value='" + data[i].id + "'>" + data[i].naziv + "</option>";
             }
             select += "";
-            document.getElementById("city-register").innerHTML = select;
+            document.getElementById("profil-grad").innerHTML = select;
         });
 }
 
@@ -289,6 +289,15 @@ function profile() {
         });
 }
 
+function selectCity(grad) {
+    select = document.getElementById("profil-grad");
+    options = select.getElementsByTagName("option");
+    for (i = 0; i < options.length; i++){
+        if(options[i].childNodes[0].nodeValue == grad){
+            select.selectedIndex = i;
+        }
+    }
+}
 
 function popuniProfil() {
     var url_string = window.location.href;
@@ -309,8 +318,9 @@ function popuniProfil() {
             if (data != null) {
                 document.getElementById("profil-korisnicko-ime").innerHTML = data.username;
                 document.getElementsByName("ime")[0].value = data.ime;
-                document.getElementsByName("grad")[0].value = data.mesto;
+                selectCity(data.mesto);
                 document.getElementsByName("email")[0].value = data.email;
+                document.getElementsByName("opis")[0].value = data.opis;
             }
         });
 
@@ -318,15 +328,20 @@ function popuniProfil() {
             console.log("zavrsio");
         })
         .done(function(dataT) {
-            if (dataT != null) {
-                telefoni = document.getElementById("telefoni");
-                txt = "";
-                for (i = 0; i < dataT.length; i++) {
-                    telefon = dataT[i].error;
-                    txt += '<div class="form-group"> <label class="form-control-label">Telefon</label> <input type="text" id="profil-telefon' + i + '" name="telefon' + i + '" value="' + telefon + '" class="form-control"> </div>';
-                }
-                telefoni.innerHTML = txt;
+        if (dataT != null) {
+            telefoni = document.getElementById("telefoni");
+            txt = "";
+            for (i = 0; i < dataT.length; i++) {
+                telefon = dataT[i].error;
+                txt += '<div class="form-group"> <label class="form-control-label">Telefon</label> <input type="text" id="profil-telefon' + i + '" name="telefon' + i + '" value="' + telefon + '" class="form-control"> </div>';
             }
-        });
+        }
+        else {
+            txt = '<div class="form-group"> <label class="form-control-label">Telefon</label> <input type="text" id="profil-telefon" name="telefon" value="" class="form-control"> </div>';
+        }
+        telefoni.innerHTML = txt;
+    });
+
+
 
 }
