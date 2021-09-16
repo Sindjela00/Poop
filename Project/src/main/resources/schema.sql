@@ -435,7 +435,8 @@ SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
-﻿/*napravi oko 30ak gradova,10ak korisnika i 10ak oglasa,jedan poslodavac moze da ima vise oglasa*/
+
+
 INSERT INTO MESTO(ime) values('Beograd');
 INSERT INTO MESTO(ime) values('Novi Sad');
 INSERT INTO MESTO(ime) values('Nis');

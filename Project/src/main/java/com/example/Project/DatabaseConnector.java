@@ -640,4 +640,34 @@ public class DatabaseConnector {
         }
         return null;
     }
+
+    public List<Korisnik> prijavljeni(Integer id){
+        PreparedStatement statement;
+        List<Korisnik> korisnik = new ArrayList<Korisnik>();
+        try {
+            statement = connection.prepareStatement("SELECT idOglas FROM oglas where idcoveka=?");
+            statement.setInt(1, id);
+
+            ResultSet result = statement.executeQuery();
+            while(result.next()){
+                statement = connection.prepareStatement("Select * from sveooglasu where idoglas=?");
+                statement.setInt(1, result.getInt(1));
+                ResultSet res = statement.executeQuery();
+                if(res.next()){
+
+                    korisnik.add(new Korisnik(res.getInt(1), res.getString(2), res.getString(4), res.getString(3), "",
+                    result.getString(3), res.getString(7), res.getInt(8), res.getInt(9), res.getInt(10),
+                    res.getInt(11), res.getInt(12)));
+                }
+            }
+            return korisnik;
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return null;
+
+
+
+    }
 }
