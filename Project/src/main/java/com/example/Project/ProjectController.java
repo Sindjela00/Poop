@@ -33,7 +33,7 @@ public class ProjectController {
     }
 
     @GetMapping("/oglasi")
-    public String oglasi(HttpServletRequest req, HttpServletResponse res, @RequestParam(required = false) String poslodavac,@RequestParam(required = false) String mesto,@RequestParam(required = false) String radno_vreme){
+    public String oglasi(HttpServletRequest req, HttpServletResponse res){
         Cookie cookie;
         if ((cookie = CookieManager.getCookie(req)) != null) {
             if (db.nadjiUser("username", CookieManager.getContent(cookie)))
@@ -313,6 +313,10 @@ public class ProjectController {
             return new errorCode(covek.opis);
         }
         return null;
+    }
+    @GetMapping("/poslodavcii")
+    public @ResponseBody List<Korisnik> poslodavcii(HttpServletRequest req, HttpServletResponse res){
+        return db.Daj_Poslodavce();
     }
 }
 

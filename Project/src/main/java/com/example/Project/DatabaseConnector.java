@@ -431,7 +431,7 @@ public class DatabaseConnector {
             statement.setInt(1, idoglasa);
             ResultSet result = statement.executeQuery();
             while (result.next()) {
-                PreparedStatement stm = connection.prepareStatement("Select * from sveookorisniku where idkorisnik=?");
+                PreparedStatement stm = connection.prepareStatement("Select * from sveokorisniku where idkorisnik=?");
                 stm.setInt(result.getInt(1), 1);
                 ResultSet res = stm.executeQuery();
                 while (res.next()) {
@@ -446,6 +446,29 @@ public class DatabaseConnector {
         }
         return lista;
     }
+    public List<Korisnik> Daj_Poslodavce() {
+        List<Korisnik> lista = new ArrayList<Korisnik>();
+        PreparedStatement statement;
+        try {
+            statement = connection.prepareStatement("Select * from Korisnik where poslodavac=1");
+            ResultSet result = statement.executeQuery();
+            while (result.next()) {
+                PreparedStatement stm = connection.prepareStatement("Select * from sveokorisniku where idkorisnik=?");
+                stm.setInt(1, result.getInt(1));
+                ResultSet res = stm.executeQuery();
+                while (res.next()) {
+                    lista.add(new Korisnik(res.getInt(1), res.getString(2), res.getString(4), res.getString(3), "",
+                            result.getString(3), res.getString(7), res.getInt(8), res.getInt(9), res.getInt(10),
+                            res.getInt(11), res.getInt(12)));
+                }
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return lista;
+    }
+    
 
     public String dajMail(String tip, String ime) {
         try {
@@ -694,7 +717,7 @@ public class DatabaseConnector {
         PreparedStatement statement;
         List<Korisnik> korisnik = new ArrayList<Korisnik>();
         try {
-            statement = connection.prepareStatement("SELECT idcovek,opis FROM prijave where idoglas=?");
+            statement = connection.prepareStatement("SELECT idcovek,cv FROM prijave where idoglas=?");
             statement.setInt(1, id);
 
             ResultSet result = statement.executeQuery();
@@ -720,9 +743,9 @@ public class DatabaseConnector {
     public boolean jelovomoje(Integer idcoveka, Integer idoglasa) {
         PreparedStatement statement;
         try {
-            statement = connection.prepareStatement("SELECT * FROM oglasi where idoglas=? and idcoveka=?");
+            statement = connection.prepareStatement("SELECT * FROM oglas where idoglas=? and idcoveka=?");
             statement.setInt(1, idoglasa);
-            statement.setInt(1, idcoveka);
+            statement.setInt(2, idcoveka);
             ResultSet result = statement.executeQuery();
             if (result.next())
                 return true;
