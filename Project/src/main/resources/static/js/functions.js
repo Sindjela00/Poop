@@ -218,7 +218,7 @@ function Dajgradove() {
                 select += "<option value='" + data[i].id + "'>" + data[i].naziv + "</option>";
             }
             select += "";
-            document.getElementById("profil-grad").innerHTML = select;
+            document.getElementById("city-register").innerHTML += select;
         });
 }
 
@@ -264,10 +264,10 @@ function oglasi() {
 }
 
 function selectCity(grad) {
-    select = document.getElementById("profil-grad");
+    select = document.getElementById("city-register");
     options = select.getElementsByTagName("option");
-    for (i = 0; i < options.length; i++){
-        if(options[i].childNodes[0].nodeValue == grad){
+    for (i = 0; i < options.length; i++) {
+        if (options[i].childNodes[0].nodeValue == grad) {
             select.selectedIndex = i;
         }
     }
@@ -277,7 +277,7 @@ function popuniProfil() {
     var url_string = window.location.href;
     var url = new URL(url_string);
     var id = url.searchParams.get("user");
-    var userid;
+    var userid = "";
     var telefoni;
     var txt;
 
@@ -296,9 +296,9 @@ function popuniProfil() {
                 document.getElementsByName("email")[0].value = data.email;
                 document.getElementsByName("opis")[0].value = data.opis;
                 document.getElementsByName("lozinka1")[0].value = data.password;
-                
+
                 lozinke = document.getElementById("sakriveno");
-                if(data.password == "" || data.password == null) {
+                if (data.password == "" || data.password == null) {
                     lozinke.style.display = 'none';
                 }
             }
@@ -308,22 +308,21 @@ function popuniProfil() {
             console.log("zavrsio");
         })
         .done(function(dataT) {
-        if (dataT != null) {
-            telefoni = document.getElementById("telefoni");
-            txt = "";
-            for (i = 0; i < dataT.length; i++) {
-                telefon = dataT[i].error;
-                txt += '<div class="form-group"> <label class="form-control-label">Telefon</label> <input type="text" id="profil-telefon' + i + '" name="telefon' + i + '" value="' + telefon + '" class="form-control"> </div>';
+            if (dataT != null) {
+                telefoni = document.getElementById("telefoni");
+                txt = "";
+                for (i = 0; i < dataT.length; i++) {
+                    telefon = dataT[i].error;
+                    txt += '<div class="form-group"> <label class="form-control-label">Telefon</label> <input type="text" id="profil-telefon' + i + '" name="telefon' + i + '" value="' + telefon + '" class="form-control"> </div>';
+                }
+            } else {
+                txt = '<div class="form-group"> <label class="form-control-label">Telefon</label> <input type="text" id="profil-telefon" name="telefon" value="" class="form-control"> </div>';
             }
-        }
-        else {
-            txt = '<div class="form-group"> <label class="form-control-label">Telefon</label> <input type="text" id="profil-telefon" name="telefon" value="" class="form-control"> </div>';
-        }
-        telefoni.innerHTML = txt;
-    });
+            telefoni.innerHTML = txt;
+        });
 }
 
-function Sacuvaj(){
+function Sacuvaj() {
     username = document.getElementById("profil-korisnicko-ime").value;
     ime = document.getElementsByName("ime")[0].value;
     grad = document.getElementById("profil-grad").value;
@@ -340,5 +339,39 @@ function Sacuvaj(){
 function dodajOglase() {
     txt = "";
     lista = document.getElementById("lista");
-    
+
+}
+
+function Dajtagove() {
+    json = $.getJSON("http://localhost:8080/tags", function() {
+            console.log("zavrsio");
+        })
+        .done(function(data) {
+            var select = "";
+            for (i = 0; i < data.length; i++) {
+                if (data[i].podkategorija == "") {
+                    select += "<option value='" + data[i].id + "'>---- " + data[i].kategorija + " ----</option>";
+                } else {
+                    select += "<option value='" + data[i].id + "'>" + data[i].podkategorija + "</option>";
+                }
+            }
+            select += "";
+            document.getElementById("tagovi").innerHTML = select;
+        });
+}
+
+function ucitajOglase() {
+    selectgrad = document.getElementById("city-register").selectedIndex;
+    selecttag = document.getElementById("tagovi").value;
+    console.log(selectgrad);
+    console.log(selecttag);
+    json = $.getJSON("http://localhost:8080/potrazi?tag=" + selecttag + "&mesto=" + selectgrad, function() {
+            console.log("zavrsio");
+        })
+        .done(function(data) {
+            var select = "";
+            for (i = 0; i < data.length; i++) {
+                /*ovde da se napravi da tabela sa oglasima u data[i] su podaci o oglasu*/
+            }
+        });
 }

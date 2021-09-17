@@ -43,15 +43,12 @@ public class ProjectController {
     }
 
     @GetMapping("/potrazi")
-    public @ResponseBody List<Oglas> potrazi(@RequestParam(required = false) Integer id,@RequestParam(required = false) String naslov,@RequestParam(required = false) String poslodavac,@RequestParam(required = false) String mesto,@RequestParam(required = false) Boolean vrsta){
-        List<Oglas> oglasi = db.Daj_Oglase(id,naslov,poslodavac,mesto,vrsta);
+    public @ResponseBody List<Oglas> potrazi(@RequestParam Integer tag, @RequestParam Integer mesto){
+        List<Oglas> oglasi = db.Daj_Oglase(tag,mesto);
         if(!oglasi.isEmpty()){
-            System.out.println("if");
             return oglasi;
         }
-        System.out.println("prosao");
-        oglasi.add(new Oglas(-1, null, null, false, null, null, null, null, null));
-        return oglasi; 
+        return null;
     }
     
 
@@ -164,6 +161,7 @@ public class ProjectController {
             return null;
         if (cookie != null && user == null){
             Korisnik k =  db.Daj_Korisnika(db.dajId(CookieManager.getContent(cookie)));
+            System.out.println(k.ime);
             return k;
         }
         if(cookie!=null){
@@ -302,6 +300,17 @@ public class ProjectController {
             if(db.jelovomoje(db.dajId(CookieManager.getContent(cookie)), id)){
                 return db.prijavljeni(id);
             }
+        }
+        return null;
+    }
+    @GetMapping("/cv")
+    public @ResponseBody errorCode cv(HttpServletRequest req, HttpServletResponse res){
+        Cookie cookie = CookieManager.getCookie(req);
+        if(cookie!=null){
+            Korisnik covek = db.Daj_Korisnika(db.dajId(CookieManager.getContent(cookie)));
+            if(covek.opis== null || covek.opis == "")
+                return new errorCode("");
+            return new errorCode(covek.opis);
         }
         return null;
     }
