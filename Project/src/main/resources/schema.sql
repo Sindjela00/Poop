@@ -510,3 +510,6 @@ insert into telefoni values(13, '0691234567');
 insert into telefoni values(14, '0691324567');
 insert into telefoni values(15, '0693214567');
 insert into telefoni values(16, '0691234765');
+
+Create USER 'MyLogin'@'localhost' identified by '123123';
+Grant ALL privileges on baza .* to 'MyLogin'@'localhost';
