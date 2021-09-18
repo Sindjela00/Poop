@@ -233,17 +233,27 @@ public class ProjectController {
     }
     
     @PostMapping("/like")
-    public @ResponseBody String lajkuj(@RequestParam(required = false) Integer oglas, @RequestBody String body,HttpServletRequest req, HttpServletResponse res) {
+    public  String lajkuj(@RequestParam Integer id, @RequestParam String lajk,HttpServletRequest req, HttpServletResponse res) {
         if(CookieManager.getCookie(req)!=null){
-            if(db.lajkuj(db.dajId(CookieManager.getContent(CookieManager.getCookie(req))), oglas, body))
-            return "OK";
+            db.lajkuj(db.dajId(CookieManager.getContent(CookieManager.getCookie(req))), id, lajk);
         }
-        return "false";
+        return "/oglas?id="+id;
     }
-    @PostMapping("/oceni")
-    public @ResponseBody String oceni(@RequestParam(required = false) Integer covek, @RequestBody String body,HttpServletRequest req, HttpServletResponse res){
+
+    @GetMapping("/lajkovao")
+    public @ResponseBody String lajkovao(@RequestParam Integer id,HttpServletRequest req, HttpServletResponse res){
         if(CookieManager.getCookie(req)!=null){
-            if(db.lajkuj(db.dajId(CookieManager.getContent(CookieManager.getCookie(req))), covek, body))
+            return db.proverilajk(db.dajId(CookieManager.getContent(CookieManager.getCookie(req))), id);
+        }
+        return "nista";
+    }
+    
+
+
+    @GetMapping("/oceni")
+    public @ResponseBody String oceni(@RequestParam Integer id,@RequestParam String lajk,HttpServletRequest req, HttpServletResponse res){
+        if(CookieManager.getCookie(req)!=null){
+            if(db.lajkuj(db.dajId(CookieManager.getContent(CookieManager.getCookie(req))), id, lajk))
             return "OK";
         }
         return "false";
