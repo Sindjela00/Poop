@@ -662,7 +662,7 @@ function otvoriProfil(id) {
 
 function mojiOglasi() {
     field = document.getElementById("profile-oglasi");
-    sakrij = false;
+    var sakrij;
     txt = "";
     string = "";
     url_string = window.location.href;
