@@ -474,7 +474,7 @@ function ucitajdetaljno() {
                 "<h3 id='imgOglasa' style='text-align: center;'> <span>Naziv oglasa: " + naslov + "</span></h3>" +
                 "<br>" +
                 "<div id='oglasRowLeft' style='float : left; width : 50%; margin-bottom : 30px;'>" +
-                "<a href='https://localhost:8080/covek?id='" + ads.id + ">" +
+                "<a href='http://localhost:8080/covek?id=" + ads.id + "'>" +
                 "<h5 id='poslodavac' style='text-decoration: none;'><i class='fas fa-building'></i><span>Poslodavac: " + poslodavac + "</span></h5></a><br>" +
                 "<p id='Lokacija'> <span><i class='fas fa-map-marker-alt'></i> Lokacija: " + grad + " </p></span>" +
                 "<p id='radnoVreme'><span><i class='fas fa-clock'></i> Radno vreme: " + vreme + "</p>" +
