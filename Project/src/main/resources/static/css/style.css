@@ -11272,13 +11272,15 @@
                 color : #1abc9c;
                 position : relative;
                 float : left;
+                font-size : 60px;
+                line-height: 0.6em;
                 border : 2px solid #1abc9c;
                 border-radius : 5px;
-                padding : 0px 10px 0px 10px;
+                padding : 0px 10px 10px 10px;
             }
             #novOglasBack a {
                 text-decoration: none;
             }
             #novOglasTitle {
-                width : 100px;
+                margin-right : 70px;
             }
