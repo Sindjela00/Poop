@@ -508,3 +508,8 @@ function filtrirajOglase() {
     var novurl = "http://localhost:8080/oglasi?tag=" + selecttag + "&mesto=" + selectgrad;
     window.location.replace(novurl)
 }
+
+function usmeri(id) {
+    var novurl = "http://localhost:8080/oglasi?tag=" + id + "&mesto=0";
+    window.location.replace(novurl)
+}
