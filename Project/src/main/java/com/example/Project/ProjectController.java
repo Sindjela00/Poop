@@ -328,7 +328,12 @@ public class ProjectController {
     }
 
     @GetMapping("/obrisioglas")
-    public String getMethodName(@RequestParam Integer id) {
+    public String getMethodName(@RequestParam Integer id,HttpServletRequest req, HttpServletResponse res) {
+        Cookie cookie = CookieManager.getCookie(req);
+        if(cookie != null && db.proveriCoveka(CookieManager.getContent(cookie))){
+            Prijavljen prijava = db.logovan(CookieManager.getContent(cookie));
+        }
+        
         db.IzbrisiOglas(id);
         return "redirect:/";
     }
