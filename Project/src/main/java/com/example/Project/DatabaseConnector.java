@@ -264,18 +264,18 @@ public class DatabaseConnector {
         try {
             if (tagovi < 0) {
                 statement = connection.prepareStatement("Select id from podtags where idkategorije=?");
-                statement.setInt(0 - tagovi, 1);
+                statement.setInt(1, 0 - tagovi);
                 ResultSet result = statement.executeQuery();
                 while (result.next()) {
                     statement = connection.prepareStatement("Select idoglasa from tagovi where idtaga=?");
-                    statement.setInt(result.getInt(1), 1);
+                    statement.setInt(1, result.getInt(1));
                     ResultSet res = statement.executeQuery();
                     while (res.next()) {
                         if (mesto != 0) {
                             statement = connection
                                     .prepareStatement("Select * from oglas where idoglasa=? and mesto=?");
-                            statement.setInt(result.getInt(1), 1);
-                            statement.setInt(mesto, 2);
+                            statement.setInt(1, result.getInt(1));
+                            statement.setInt(2, mesto);
                             ResultSet r = statement.executeQuery();
                             if (r.next())
                                 lista.add(Daj_Oglas(res.getInt(1)));
@@ -285,13 +285,13 @@ public class DatabaseConnector {
                 }
             } else if (tagovi != 0) {
                 statement = connection.prepareStatement("Select idoglasa from tagovi where idtaga=?");
-                statement.setInt(tagovi, 1);
+                statement.setInt(1, tagovi);
                 ResultSet res = statement.executeQuery();
                 while (res.next()) {
                     if (mesto != 0) {
                         statement = connection.prepareStatement("Select * from oglas where idoglasa=? and mesto=?");
-                        statement.setInt(res.getInt(1), 1);
-                        statement.setInt(mesto, 2);
+                        statement.setInt(1, res.getInt(1));
+                        statement.setInt(2, mesto);
                         ResultSet r = statement.executeQuery();
                         if (r.next())
                             lista.add(Daj_Oglas(res.getInt(1)));
@@ -301,7 +301,7 @@ public class DatabaseConnector {
             } else {
                 if (mesto != 0) {
                     statement = connection.prepareStatement("Select * from oglas where  mesto=?");
-                    statement.setInt(mesto, 1);
+                    statement.setInt(1, mesto);
                     ResultSet r = statement.executeQuery();
                 
                     while (r.next())

@@ -332,9 +332,14 @@ public class ProjectController {
         Cookie cookie = CookieManager.getCookie(req);
         if(cookie != null && db.proveriCoveka(CookieManager.getContent(cookie))){
             Prijavljen prijava = db.logovan(CookieManager.getContent(cookie));
+            if(prijava.admin){
+                db.IzbrisiOglas(id);
+            }
+            else if(prijava.poslodavac){
+                if(db.jelovomoje(db.dajId(CookieManager.getContent(cookie)), id))
+                    db.IzbrisiOglas(id);
+            }
         }
-        
-        db.IzbrisiOglas(id);
         return "redirect:/";
     }
     
