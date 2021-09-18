@@ -539,7 +539,22 @@ public class DatabaseConnector {
         }
         return false;
     }
+    public Integer dajid(Integer idoglasa){
+        PreparedStatement statement;
 
+        try {
+            statement = connection.prepareStatement("select idcoveka from oglas where idoglas=?");
+            statement.setInt(1, idoglasa);
+            ResultSet result = statement.executeQuery();
+            if(result.next()){
+                return result.getInt(1);
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     public boolean proverilajk(Integer idcoveka, Integer idoglasa) {
         PreparedStatement statement;
@@ -831,9 +846,38 @@ public class DatabaseConnector {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
-
         return null;
+    }
+    public boolean proveriposlodavac(Integer id){
+        PreparedStatement statement;
+        try {
+            statement = connection.prepareStatement("SELECT poslodavac FROM korisnik where idkorisnik=?");
+            statement.setInt(1, id);
+            ResultSet result = statement.executeQuery();
+            if (result.next())
+            if(result.getBoolean(1))
+                return true;
+            return false;
+            } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            return false;
+    }
+    public String dajUsername(Integer id){
+        PreparedStatement statement;
+        try {
+            statement = connection.prepareStatement("SELECT username FROM korisnik where idkorisnik=?");
+            statement.setInt(1, id);
+            ResultSet result = statement.executeQuery();
+            if (result.next())
+            
+            return result.getString(1);
+            } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            return null;
     }
 
 

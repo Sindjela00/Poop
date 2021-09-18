@@ -146,12 +146,25 @@ public class ProjectController {
     }
 
     @GetMapping("/profil")
-    public String Profil(@RequestParam(required = false) String user, HttpServletRequest req,
+    public String Profil(@RequestParam(required = false) Integer user, HttpServletRequest req,
             HttpServletResponse res) {
-        if (CookieManager.getCookie(req) == null && user == null)
+            Cookie cookie = CookieManager.getCookie(req);
+        if (cookie == null && user == null)
             return "redirect:/";
-        else
+        else {
+            if(cookie!=null){
+                if(db.dajId(CookieManager.getContent(cookie))== user)
+                return "profil";
+                Prijavljen pr = db.logovan(CookieManager.getContent(cookie));
+                if(pr.admin||pr.poslodavac)
+                return "profil";
+            }
+            Prijavljen pr = db.logovan(db.dajUsername(user));
+            if(pr.poslodavac)
             return "profil";
+        }
+
+        return "redirect:/";
     }
     @GetMapping("/profile")
     public @ResponseBody Korisnik nazivProfila(@RequestParam(required = false) Integer user,HttpServletRequest req, HttpServletResponse res){
@@ -388,7 +401,15 @@ public class ProjectController {
             return "Ok";
         return "Bad";
     }
+    @GetMapping("/covek")
+    public String posaljinacoveka(@RequestParam Integer id, HttpServletRequest req, HttpServletResponse res){
 
+        Integer i = db.dajid(id);
+        if(i != null){
+            return "redirect:/profil?user="+i;
+        }
+        return "redirect:/";
+    }
 }
 
 
