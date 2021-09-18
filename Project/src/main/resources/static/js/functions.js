@@ -368,10 +368,91 @@ function ucitajOglase() {
     json = $.getJSON("http://localhost:8080/potrazi?tag=" + selecttag + "&mesto=" + selectgrad, function() {
             console.log("zavrsio");
         })
-        .done(function(data) {
-            var select = "";
-            for (i = 0; i < data.length; i++) {
-                /*ovde da se napravi da tabela sa oglasima u data[i] su podaci o oglasu*/
+        .done(function(ads) {
+            contentAds = "<ul class='list-group shadow' id='lista'>";
+            for (i = 0; i < ads.length; i++) {
+                naslov = ads[i].naslov;
+                oblast = ads[i].oblast;
+                grad = ads[i].mesto;
+                poslodavac = ads[i].ime;
+                plata = ads[i].plata;
+                telefon = ads[i].telefon;
+                zaposlenje = ads[i].radniOdnos;
+                vreme = ads[i].radnoVreme;
+                opis = ads[i].opis;
+                mail = ads[i].email;
+
+
+                contentAds += "<li class='list-group-item'>" +
+                    "<div class='media align-items-lg-center flex-column flex-lg-row p-3'>" +
+                    "<div class='media-body order-2 order-lg-1'>" +
+                    "<h5 class='mt-0 font-weight-bold mb-2'>" + naslov + "</h5>" +
+                    "<p class='font-italic text-muted mb-0 small'>" + grad + "</p>" +
+                    "<p class='font-italic text-muted mb-0 small'>" + poslodavac + "</p>" +
+                    "<div class='d-flex align-items-center justify-content-between mt-1'>" +
+                    "<h6 class='font-weight-bold my-2'>Opis: </h6>" + /*opis + da se sredi opis*/
+                    "<ul class='list-inline small'>" + /* da se uzbace ove zvezdice i da se stavi slika lajk i broj lajkova i dislajk pa broj disjlakova ads[i].likes*/
+                    "<li class='list-inline-item m-0'><i class='fa fa-star text-success'></i></li>" +
+                    "<li class='list-inline-item m-0'><i class='fa fa-star text-success'></i></li>" +
+                    "<li class='list-inline-item m-0'><i class='fa fa-star text-success'></i></li>" +
+                    "<li class='list-inline-item m-0'><i class='fa fa-star-o text-gray'></i></li>" +
+                    "</ul>" +
+                    "</div>" +
+                    "<button id=dugmeDetalji class='btn btn-outline-primary' style='float: right'> Detaljnije </button>" +
+                    "</div><img src='https://i.imgur.com/KFojDGa.jpg' alt='Generic placeholder image' width='200' class='ml-lg-5 order-1 order-lg-2'>" +
+                    "</div>" +
+                    "</li>"
             }
+            contentAds += "</ul>";
+            document.getElementById("oglasi").innerHTML = contentAds;
+        });
+}
+
+
+
+
+function ucitajdetaljno() {
+    var url_string = window.location.href;
+    var url = new URL(url_string);
+    var id = url.searchParams.get("id");
+
+    json = $.getJSON("http://localhost:8080/sveooglasu?id=" + id, function() {
+            console.log("zavrsio");
+        })
+        .done(function(ads) {
+            naslov = ads.naslov;
+            oblast = ads.oblast;
+            grad = ads.mesto;
+            poslodavac = ads.ime;
+            plata = ads.plata;
+            telefon = ads.telefon;
+            zaposlenje = ads.radniOdnos;
+            vreme = ads.radnoVreme;
+            opis = ads.opis;
+            mail = ads.email;
+            var contentAd = "<div id='osnovniPodaci'>" +
+                "<div id='oglasRowLeft'>" +
+                "<h3 id='imgOglasa' style='text-align: center;'> <span>Naziv oglasa: " + naslov + "</span></h3>" +
+                "<a href='profil.html'>" +
+                "<h5 id='poslodavac' style='text-decoration: none;'><i class='fas fa-building'></i><span>Poslodavac: " + poslodavac + "</span></h5></a><br>" +
+                "<p id='Lokacija'> <span><i class='fas fa-map-marker-alt'></i> Lokacija: " + grad + " </p></span>" +
+                "<p id='radnoVreme'><span><i class='fas fa-clock'></i> Radno vreme: " + vreme + "</p>" +
+                "<span><i class='fas fa-coins'></i> Plata :</span><span id='plata'> " + plata + " </span>" +
+                "</div>" +
+                "</div>" +
+                "<br><br>" +
+                "<div id='opisPoslaDiv'>" +
+                "<h4><span style='text-align: center;'>Opis posla: <br></span></h4>" +
+                "<p id='opisPoslaTekst'>" + opis + "</p>" +
+                "</div>" +
+                "<div class='dugme'>" +
+                "<button type='button' class='btn btn-outline-primary'><a id='oglas-link' href='mailto:jefimija.stamenovic@gmail.com'>Pošalji CV </a></button>" +
+                "</div>"
+            document.getElementById("stranicaOglasa").innerHTML = contentAd;
+
+
+
+
+
         });
 }

@@ -13,9 +13,10 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="/css/style.css" type="text/css">
     <script src="/js/jQuery.js" type="text/javascript"></script>
+    <script src="/js/functions.js" type="text/javascript"></script>
 </head>
 
-<body class="ostaleStrane">
+<body class="ostaleStrane" onload="ucitajdetaljno()">
     <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
         <div class="container">
             <a class="navbar-brand" href="http://localhost:8080/#page-top">Lako do posla</a>
@@ -37,60 +38,37 @@
     <div class="container py-5">
         <div id="stranicaOglasa">
 
-            <div id="osnovniPodaci">
-                <div id="oglasRowLeft">
-                    <h3 id="imgOglasa" style="text-align: center;"> <span>Naziv oglasa<span></h3>
 
-                    <a href="profil.html">
-                        <h5 id="poslodavac" style="text-decoration: none;"><i class="fas fa-building"></i>
-                            <span>Poslodavac<span></h5>
-                    </a>
-                    <br>
-                    <p id="Lokacija"> <span><i class="fas fa-map-marker-alt"></i> Lokacija </p></span>
-                        <p id="radnoVreme"><span><i class="fas fa-clock"></i> Radno vreme </p>
-                            <span><i class="fas fa-coins"></i> Plata : </span>
-                            <span id="plata"> 50000 </span>
-                </div>
-                <div id="oglasRowRight">
-                    <img id="logoFirme" src="https://i.imgur.com/KFojDGa.jpg">
-                </div>
-            </div>
-            <br>
-            <br>
-            <div id="opisPoslaDiv">
-                <h4><span style="text-align: center;">Opis posla: <br></span></h4>
-                <p id="opisPoslaTekst"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.
-                </p>
-            </div>
-            <div class="dugme">
-                <button type="button" class="btn btn-outline-primary"><a id="oglas-link" href="mailto:jefimija.stamenovic@gmail.com">Pošalji CV </a></button>
-            </div>
+        </div>
+        <div id='LikeDislike' style='margin: 5px auto'>
+            <button class=' btn btn-outline-primary ' style='padding: 5px 10px;margin: 0px 5px'><i class='fas fa-thumbs-up '></i> Sviđa mi se</button>
+            <button class=' btn btn-outline-primary ' style='padding: 5px 10px;margin: 0px 5px'><i class='fas fa-thumbs-down '></i>Ne sviđa mi se </button>
         </div>
     </div>
-    <footer class="footer text-center">
-        <div class="container">
-            <div class="row">
+    <footer class="footer text-center ">
+        <div class="container ">
+            <div class="row ">
                 <!-- Footer Location-->
-                <div class="col-lg-4 mb-5 mb-lg-0">
-                    <h4 class="text-uppercase mb-4">Pronađite nas</h4>
-                    <p class="lead mb-0">
+                <div class="col-lg-4 mb-5 mb-lg-0 ">
+                    <h4 class="text-uppercase mb-4 ">Pronađite nas</h4>
+                    <p class="lead mb-0 ">
                         Radoja Domanovića 12
                         <br /> 34000 Kragujevac
                         <br /> Srbija
                     </p>
                 </div>
                 <!-- Footer Social Icons-->
-                <div class="col-lg-4 mb-5 mb-lg-0">
-                    <h4 class="text-uppercase mb-4">Posetite nas na društvenim mrežama</h4>
-                    <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-facebook-f"></i></a>
-                    <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-twitter"></i></a>
-                    <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-instagram"></i></a>
-                    <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-linkedin-in"></i></a>
+                <div class="col-lg-4 mb-5 mb-lg-0 ">
+                    <h4 class="text-uppercase mb-4 ">Posetite nas na društvenim mrežama</h4>
+                    <a class="btn btn-outline-light btn-social mx-1 " href="#! "><i class="fab fa-fw fa-facebook-f "></i></a>
+                    <a class="btn btn-outline-light btn-social mx-1 " href="#! "><i class="fab fa-fw fa-twitter "></i></a>
+                    <a class="btn btn-outline-light btn-social mx-1 " href="#! "><i class="fab fa-fw fa-instagram "></i></a>
+                    <a class="btn btn-outline-light btn-social mx-1 " href="#! "><i class="fab fa-fw fa-linkedin-in "></i></a>
                 </div>
                 <!-- Footer About Text-->
-                <div class="col-lg-4">
-                    <h4 class="text-uppercase mb-4">O nama</h4>
-                    <p class="lead mb-0">
+                <div class="col-lg-4 ">
+                    <h4 class="text-uppercase mb-4 ">O nama</h4>
+                    <p class="lead mb-0 ">
                         Sajt za brzu i jednostavnu pretragu poslova, kao i pronalaženja kandidata za posao.
                     </p>
                 </div>
@@ -98,8 +76,8 @@
         </div>
     </footer>
     <!-- Copyright Section-->
-    <div class="copyright py-4 text-center text-white">
-        <div class="container"><small>Copyright &copy; Lako do posla 2021</small></div>
+    <div class="copyright py-4 text-center text-white ">
+        <div class="container "><small>Copyright &copy; Lako do posla 2021</small></div>
     </div>
 </body>
 

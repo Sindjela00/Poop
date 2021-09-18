@@ -16,7 +16,7 @@
     <script src="/js/functions.js" type="text/javascript"></script>
 </head>
 
-<body class="ostaleStrane" onload="Dajgradove();Dajtagove()">
+<body class="ostaleStrane" onload="Dajgradove();Dajtagove();ucitajOglase();">
     <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
         <div class="container">
             <a class="navbar-brand" href="#page-top">Lako do posla</a>
@@ -45,7 +45,7 @@
                 </div>
                 <div class="col-sm-3">
                     <select class="filter-main" id="tagovi" value="Odaberite oblast rada">
-                            <option>IT sektor</option>
+                        <option value="0">---- Sve ----</option>
                         </select>
                 </div>
                 <div class="col-sm-3">
@@ -67,106 +67,8 @@
         </div>
 
         <div class="row">
-            <div class="col-lg-12 mx-auto">
-                <!-- List group-->
-                <ul class="list-group shadow" id="lista">
-                    <!-- list group item-->
-                    <li class="list-group-item">
-                        <!-- Custom content-->
-                        <div class="media align-items-lg-center flex-column flex-lg-row p-3">
-                            <div class="media-body order-2 order-lg-1">
-                                <h5 class="mt-0 font-weight-bold mb-2">Naziv oglasa</h5>
-                                <p class="font-italic text-muted mb-0 small">Lokacija</p>
-                                <p class="font-italic text-muted mb-0 small">Naziv firme</p>
-                                <div class="d-flex align-items-center justify-content-between mt-1">
-                                    <h6 class="font-weight-bold my-2">Datum isteka: </h6>
-                                    <ul class="list-inline small">
-                                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-                                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-                                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-                                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-                                        <li class="list-inline-item m-0"><i class="fa fa-star-o text-gray"></i></li>
-                                    </ul>
-                                </div>
-                                <button id=dugmeDetalji class=" btn btn-outline-primary" style="float: right"> Detaljnije </button>
-                            </div><img src="https://i.imgur.com/KFojDGa.jpg" alt="Generic placeholder image" width="200" class="ml-lg-5 order-1 order-lg-2">
-                        </div>
-                        <!-- End -->
-                    </li>
-                    <!-- End -->
-                    <!-- list group item-->
-                    <li class="list-group-item">
-                        <!-- Custom content-->
-                        <div class="media align-items-lg-center flex-column flex-lg-row p-3">
-                            <div class="media-body order-2 order-lg-1">
-                                <h5 class="mt-0 font-weight-bold mb-2">Apple iPhone XS (Silver, 64 GB)</h5>
-                                <p class="font-italic text-muted mb-0 small">64 GB ROM | 14.73 cm (5.8 inch) Super Retina HD Display 12MP + 12MP | 7MP Front Camera A12 Bionic Chip Processor</p>
-                                <div class="d-flex align-items-center justify-content-between mt-1">
-                                    <h6 class="font-weight-bold my-2">₹99,900</h6>
-                                    <ul class="list-inline small">
-                                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-                                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-                                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-                                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-                                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-                                    </ul>
-                                </div>
-                                <button id=dugmeDetalji class=" btn btn-outline-primary" style="float: right"> Detaljnije </button>
-                            </div><img src="https://i.imgur.com/KFojDGa.jpg" alt="Generic placeholder image" width="200" class="ml-lg-5 order-1 order-lg-2">
-                        </div>
-                        <!-- End -->
-                    </li>
-                    <!-- End -->
-                    <!-- list group item -->
-                    <li class="list-group-item">
-                        <!-- Custom content-->
-                        <div class="media align-items-lg-center flex-column flex-lg-row p-3">
-                            <div class="media-body order-2 order-lg-1">
-                                <h5 class="mt-0 font-weight-bold mb-2">Apple iPhone XS Max (Gold, 64 GB)</h5>
-                                <p class="font-italic text-muted mb-0 small">64 GB ROM | 16.51 cm (6.5 inch) Super Retina HD Display 12MP + 12MP | 7MP Front Camera A12 Bionic Chip Processor</p>
-                                <div class="d-flex align-items-center justify-content-between mt-1">
-                                    <h6 class="font-weight-bold my-2">₹1,09,900</h6>
-                                    <ul class="list-inline small">
-                                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-                                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-                                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-                                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-                                        <li class="list-inline-item m-0"><i class="fa fa-star-o text-gray"></i></li>
-                                    </ul>
-                                </div>
-                                <button id=dugmeDetalji class=" btn btn-outline-primary" style="float: right"> Detaljnije </button>
+            <div class="col-lg-12 mx-auto" id="oglasi">
 
-                            </div><img src="https://i.imgur.com/KFojDGa.jpg" alt="Generic placeholder image" width="200" class="ml-lg-5 order-1 order-lg-2">
-                        </div>
-                        <!-- End -->
-                    </li>
-                    <!-- End -->
-                    <!-- list group item -->
-                    <li class="list-group-item">
-                        <!-- Custom content-->
-                        <div class="media align-items-lg-center flex-column flex-lg-row p-3">
-                            <div class="media-body order-2 order-lg-1">
-                                <h5 class="mt-0 font-weight-bold mb-2">OnePlus 7 Pro (Almond, 256 GB)</h5>
-                                <p class="font-italic text-muted mb-0 small">Rear Camera|48MP (Primary)+ 8MP (Tele-photo)+16MP (ultrawide)| Front Camera|16 MP POP-UP Camera|8GB RAM|Android pie</p>
-                                <div class="d-flex align-items-center justify-content-between mt-1">
-                                    <h6 class="font-weight-bold my-2">₹ 52,999</h6>
-                                    <ul class="list-inline small">
-                                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-                                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-                                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-                                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-                                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-                                    </ul>
-                                </div>
-                                <button id="dugmeDetalji" class=" btn btn-outline-primary" style="float: right"> Detaljnije </button>
-                            </div>
-                            <img src="https://i.imgur.com/6IUbEME.jpg " alt="Generic placeholder image " width="200 " class="ml-lg-5 order-1 order-lg-2 ">
-                        </div>
-                        <!-- End -->
-                    </li>
-                    <!-- End -->
-                </ul>
-                <!-- End -->
             </div>
         </div>
     </div>
