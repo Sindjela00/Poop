@@ -318,5 +318,15 @@ public class ProjectController {
     public @ResponseBody List<Korisnik> poslodavcii(HttpServletRequest req, HttpServletResponse res){
         return db.Daj_Poslodavce();
     }
+    @GetMapping("/login")
+    public @ResponseBody Prijavljen login(HttpServletRequest req, HttpServletResponse res){
+        Cookie cookie = CookieManager.getCookie(req);
+        if(cookie == null && db.proveriCoveka(CookieManager.getContent(cookie)))
+            return new Prijavljen(false,false,false);
+
+
+        return db.logovan(CookieManager.getContent(cookie));
+    }
+
 }
 

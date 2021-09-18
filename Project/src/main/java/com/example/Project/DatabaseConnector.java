@@ -256,36 +256,6 @@ public class DatabaseConnector {
         return true;
     }
 
-    public List<Oglas> Daj_Oglase(Integer id, String naslov, String poslodavac, String Mesto, Boolean vrsta) {// glavna
-                                                                                                              // funkcija
-                                                                                                              // ima
-                                                                                                              // puno
-                                                                                                              // posla
-        List<Oglas> lista = new ArrayList<Oglas>();
-        try {
-            String query = " where 1=1 ";
-            if (id != null)
-                query += " and id =" + id.toString();
-            if (naslov != null && naslov.isEmpty() == false)
-                if (proveriString(naslov))
-                    query += " and naslov ='" + naslov + "'";
-            if (poslodavac != null && poslodavac.isEmpty() == false)
-                query += " and ime ='" + poslodavac + "'";
-            if (Mesto != null && Mesto.isEmpty() == false)
-                query += " and mesto ='" + Mesto + "'";
-            if (vrsta != null)
-                query += " and tip =" + vrsta;
-            ResultSet result = statement.executeQuery("SELECT * FROM sveooglasu " + query);
-            while (result.next()) {
-                lista.add(new Oglas(result.getInt(1), result.getString(2), result.getString(3), result.getBoolean(4),
-                        result.getInt(5), result.getString(6), result.getString(7), result.getInt(8),
-                        result.getInt(9)));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return lista;
-    }
 
     public List<Oglas> Daj_Oglase(Integer tagovi, Integer mesto) {
         List<Oglas> lista = new ArrayList<Oglas>();
@@ -386,19 +356,18 @@ public class DatabaseConnector {
         return -1;
     }
 
-    public boolean proveriCoveka(String username, Integer id) {
+    public boolean proveriCoveka(String username) {
         PreparedStatement statement;
 
         try {
-            statement = connection.prepareStatement("Select username from korisnik where id=?");
-            statement.setInt(1, id);
+            statement = connection.prepareStatement("Select username from korisnik where username=?");
+            statement.setString(1, username);
             ResultSet result = statement.executeQuery();
             if (result.next()) {
-                if (result.getString(1) == username)
                     return true;
+                }
                 return false;
-            }
-        } catch (SQLException e) {
+            } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
@@ -756,4 +725,20 @@ public class DatabaseConnector {
         }
         return false;
     }
+
+    public Prijavljen logovan(String username){
+        PreparedStatement statement;
+        try {
+            statement = connection.prepareStatement("SELECT poslodavac,admin FROM korisnik where username=?");
+            statement.setString(1, username);
+            ResultSet result = statement.executeQuery();
+            if (result.next())
+                return new Prijavljen(true, result.getBoolean(1), result.getBoolean(2));
+            } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            return new Prijavljen(false,false,false);
+    }
+
 }
