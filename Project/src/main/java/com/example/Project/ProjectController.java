@@ -421,7 +421,10 @@ public class ProjectController {
         return "redirect:/";
     }
     @GetMapping("/poslodavac")
-    public @ResponseBody Prijavljen pr(@RequestParam Integer id,HttpServletRequest req, HttpServletResponse res){
+    public @ResponseBody Prijavljen pr(@RequestParam(required = false) Integer id,HttpServletRequest req, HttpServletResponse res){
+        if(id==null && CookieManager.getCookie(req)!= null){
+            return db.logovan(CookieManager.getContent(CookieManager.getCookie(req)));
+        }
         return db.logovan(db.dajUsername(id));
     }
 }
