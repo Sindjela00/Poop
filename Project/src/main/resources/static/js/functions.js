@@ -483,7 +483,6 @@ function ucitajdetaljno() {
                 "<p id='opisPoslaTekst'>" + opis + "</p>" +
                 "</div>" +
                 "<div class='dugme'>" +
-                "<button type='button' class='btn btn-outline-primary'><a id='oglas-link' href='mailto:jefimija.stamenovic@gmail.com'>Pošalji CV </a></button>" +
                 "</div>"
             document.getElementById("stranicaOglasa").innerHTML = contentAd;
         });
@@ -520,16 +519,15 @@ function srediNavbar() {
     var login = document.getElementById("navLogin");
     var profil = document.getElementById("navProfil");
     json = $.getJSON("http://localhost:8080/login", function() {})
-    .done(function(data) {
-        console.log(data);
-        if (data != null) {
-            if(data.prijavljen) {
-                login.href = "http://localhost:8080/signout";
-                login.innerHTML = "Odjavi se";
+        .done(function(data) {
+            console.log(data);
+            if (data != null) {
+                if (data.prijavljen) {
+                    login.href = "http://localhost:8080/signout";
+                    login.innerHTML = "Odjavi se";
+                } else {
+                    profil.style.display = 'none';
+                }
             }
-            else {
-                profil.style.display = 'none';
-            }
-        }
-    });
+        });
 }
