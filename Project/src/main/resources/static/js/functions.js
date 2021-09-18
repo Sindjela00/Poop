@@ -515,3 +515,21 @@ function usmeri(id) {
     var novurl = "http://localhost:8080/oglasi?tag=" + id + "&mesto=0";
     window.location.replace(novurl)
 }
+
+function srediNavbar() {
+    var login = document.getElementById("navLogin");
+    var profil = document.getElementById("navProfil");
+    json = $.getJSON("http://localhost:8080/login", function() {})
+    .done(function(data) {
+        console.log(data);
+        if (data != null) {
+            if(data.prijavljen) {
+                login.href = "http://localhost:8080/signout";
+                login.innerHTML = "Odjavi se";
+            }
+            else {
+                profil.style.display = 'none';
+            }
+        }
+    });
+}
