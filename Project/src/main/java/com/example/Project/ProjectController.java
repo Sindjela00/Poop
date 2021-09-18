@@ -420,6 +420,10 @@ public class ProjectController {
         }
         return "redirect:/";
     }
+    @GetMapping("/poslodavac")
+    public @ResponseBody Prijavljen pr(@RequestParam Integer id,HttpServletRequest req, HttpServletResponse res){
+        return db.logovan(db.dajUsername(id));
+    }
 }
 
 

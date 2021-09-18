@@ -602,7 +602,13 @@ function promeniLozinku() {
 }
 
 function oglasiPrijave() {
-    json = $.getJSON("http://localhost:8080/login", function() {})
+    var url_string = window.location.href;
+    var url = new URL(url_string);
+    var id = url.searchParams.get("user");
+    if (id != null) {
+        id = "?id=" + id
+    } else id = "";
+    json = $.getJSON("http://localhost:8080/poslodavac" + id, function() {})
         .done(function(data) {
             if (data != null) {
                 if (data.poslodavac) {
@@ -637,11 +643,9 @@ function mojiOglasi() {
     url_string = window.location.href;
     url = new URL(url_string);
     userID = url.searchParams.get("user");
-
-    if(userID == null) {
+    if (userID == null) {
         string = "http://localhost:8080/mojioglasi";
-    }
-    else {
+    } else {
         string = "http://localhost:8080/mojioglasi?user=" + userID
     }
 
@@ -685,7 +689,7 @@ function mojePrijave() {
                         "</a>" +
                         "<p><span><i class='fas fa-map-marker-alt'></i> Lokacija: " + lokacija + "</p></span>" +
                         "<button type='button' onclick='otvoriOglas(" + id + ");' class='btn btn-outline-primary' style='float : left; width : 48%;'>Detaljnije</button>" +
-                        "<button type='button' onclick='otkaziPrijavu("+ id + ");' class='btn btn-outline-primary' style='float : right; width : 48%;'>Otkaži prijavu</button>" +
+                        "<button type='button' onclick='otkaziPrijavu(" + id + ");' class='btn btn-outline-primary' style='float : right; width : 48%;'>Otkaži prijavu</button>" +
                         "</div>";
                 }
                 field.innerHTML = txt;
@@ -697,23 +701,23 @@ function poslodavci() {
     field = document.getElementById("poslodavci-box");
     txt = "<h1 class='dugme'> Lista poslodavaca : </h1>";
     json = $.getJSON("http://localhost:8080/poslodavcii", function() {})
-    .done(function(data) {
-        if (data != null) {
-            for (i = 0; i < data.length; i++) {
-                ime = data[i].ime;
-                lokacija = data[i].mesto;
-                opis = data[i].opis
-                id = data[i].id;
-                txt += 
-                "<div class='poslodavac'>" +
-                    "<span style='float : left;'><h5> Poslodavac : "+ime+"</h5></span>" +
-                    "<span style='float : right;'> <i class='fas fa-map-marker-alt'></i> Lokacija: "+lokacija+"</span>" +
-                    "<p style='clear : both;'> <b> Opis : "+opis+" </b></p>" +
-                    "<br><br>" +
-                    "<button type='button' onclick='otvoriProfil("+id+");' class='dugme btn btn-outline-primary' style='float : left; width : 48%;'>Detaljnije</button>" +
-                "</div>";
+        .done(function(data) {
+            if (data != null) {
+                for (i = 0; i < data.length; i++) {
+                    ime = data[i].ime;
+                    lokacija = data[i].mesto;
+                    opis = data[i].opis
+                    id = data[i].id;
+                    txt +=
+                        "<div class='poslodavac'>" +
+                        "<span style='float : left;'><h5> Poslodavac : " + ime + "</h5></span>" +
+                        "<span style='float : right;'> <i class='fas fa-map-marker-alt'></i> Lokacija: " + lokacija + "</span>" +
+                        "<p style='clear : both;'> <b> Opis : " + opis + " </b></p>" +
+                        "<br><br>" +
+                        "<button type='button' onclick='otvoriProfil(" + id + ");' class='dugme btn btn-outline-primary' style='float : left; width : 48%;'>Detaljnije</button>" +
+                        "</div>";
+                }
+                field.innerHTML = txt;
             }
-            field.innerHTML = txt;
-        }
-    });
+        });
 }
