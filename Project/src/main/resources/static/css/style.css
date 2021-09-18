@@ -11147,6 +11147,7 @@
             }
             
             .dugme {
+                margin : 5px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -11223,6 +11224,39 @@
             .profile-form {
                 margin-top: 10px;
                 text-align: left;
+            }
+
+            #profile-oglasi {
+                position : relative;
+                float : right;
+                margin-top : 130px; 
+				margin-bottom: 20px;
+                margin-left : 5%;
+                width : 65%;
+                background: #2c3e50;
+                box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+                border-radius: 20px;
+            }
+
+            .profile-oglas {
+                position : relative;
+                float : left;
+                margin : 1%;
+                padding : 10px;
+                width : 48%;
+                height : 150px;
+                background-color : white;
+                border : 3px solid #0DB8DE;
+                border-radius : 5px;
+            }
+
+            .profile-oglas a {
+                text-decoration: none;
+                color : #0DB8DE;
+            }
+            
+            .profile-oglas p {
+                color : #0DB8DE;
             }
 			/*NOVI OGLAS*/
 			

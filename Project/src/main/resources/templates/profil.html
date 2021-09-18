@@ -62,17 +62,22 @@
                                 <input type="text" id="profil-opis" name="opis" value="Kratak opis" class="form-control">
                             </div>
                             <div id="sakriveno">
-                                <div class="form-group">
-                                    <label class="form-control-label">Lozinka</label>
-                                    <input type="password" id="profil-lozinka1" name="lozinka1" class="form-control">
+                                <div id="promeniLozinku"class="dugme">
+                                    <button type="button" class="btn btn-outline-primary" onclick="promeniLozinku();">Promeni Lozinku</button>
                                 </div>
-                                <div class="form-group">
-                                    <label class="form-control-label">Nova lozinka</label>
-                                    <input type="password" id="profil-lozinka2" name="lozinka2" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-control-label">Ponovite novu lozinku</label>
-                                    <input type="password" id="profil-lozinka3" name="lozinka3" class="form-control">
+                                <div id="lozinke" style="display : none;">   
+                                    <div class="form-group">
+                                        <label class="form-control-label">Lozinka</label>
+                                        <input type="password" id="profil-lozinka1" name="lozinka1" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-control-label">Nova lozinka</label>
+                                        <input type="password" id="profil-lozinka2" name="lozinka2" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-control-label">Ponovite novu lozinku</label>
+                                        <input type="password" id="profil-lozinka3" name="lozinka3" class="form-control">
+                                    </div>
                                 </div>
                                 <div class="dugme">
                                     <button type="button" class="btn btn-outline-primary">Sačuvaj</button>
@@ -83,7 +88,22 @@
                 </div>
                 <div class="col-lg-3 col-md-2"></div>
             </div>
+            
+            <div id="profile-oglasi">
+                <div class="profile-oglas">
+                    <a href='profil.html' >
+                        <h5>
+                            <i class='fas fa-building'></i> <span> Poslodavac: </span>
+
+                        </h5>
+                    </a>
+                    <p id='Lokacija'><span><i class='fas fa-map-marker-alt'></i> Lokacija: </p></span>
+                    <button type="button" class="btn btn-outline-primary" style="float : left; width : 48%;">Detaljnije</button>
+                    <button type="button" class="btn btn-outline-primary" style="float : right; width : 48%;">Odjavi se</button>
+                </div>
+            </div>
         </div>
+        
     </div>
 
     <div class="space"> </div>

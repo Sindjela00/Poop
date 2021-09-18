@@ -501,19 +501,6 @@ function ucitajdetaljno() {
         });
 
     sakrijOdKorisnika();    
-
-    /*
-    var sakriveno = document.getElementById("sakrijOdKorisnika");
-    json = $.getJSON("http://localhost:8080/login", function() {})
-    .done(function(data) {
-        console.log(data);
-        if (data != null) {
-            if (!data.prijavljen) {
-                sakriveno.style.display = 'none';
-            }
-        }
-    });
-    */
 }
 
 function sakrijOdKorisnika(){
@@ -604,4 +591,12 @@ function dodajcv() {
         .done(function(data) {
             document.getElementById("unesiCV").innerHTML = data.error;
         });
+}
+
+function promeniLozinku(){
+    dugme = document.getElementById("promeniLozinku");
+    lozinke = document.getElementById("lozinke");
+
+    dugme.style.display = 'none';
+    lozinke.style.display = 'block';
 }
