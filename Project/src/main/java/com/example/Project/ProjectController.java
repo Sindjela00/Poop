@@ -343,6 +343,10 @@ public class ProjectController {
         return "redirect:/";
     }
     
+    @GetMapping("/novoglas")
+    public String dodajoglas(HttpServletRequest req, HttpServletResponse res){
+        return "novOglas";
+    }
 
 
 }
