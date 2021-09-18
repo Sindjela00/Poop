@@ -247,7 +247,6 @@ public class ProjectController {
         return ocena.toString();
     }
 
-
     @GetMapping("/oglas")
         public String oglas(HttpServletRequest req, HttpServletResponse res){
             return "stranicaOglasa";
@@ -306,7 +305,7 @@ public class ProjectController {
     @GetMapping("/cv")
     public @ResponseBody errorCode cv(HttpServletRequest req, HttpServletResponse res){
         Cookie cookie = CookieManager.getCookie(req);
-        if(cookie!=null){
+        if(cookie!=null && db.proveriCoveka(CookieManager.getContent(cookie))){
             Korisnik covek = db.Daj_Korisnika(db.dajId(CookieManager.getContent(cookie)));
             if(covek.opis== null || covek.opis == "")
                 return new errorCode("");
@@ -321,12 +320,20 @@ public class ProjectController {
     @GetMapping("/login")
     public @ResponseBody Prijavljen login(HttpServletRequest req, HttpServletResponse res){
         Cookie cookie = CookieManager.getCookie(req);
-        if(cookie == null && db.proveriCoveka(CookieManager.getContent(cookie)))
+        if(cookie == null || !db.proveriCoveka(CookieManager.getContent(cookie)))
             return new Prijavljen(false,false,false);
 
 
         return db.logovan(CookieManager.getContent(cookie));
     }
+
+    @GetMapping("/obrisioglas")
+    public String getMethodName(@RequestParam Integer id) {
+        db.IzbrisiOglas(id);
+        return "redirect:/";
+    }
+    
+
 
 }
 

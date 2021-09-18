@@ -741,4 +741,37 @@ public class DatabaseConnector {
             return new Prijavljen(false,false,false);
     }
 
+    public boolean IzbrisiOglas(Integer id){
+        PreparedStatement statement;
+        
+        try {
+            statement= connection.prepareStatement("Delete from prijave where idoglas=?");
+            statement.setInt(1, id);
+            statement.executeUpdate();
+            statement= connection.prepareStatement("Delete from poruke where idoglasa=? and odgovor<>0");
+            statement.setInt(1, id);
+            statement.executeUpdate();
+            statement= connection.prepareStatement("Delete from poruke where idoglasa=?");
+            statement.setInt(1, id);
+            statement.executeUpdate();
+            statement= connection.prepareStatement("Delete from lajkovi where idoglasa=?");
+            statement.setInt(1, id);
+            statement.executeUpdate();
+            statement= connection.prepareStatement("Delete from tagovi where idoglasa=?");
+            statement.setInt(1, id);
+            statement.executeUpdate();
+            statement= connection.prepareStatement("Delete from oglas where idoglas=?");
+            statement.setInt(1, id);
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+
+
 }

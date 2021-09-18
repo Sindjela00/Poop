@@ -449,10 +449,17 @@ function ucitajdetaljno() {
                 "<button type='button' class='btn btn-outline-primary'><a id='oglas-link' href='mailto:jefimija.stamenovic@gmail.com'>Pošalji CV </a></button>" +
                 "</div>"
             document.getElementById("stranicaOglasa").innerHTML = contentAd;
+        });
+}
 
 
-
-
-
+function provera() {
+    json = $.getJSON("http://localhost:8080/login", function() {
+            console.log("zavrsio");
+        })
+        .done(function(data) {
+            data.prijavljen;
+            data.poslodavac;
+            data.admin;
         });
 }
