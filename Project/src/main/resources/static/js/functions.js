@@ -417,6 +417,10 @@ function ucitajOglase() {
                 vreme = ads[i].radnoVreme;
                 opis = ads[i].opis;
                 mail = ads[i].email;
+                likes = ads[i].likes;
+                dislikes = ads[i].dislikes;
+                console.log(likes);
+                console.log(dislikes);
 
 
                 contentAds += "<li class='list-group-item'>" +
@@ -427,12 +431,10 @@ function ucitajOglase() {
                     "<p class='font-italic text-muted mb-0 small'>" + poslodavac + "</p>" +
                     "<div class='d-flex align-items-center justify-content-between mt-1'>" +
                     "<h6 class='font-weight-bold my-2'>Opis: </h6>" + /*opis + da se sredi opis*/
-                    "<ul class='list-inline small'>" + /* da se uzbace ove zvezdice i da se stavi slika lajk i broj lajkova i dislajk pa broj disjlakova ads[i].likes*/
-                    "<li class='list-inline-item m-0'><i class='fa fa-star text-success'></i></li>" +
-                    "<li class='list-inline-item m-0'><i class='fa fa-star text-success'></i></li>" +
-                    "<li class='list-inline-item m-0'><i class='fa fa-star text-success'></i></li>" +
-                    "<li class='list-inline-item m-0'><i class='fa fa-star-o text-gray'></i></li>" +
-                    "</ul>" +
+                    "<div class='lajkDislajk'>" +
+                    "<span class='fas fa-thumbs-up' style='color : #0DB8DE;'> </span>" + "<span style='margin: 0px 50px 0 5px; color : #0DB8DE;'>" + likes + "</span>" +
+                    "<span class='fas fa-thumbs-down' style='color : #0DB8DE'> </span>" + "<span style='margin-left: 5px; color : #0DB8DE;'>" + dislikes + "</span>" +
+                    "</div>" +
                     "</div>" +
                     "<button id=dugmeDetalji class='btn btn-outline-primary' style='float: right' onclick='prebaciNaOglas(" + id +
                     ")'> Detaljnije </button>" +

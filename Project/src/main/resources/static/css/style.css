@@ -11103,6 +11103,15 @@
             .list-group-item:last-child {
                 margin: 20px 20px 20px 20px;
             }
+
+            .lajkDislajk {
+                width : 130px;
+            }
+
+            #dugmeDetalji {
+                width : 130px;
+            }
+
             /*OGLAS*/
             
             #stranicaOglasa {
