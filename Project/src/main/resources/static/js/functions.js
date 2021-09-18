@@ -456,6 +456,7 @@ function ucitajdetaljno() {
             console.log("zavrsio");
         })
         .done(function(ads) {
+            id = ads.id;
             naslov = ads.naslov;
             oblast = ads.oblast;
             grad = ads.mesto;
@@ -478,6 +479,7 @@ function ucitajdetaljno() {
                 "<p id='Lokacija'> <span><i class='fas fa-map-marker-alt'></i> Lokacija: " + grad + " </p></span>" +
                 "<p id='radnoVreme'><span><i class='fas fa-clock'></i> Radno vreme: " + vreme + "</p>" +
                 "<span><i class='fas fa-coins'></i> Plata :</span><span id='plata'> " + plata + " </span>" +
+
                 "</div>" +
                 "<br>" +
                 "<div id='oglasRowRight' style='float : right; width : 50%;'>" +
@@ -567,7 +569,6 @@ function srediNavbar() {
         });
 }
 
-
 function dodajoglas() {
     naziv = document.getElementById("naziv-oglasa").value;
     var tip;
@@ -598,4 +599,76 @@ function promeniLozinku() {
 
     dugme.style.display = 'none';
     lozinke.style.display = 'block';
+}
+
+function oglasiPrijave() {
+    json = $.getJSON("http://localhost:8080/login", function() {})
+        .done(function(data) {
+            if (data != null) {
+                if (data.poslodavac) {
+                    mojiOglasi();
+                } else {
+                    mojePrijave();
+                }
+            }
+        });
+}
+
+function otvoriOglas(id) {
+    location.href = 'http://localhost:8080/oglas?id=' + id;
+}
+
+function izbrisiOglas(id) {
+    location.href = 'http://localhost:8080/obrisioglas?id=' + id;
+}
+
+function mojiOglasi() {
+    field = document.getElementById("profile-oglasi");
+    txt = "";
+    json = $.getJSON("http://localhost:8080/mojioglasi", function() {})
+        .done(function(data) {
+            if (data != null) {
+                for (i = 0; i < data.length; i++) {
+                    naslov = data[i].naslov;
+                    lokacija = data[i].mesto;
+                    id = data[i].id;
+                    txt +=
+                        "<div class='profile-oglas'>" +
+                        "<h5> Naziv oglasa: " + naslov + "</h5>" +
+                        "<p><span><i class='fas fa-map-marker-alt'></i> Lokacija: " + lokacija + "</p></span>" +
+                        "<button type='button' onclick='otvoriOglas(" + id + ");' class='btn btn-outline-primary' style='float : left; width : 48%;'>Detaljnije</button>" +
+                        "<button type='button' onclick='izbrisiOglas(" + id + ");' class='btn btn-outline-primary' style='float : right; width : 48%;'>Izbriši</button>" +
+                        "</div>";
+                }
+                field.innerHTML = txt;
+            }
+        });
+}
+
+function mojePrijave() {
+    field = document.getElementById("profile-oglasi");
+    txt = "";
+    json = $.getJSON("http://localhost:8080/mojioglasi", function() {})
+        .done(function(data) {
+            if (data != null) {
+                for (i = 0; i < data.length; i++) {
+                    naslov = data[i].naslov;
+                    poslodavac = data[i].poslodavac;
+                    lokacija = data[i].mesto;
+                    id = data[i].id;
+                    txt +=
+                        "<div class='profile-oglas'>" +
+                        "<h5> Naziv oglasa: " + naslov + "</h5>" +
+                        "<a href='http://localhost:8080/covek?id='" + id + ">" +
+                        "<p> Poslodavac: " + poslodavac + "</p>" +
+                        "</a>" +
+                        "<p><span><i class='fas fa-map-marker-alt'></i> Lokacija: " + lokacija + "</p></span>" +
+                        "<button type='button' onclick='otvoriOglas(" + id + ");' class='btn btn-outline-primary' style='float : left; width : 48%;'>Detaljnije</button>" +
+                        "<button type='button' class='btn btn-outline-primary' style='float : right; width : 48%;'>Otkaži prijavu</button>" +
+                        "</div>";
+                }
+                field.innerHTML = txt;
+            }
+        });
+
 }
