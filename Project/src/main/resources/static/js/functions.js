@@ -622,10 +622,23 @@ function izbrisiOglas(id) {
     location.href = 'http://localhost:8080/obrisioglas?id=' + id;
 }
 
+function otkaziPrijavu(id) {
+    location.href = 'http://localhost:8080/izbaci?id=' + id;
+}
+
+function otvoriProfil(id) {
+    location.href = 'http://localhost:8080/profil?user=' + id;
+}
+
 function mojiOglasi() {
     field = document.getElementById("profile-oglasi");
     txt = "";
-    json = $.getJSON("http://localhost:8080/mojioglasi", function() {})
+    
+    url_string = window.location.href;
+    url = new URL(url_string);
+    userID = url.searchParams.get("user");
+
+    json = $.getJSON("http://localhost:8080/mojioglasi?user=" + userID, function() {})
         .done(function(data) {
             if (data != null) {
                 for (i = 0; i < data.length; i++) {
@@ -648,7 +661,8 @@ function mojiOglasi() {
 function mojePrijave() {
     field = document.getElementById("profile-oglasi");
     txt = "";
-    json = $.getJSON("http://localhost:8080/mojioglasi", function() {})
+
+    json = $.getJSON("http://localhost:8080/mojioglasi?user=" + userID, function() {})
         .done(function(data) {
             if (data != null) {
                 for (i = 0; i < data.length; i++) {
@@ -659,16 +673,40 @@ function mojePrijave() {
                     txt +=
                         "<div class='profile-oglas'>" +
                         "<h5> Naziv oglasa: " + naslov + "</h5>" +
-                        "<a href='http://localhost:8080/covek?id='" + id + ">" +
+                        "<a href='http://localhost:8080/covek?id=" + id + "'>" +
                         "<p> Poslodavac: " + poslodavac + "</p>" +
                         "</a>" +
                         "<p><span><i class='fas fa-map-marker-alt'></i> Lokacija: " + lokacija + "</p></span>" +
                         "<button type='button' onclick='otvoriOglas(" + id + ");' class='btn btn-outline-primary' style='float : left; width : 48%;'>Detaljnije</button>" +
-                        "<button type='button' class='btn btn-outline-primary' style='float : right; width : 48%;'>Otkaži prijavu</button>" +
+                        "<button type='button' onclick='otkaziPrijavu("+ id + ");' class='btn btn-outline-primary' style='float : right; width : 48%;'>Otkaži prijavu</button>" +
                         "</div>";
                 }
                 field.innerHTML = txt;
             }
         });
+}
 
+function poslodavci() {
+    field = document.getElementById("poslodavci-box");
+    txt = "<h1 class='dugme'> Lista poslodavaca : </h1>";
+    json = $.getJSON("http://localhost:8080/poslodavcii", function() {})
+    .done(function(data) {
+        if (data != null) {
+            for (i = 0; i < data.length; i++) {
+                ime = data[i].ime;
+                lokacija = data[i].mesto;
+                opis = data[i].opis
+                id = data[i].id;
+                txt += 
+                "<div class='poslodavac'>" +
+                    "<span style='float : left;'><h5> Poslodavac : "+ime+"</h5></span>" +
+                    "<span style='float : right;'> <i class='fas fa-map-marker-alt'></i> Lokacija: "+lokacija+"</span>" +
+                    "<p style='clear : both;'> <b> Opis : "+opis+" </b></p>" +
+                    "<br><br>" +
+                    "<button type='button' onclick='otvoriProfil("+id+");' class='dugme btn btn-outline-primary' style='float : left; width : 48%;'>Detaljnije</button>" +
+                "</div>";
+            }
+            field.innerHTML = txt;
+        }
+    });
 }

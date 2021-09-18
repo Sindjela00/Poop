@@ -11244,7 +11244,7 @@
                 margin : 1%;
                 padding : 10px;
                 width : 48%;
-                height : 150px;
+                height : 160px;
                 background-color : white;
                 border : 3px solid #0DB8DE;
                 border-radius : 5px;
@@ -11253,6 +11253,10 @@
 
             .profile-oglas a {
                 text-decoration: none;
+            }
+
+            .profile-oglas button:hover {
+                background-color : #0DB8DE;
             }
             
 			/*NOVI OGLAS*/
@@ -11324,3 +11328,36 @@
             #novOglasTitle {
                 margin-right : 70px;
             }
+
+            /*POSLODAVCI*/
+
+            #poslodavci-box {
+                position : relative;
+                margin : auto;
+                margin-top : 130px; 
+				margin-bottom: 20px; 
+                background: #2c3e50;
+                box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+                border-radius: 20px;
+				width: 100%; 
+                color : white;
+                padding : 10px
+            }
+
+            .poslodavac {
+                position : relative;
+                float : left;
+                padding : 10px;
+                width : 48%;
+                margin : 12px;
+                height : 200px;
+                background-color : white;
+                border : 3px solid #0DB8DE;
+                border-radius : 5px;
+                color : #0DB8DE;
+            }
+
+            .poslodavac button {
+                margin-left : 150px;
+            }
+
