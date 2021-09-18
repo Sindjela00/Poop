@@ -508,21 +508,22 @@ function ucitajdetaljno() {
 function sakrijOdKorisnika() {
     var sakriveno = document.getElementsByClassName("sakrijOdKorisnika");
     json = $.getJSON("http://localhost:8080/login", function() {})
-        .done(function(data) {
-            console.log(data);
-            if (data != null) {
-                if (!data.prijavljen) {
-                    for (i = 0; i < sakriveno.length; i++) {
-                        sakriveno[i].style.display = 'none';
-                        console.log(sakriveno[i]);
-                    }
-                } else {
-                    for (i = 0; i < sakriveno.length; i++) {
-                        sakriveno[i].style.display = 'block';
-                    }
+    .done(function(data) {
+        console.log(data);
+        if (data != null) {
+            if (!data.prijavljen) {
+                for (i = 0; i < sakriveno.length; i++) {
+                    sakriveno[i].style.display = 'none';
+                    console.log(sakriveno[i]);
                 }
             }
-        });
+            else {
+                for (i = 0; i < sakriveno.length; i++) {
+                    sakriveno[i].style.display = 'block';
+                }
+            }
+        }
+    });
 }
 
 function prebaciNaOglas(id) {
@@ -555,18 +556,41 @@ function usmeri(id) {
 function srediNavbar() {
     var login = document.getElementById("navLogin");
     var profil = document.getElementById("navProfil");
+    var userID;
     json = $.getJSON("http://localhost:8080/login", function() {})
         .done(function(data) {
-            console.log(data);
-            if (data != null) {
-                if (data.prijavljen) {
+        console.log(data);
+        if (data != null) {
+            url_string = window.location.href;
+            url = new URL(url_string);
+            if(url_string.includes("profil")){
+                userID = url.searchParams.get("user");
+
+                if(userID == null && data.prijavljen) {
                     login.href = "http://localhost:8080/signout";
                     login.innerHTML = "Odjavi se";
-                } else {
+                    profil.style.display = 'none';
+                }
+                else if(userID != null && data.prijavljen) {
+                    login.href = "http://localhost:8080/signout";
+                    login.innerHTML = "Odjavi se";
+                    profil.style.display = 'block';
+                }
+                else {
+                    login.innerHTML = "Prijavi se";
                     profil.style.display = 'none';
                 }
             }
-        });
+            else if (data.prijavljen){
+                login.href = "http://localhost:8080/signout";
+                login.innerHTML = "Odjavi se";
+            }
+            else {
+                login.innerHTML = "Prijavi se";
+                profil.style.display = 'none';
+            }
+        }
+    });
 }
 
 function dodajoglas() {
@@ -638,6 +662,7 @@ function otvoriProfil(id) {
 
 function mojiOglasi() {
     field = document.getElementById("profile-oglasi");
+    sakrij = false;
     txt = "";
     string = "";
     url_string = window.location.href;
@@ -645,28 +670,38 @@ function mojiOglasi() {
     userID = url.searchParams.get("user");
     if (userID == null) {
         string = "http://localhost:8080/mojioglasi";
+        sakrij = false;
     } else {
-        string = "http://localhost:8080/mojioglasi?user=" + userID
+        string = "http://localhost:8080/mojioglasi?user=" + userID;
+        sakrij = true;
     }
 
     json = $.getJSON(string, function() {})
-        .done(function(data) {
-            if (data != null) {
-                for (i = 0; i < data.length; i++) {
-                    naslov = data[i].naslov;
-                    lokacija = data[i].mesto;
-                    id = data[i].id;
-                    txt +=
-                        "<div class='profile-oglas'>" +
-                        "<h5> Naziv oglasa: " + naslov + "</h5>" +
-                        "<p><span><i class='fas fa-map-marker-alt'></i> Lokacija: " + lokacija + "</p></span>" +
-                        "<button type='button' onclick='otvoriOglas(" + id + ");' class='btn btn-outline-primary' style='float : left; width : 48%;'>Detaljnije</button>" +
-                        "<button type='button' onclick='izbrisiOglas(" + id + ");' class='btn btn-outline-primary' style='float : right; width : 48%;'>Izbriši</button>" +
-                        "</div>";
-                }
-                field.innerHTML = txt;
+    .done(function(data) {
+        if (data != null) {
+            for (i = 0; i < data.length; i++) {
+                naslov = data[i].naslov;
+                lokacija = data[i].mesto;
+                id = data[i].id;
+                txt +=
+                    "<div class='profile-oglas'>" +
+                    "<h5> Naziv oglasa: " + naslov + "</h5>" +
+                    "<p><span><i class='fas fa-map-marker-alt'></i> Lokacija: " + lokacija + "</p></span>" +
+                    "<button type='button' onclick='otvoriOglas(" + id + ");' class='btn btn-outline-primary' style='float : left; width : 48%;'>Detaljnije</button>" +
+                    "<button type='button' onclick='izbrisiOglas(" + id + ");' class='btn btn-outline-primary sakrijOdKorisnika' style='float : right; width : 48%;'>Izbriši</button>" +
+                    "</div>";
             }
-        });
+            field.innerHTML = txt;
+            if(sakrij) {
+                dugmici = document.getElementsByClassName("sakrijOdKorisnika");
+                for(i = 0; i < dugmici.length; i++){
+                    dugmici[i].style.display = 'none';
+                }
+            }
+        }
+    });
+    
+    
 }
 
 function mojePrijave() {
