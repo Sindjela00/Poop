@@ -1,0 +1,71 @@
+<html>
+
+<head>
+    <title>Lako do posla - Objavi oglas</title>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <script src="/js/jQuery.js" type="text/javascript"></script>
+    <script src="/js/functions.js" type="text/javascript"></script>
+</head>
+
+<body onload="Dajgradove()" class="ostaleStrane">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-2"></div>
+            <div class="col-lg-6 col-md-8 login-box">
+                <div class="col-lg-12 login-title">
+                    Objavi oglas
+                </div>
+                <div class="col-lg-12 login-form">
+                    <form>
+                        <div class="form-group">
+                            <label class="form-control-label">Naziv oglasa</label>
+                            <input type="text" id="naziv-oglasa" class="form-control" data-sb-validations="required">
+                            <div class="invalid-feedback" data-sb-feedback="naziv-oglas:required" style="color: white">Neophodno je da unesete naziv oglasa!</div>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-control-label">Vremenski period: </label>
+                            <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" id="poslodavac" name="uloga" value="poslodavac">
+                                        <b><span style="color: white">Posao na određeno vreme</span></b>
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                        <input type="radio" class="form-check-input" name="uloga" value="radnik" checked>
+                                        <b><span style="color: white">Posao na neodređeno vreme</span></b>
+                                    </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label">Mesto posla</label>
+                            <select id="city-register" class="form-control" data-sb-validations="required"></select>
+                            <div class="invalid-feedback" data-sb-feedback="city-register:required">Neophodno je da unesete mesto posla!</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label">Početna plata</label>
+                            <input type="text" id="plata" class="form-control" data-sb-validations="required">
+                            <div class="invalid-feedback" data-sb-feedback="naziv-oglas:required" style="color: white">Neophodno je da unesete početnu platu!</div>
+                        </div>
+                        <div class="col-lg-12 loginbttm">
+                            <div class="col-lg-6 login-btm login-text">
+                                <!-- Error Message -->
+                            </div>
+                            <div class="dugme">
+                                <button type="button" class="btn btn-outline-primary" onclick="signup()">Postavi oglas</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-lg-3 col-md-2"></div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>
