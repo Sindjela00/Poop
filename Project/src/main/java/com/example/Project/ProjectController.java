@@ -350,11 +350,16 @@ public class ProjectController {
     @PostMapping("/napravioglas")
     public @ResponseBody String napraviOglas(HttpServletRequest req, HttpServletResponse res,@RequestBody String body){
         JSONObject js;
+        Cookie cookie = CookieManager.getCookie(req);
         try {
             js = new JSONObject(body);
                 if ( js != null) {
-                    db.dodajOglas(1, js.getString("naslov"), js.getBoolean("tip"), js.getInt("plata"), js.getString("opis"), js.getInt("mesto"));
-                return "OK";
+                    Prijavljen prijavljivanje = db.logovan(CookieManager.getContent(cookie));
+                    if(prijavljivanje.poslodavac == true || prijavljivanje.admin == true){
+                        db.dodajOglas(db.dajId(CookieManager.getContent(cookie)), js.getString("naslov"), js.getBoolean("tip"), js.getInt("plata"), js.getString("opis"), js.getInt("mesto"));
+                        return "OK";
+                    }
+                return "BAD";
             }
             } catch (JSONException e) {
                 // TODO Auto-generated catch block

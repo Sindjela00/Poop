@@ -16,7 +16,7 @@
     <script src="/js/functions.js" type="text/javascript"></script>
 </head>
 
-<body class="ostaleStrane" onload="ucitajdetaljno();srediNavbar();">
+<body class="ostaleStrane" onload="ucitajdetaljno();srediNavbar();dodajcv();">
     <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
         <div class="container">
             <a class="navbar-brand" href="http://localhost:8080/">Lako do posla</a>
@@ -47,7 +47,7 @@
         </div>
         <div id="dodajCV" class="cv-item">
             <h6>Unesite Vaš CV</h6>
-            <textarea id="unesiCV"></textarea>
+            <textarea id="unesiCV" onload=""></textarea>
             <div class='dugme'>
                 <button type='button' class='btn btn-outline-primary' id='oglas-link'>Pošalji CV</button>
             </div>

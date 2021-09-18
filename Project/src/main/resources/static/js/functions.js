@@ -533,3 +533,28 @@ function srediNavbar() {
             }
         });
 }
+
+
+function dodajoglas() {
+    naziv = document.getElementById("naziv-oglasa").value;
+    var tip;
+    if (document.getElementById("poslodavac").checked) {
+        tip = true;
+    } else {
+        tip = false;
+    }
+    grad = document.getElementById("city-register").value;
+    tag = document.getElementById("tagovi").value;
+    plata = document.getElementById("plata").value;
+    opis = document.getElementById("novioglas-opis").value;
+
+    string = '{"naslov":"' + naziv + '","tip":' + tip + ',"plata":' + plata + ',"opis":"' + opis + '","mesto":' + grad + '}';
+    post("http://localhost:8080/napravioglas", string);
+}
+
+function dodajcv() {
+    json = $.getJSON("http://localhost:8080/cv", function() {})
+        .done(function(data) {
+            document.getElementById("unesiCV").innerHTML = data.error;
+        });
+}
