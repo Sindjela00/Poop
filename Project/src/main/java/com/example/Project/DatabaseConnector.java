@@ -266,17 +266,19 @@ public class DatabaseConnector {
                 statement = connection.prepareStatement("Select id from podtags where idkategorije=?");
                 statement.setInt(1, 0 - tagovi);
                 ResultSet result = statement.executeQuery();
+                System.out.println("prvo");
                 while (result.next()) {
                     statement = connection.prepareStatement("Select idoglasa from tagovi where idtaga=?");
                     statement.setInt(1, result.getInt(1));
                     ResultSet res = statement.executeQuery();
+                    System.out.println("drugo");
                     while (res.next()) {
                         if (mesto != 0) {
-                            statement = connection
-                                    .prepareStatement("Select * from oglas where idoglasa=? and mesto=?");
-                            statement.setInt(1, result.getInt(1));
+                            statement = connection.prepareStatement("Select * from oglas where idoglas=? and mesto=?");
+                            statement.setInt(1, res.getInt(1));
                             statement.setInt(2, mesto);
                             ResultSet r = statement.executeQuery();
+                            System.out.println("trece");
                             if (r.next())
                                 lista.add(Daj_Oglas(res.getInt(1)));
                         } else
@@ -289,7 +291,7 @@ public class DatabaseConnector {
                 ResultSet res = statement.executeQuery();
                 while (res.next()) {
                     if (mesto != 0) {
-                        statement = connection.prepareStatement("Select * from oglas where idoglasa=? and mesto=?");
+                        statement = connection.prepareStatement("Select * from oglas where idoglas=? and mesto=?");
                         statement.setInt(1, res.getInt(1));
                         statement.setInt(2, mesto);
                         ResultSet r = statement.executeQuery();
@@ -770,6 +772,29 @@ public class DatabaseConnector {
             return false;
         }
         return true;
+    }
+    public boolean dodajOglas(Integer covek,String naziv,Boolean tip,Integer plata,String opis,Integer mesto){
+        PreparedStatement statement;
+
+        try {
+            statement = connection.prepareStatement("INSERT INTO oglas(idcoveka,naslov,tip,plata,opis,mesto) values(?,?,?,?,?,?)");
+            statement.setInt(1, covek);
+            statement.setString(2, naziv);
+            statement.setBoolean(3, tip);
+            statement.setInt(4, plata);
+            statement.setString(5, opis);
+            statement.setInt(6,mesto);
+            statement.executeUpdate();
+
+
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+
+
+        return false;
     }
 
 
