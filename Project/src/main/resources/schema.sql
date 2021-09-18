@@ -467,7 +467,7 @@ INSERT INTO MESTO(ime) values('Vrsac');
 INSERT INTO MESTO(ime) values('Bor');
 INSERT INTO MESTO(ime) values('Loznica');
 
-INSERT INTO KORISNIK(Ime,Username,Password,Email,idmesta,Poslodavac,Admin) values ("admin","admin","admin","admin@admin.admin",1,true,false);
+INSERT INTO KORISNIK(Ime,Username,Password,Email,idmesta,Poslodavac,Admin) values ("admin","admin","admin","admin@admin.admin",1,true,true);
 INSERT INTO KORISNIK(Ime,Username,Password,Email,idmesta,Poslodavac,Admin) values ('Milica Medakovic', 'MilicaM', 'milica01', 'milica.medakovic@gmail.com', 1, true, false);
 INSERT INTO KORISNIK(Ime,Username,Password,Email,idmesta,Poslodavac,Admin) values ('Mladen Krstic', 'MladenK', 'mladen02', 'mladen.krstic@gmail.com', 2, true, false);
 INSERT INTO KORISNIK(Ime,Username,Password,Email,idmesta,Poslodavac,Admin) values ('Marko Pavlovic', 'MarkoP', 'marko03', 'marko.pavlovic@gmail.com', 3, true, false);
