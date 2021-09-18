@@ -556,7 +556,7 @@ public class DatabaseConnector {
         return null;
     }
 
-    public boolean proverilajk(Integer idcoveka, Integer idoglasa) {
+    public String proverilajk(Integer idcoveka, Integer idoglasa) {
         PreparedStatement statement;
         try {
             statement = connection.prepareStatement("SELECT * FROM lajkovi where idcoveka=? and idOglasa=?");
@@ -564,38 +564,41 @@ public class DatabaseConnector {
             statement.setInt(2, idoglasa);
 
             ResultSet result = statement.executeQuery();
-            if (result.next())
-                return true;
-            return false;
+            if (result.next()){
+                if(result.getBoolean(3))
+                    return "lajk";
+                return "dislajk";
+            }
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        return false;
+        return "nista";
     }
 
     public boolean lajkuj(Integer idcoveka, Integer idoglasa, String like) {
         PreparedStatement statement;
         try {
-            if (proverilajk(idcoveka, idoglasa)) {
+            if (proverilajk(idcoveka, idoglasa).compareTo("nista")!=0) {
                 statement = connection.prepareStatement("DELETE FROM lajkovi WHERE idcoveka=? and idOglasa=?;");
                 statement.setInt(1, idcoveka);
                 statement.setInt(2, idoglasa);
-                ResultSet result = statement.executeQuery();
-                if (like == "izbrisi") {
+                statement.executeUpdate();
+                if (like.compareTo("izbrisi") == 0) {
                     return true;
                 }
             }
             statement = connection.prepareStatement("INSERT INTO lajkovi values (?,?,?)");
             statement.setInt(1, idcoveka);
             statement.setInt(2, idoglasa);
-            if (like == "true") {
+            if (like.compareTo("like")==0) {
+                System.out.println(like);
                 statement.setBoolean(3, true);
-            } else if (like == "false")
+            } else if (like.compareTo("dislike")==0)
                 statement.setBoolean(3, false);
             else
                 return false;
-            ResultSet result = statement.executeQuery();
+            statement.executeUpdate();
             return true;
 
         } catch (SQLException e) {
@@ -626,8 +629,8 @@ public class DatabaseConnector {
     public boolean oceni(Integer idcoveka, Integer idoglasa, Integer ocena) {
         PreparedStatement statement;
         try {
-            if (proverilajk(idcoveka, idoglasa)) {
-                statement = connection.prepareStatement("DELETE FROM ocena WHERE idcoveka=? and idOglasa=?;");
+            if (proveriocenu(idcoveka, idoglasa)) {
+                statement = connection.prepareStatement("DELETE FROM ocena WHERE idcoveka=? and idocenjenog=?;");
                 statement.setInt(1, idcoveka);
                 statement.setInt(2, idoglasa);
                 ResultSet result = statement.executeQuery();
