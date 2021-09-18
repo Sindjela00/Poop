@@ -12,23 +12,7 @@
 </head>
 
 <body onload="Dajgradove()" class="ostaleStrane">
-    <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
-        <div class="container">
-            <a class="navbar-brand" href="#page-top">Lako do posla</a>
-            <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                    Menu
-                    <i class="fas fa-bars"></i>
-                </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="sviOglasi.html">Oglasi</a></li>
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="index.html#about">O nama</a></li>
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="index.html#contact">Kontakt</a></li>
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="signin.html">Prijavi se</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+
     <div class="container">
         <div class="row">
             <div class="col-lg-3 col-md-2"></div>
@@ -39,114 +23,76 @@
                 <div class="col-lg-12 login-title">
                     PRIJAVI SE
                 </div>
-
                 <div class="col-lg-12 login-form">
-                    <div class="col-lg-12 login-form">
-                        <form>
-                            <div class="form-group">
-                                <label class="form-control-label">Ime i Prezime</label>
-                                <input type="text" id="name-register" class="form-control" data-sb-validations="required">
-                                <div class="invalid-feedback" data-sb-feedback="name-register:required" style="color: white">Neophodno je da unesete ime!</div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-control-label">Korisnicko ime</label>
-                                <input type="text" id="username-register" class="form-control" data-sb-validations="required">
-                                <div class="invalid-feedback" data-sb-feedback="surname-register:required">Neophodno je da unesete prezime!</div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-control-label">Mesto boravka</label>
-                                <select id="city-register" class="form-control" data-sb-validations="required"></select>
-                                <div class="invalid-feedback" data-sb-feedback="city-register:required">Neophodno je da unesete mesto boravka!</div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-control-label">Email</label>
-                                <input type="email" id="email-register" class="form-control" data-sb-validations="required,email">
-                                <div class="invalid-feedback" data-sb-feedback="email-register:required">Neophodno je da unesete email!</div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-control-label">Telefon</label>
-                                <input type="text" id="tel-register" class="form-control" data-sb-validations="required">
-                                <div class="invalid-feedback" data-sb-feedback="tel-register:required">Neophodno je da unesete broj telefona!</div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-control-label">Lozinka</label>
-                                <input type="text" id="password-register" class="form-control" data-sb-validations="required">
-                                <div class="invalid-feedback" data-sb-feedback="password-register:required">Neophodno je da unesete korisničko ime!</div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-control-label">Potvrdite lozinku</label>
-                                <input type="password" id="ppassword-register" class="form-control" data-sb-validations="required">
-                                <div class="invalid-feedback" data-sb-feedback="ppassword-register:required">Neophodno je da unesete lozinku!</div>
-                            </div>
-                            <div class="form-check">
-                                <label class="form-check-label">
+                    <form>
+                        <div class="form-group">
+                            <label class="form-control-label">Ime i prezime</label>
+                            <input type="text" id="name-register" class="form-control" data-sb-validations="required">
+                            <div class="invalid-feedback" data-sb-feedback="name-register:required" style="color: white">Neophodno je da unesete ime!</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label">Korisničko ime</label>
+                            <input type="text" id="username-register" class="form-control" data-sb-validations="required">
+                            <div class="invalid-feedback" data-sb-feedback="surname-register:required">Neophodno je da unesete prezime!</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label">Mesto boravka</label>
+                            <select id="city-register" class="form-control" data-sb-validations="required"></select>
+                            <div class="invalid-feedback" data-sb-feedback="city-register:required">Neophodno je da unesete mesto boravka!</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label">Email</label>
+                            <input type="email" id="email-register" class="form-control" data-sb-validations="required,email">
+                            <div class="invalid-feedback" data-sb-feedback="email-register:required">Neophodno je da unesete email!</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label">Telefon</label>
+                            <input type="text" id="tel-register" class="form-control" data-sb-validations="required">
+                            <div class="invalid-feedback" data-sb-feedback="tel-register:required">Neophodno je da unesete broj telefona!</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label">Lozinka</label>
+                            <input type="text" id="password-register" class="form-control" data-sb-validations="required">
+                            <div class="invalid-feedback" data-sb-feedback="password-register:required">Neophodno je da unesete korisničko ime!</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label">Potvrdite lozinku</label>
+                            <input type="password" id="ppassword-register" class="form-control" data-sb-validations="required">
+                            <div class="invalid-feedback" data-sb-feedback="ppassword-register:required">Neophodno je da unesete lozinku!</div>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
                                     <input type="radio" class="form-check-input" id="poslodavac" name="uloga" value="poslodavac">
                                         <b><span style="color: white">Želim da postavljam oglase</span></b>
                                 </label>
-                            </div>
-                            <div class="form-check">
-                                <label class="form-check-label">
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
                                         <input type="radio" class="form-check-input" name="uloga" value="radnik" checked>
                                         <b><span style="color: white">Želim da nađem posao</span></b>
                                     </label>
-                            </div>
-                            <!--
+                        </div>
+                        <!--
                             <div class="form-group">
                                 <input type="checkbox" id="remember-me" checked>
                                 <label class="form-control-label" for="remember-me">Zapamti me</label>
                             </div>-->
-                            <div class="col-lg-12 loginbttm">
-                                <div class="col-lg-6 login-btm login-text">
-                                    <!-- Error Message -->
-                                </div>
-                                <div class="dugme">
-                                    <button type="button" class="btn btn-outline-primary" onclick="signup()">Registruj se</button>
-                                </div>
+                        <div class="col-lg-12 loginbttm">
+                            <div class="col-lg-6 login-btm login-text">
+                                <!-- Error Message -->
                             </div>
-                        </form>
-                    </div>
+                            <div class="dugme">
+                                <button type="button" class="btn btn-outline-primary" onclick="signup()">Registruj se</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
                 <div class="col-lg-3 col-md-2"></div>
             </div>
         </div>
     </div>
 
-    <div class="space"> </div>
 
-    <footer class="footer text-center">
-        <div class="container">
-            <div class="row">
-                <!-- Footer Location-->
-                <div class="col-lg-4 mb-5 mb-lg-0">
-                    <h4 class="text-uppercase mb-4">Pronađite nas</h4>
-                    <p class="lead mb-0">
-                        Radoja Domanovića 12
-                        <br /> 34000 Kragujevac
-                        <br /> Srbija
-                    </p>
-                </div>
-                <!-- Footer Social Icons-->
-                <div class="col-lg-4 mb-5 mb-lg-0">
-                    <h4 class="text-uppercase mb-4">Posetite nas na društvenim mrežama</h4>
-                    <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-facebook-f"></i></a>
-                    <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-twitter"></i></a>
-                    <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-instagram"></i></a>
-                    <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-linkedin-in"></i></a>
-                </div>
-                <!-- Footer About Text-->
-                <div class="col-lg-4">
-                    <h4 class="text-uppercase mb-4">O nama</h4>
-                    <p class="lead mb-0">
-                        Sajt za brzu i jednostavnu pretragu poslova, kao i pronalaženja kandidata za posao.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </footer>
-    <!-- Copyright Section-->
-    <div class="copyright py-4 text-center text-white">
-        <div class="container"><small>Copyright &copy; Lako do posla 2021</small></div>
-    </div>
 </body>
 
 </html>
