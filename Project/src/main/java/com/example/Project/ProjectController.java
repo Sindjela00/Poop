@@ -313,6 +313,10 @@ public class ProjectController {
         }
         return null;
     }
+    @GetMapping("/poslodavci")
+    public String poslodavci(HttpServletRequest req, HttpServletResponse res){
+        return "poslodavci";
+    }
     @GetMapping("/poslodavcii")
     public @ResponseBody List<Korisnik> poslodavcii(HttpServletRequest req, HttpServletResponse res){
         return db.Daj_Poslodavce();
@@ -367,6 +371,24 @@ public class ProjectController {
             }
         return "BAD";
     }
+    @GetMapping("/mojeprijave")
+    public @ResponseBody List<Tagovi> mojeprijave(HttpServletRequest req, HttpServletResponse res){
+        Cookie cookie = CookieManager.getCookie(req);
+        if(cookie!=null && db.proveriCoveka(CookieManager.getContent(cookie)))
+        return db.Daj_mojeprijave(db.dajId(CookieManager.getContent(cookie)));
+        return null;
+    }
+
+    @PostMapping("/izbaci")
+    public @ResponseBody String izbrisiPrijavu(@RequestParam Integer id, HttpServletRequest req, HttpServletResponse res){
+        Cookie cookie = CookieManager.getCookie(req);
+        if(cookie!=null && db.proveriCoveka(CookieManager.getContent(cookie)))
+        if(db.proveriprijavu(db.dajId(CookieManager.getContent(cookie)), id))
+        if(db.izbaciprijavu(db.dajId(CookieManager.getContent(cookie)), id))
+            return "Ok";
+        return "Bad";
+    }
 
 }
+
 

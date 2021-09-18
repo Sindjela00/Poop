@@ -523,6 +523,23 @@ public class DatabaseConnector {
         }
         return false;
     }
+    public boolean izbaciprijavu(Integer idcoveka, Integer idoglasa) {
+        PreparedStatement statement;
+        try {
+            statement = connection.prepareStatement("Delete From prijave where idcovek=? and idoglas=?");
+            statement.setInt(1, idcoveka);
+            statement.setInt(2, idoglasa);
+            statement.executeUpdate();
+            if(proveriprijavu(idcoveka, idoglasa))
+            return false;
+            return true;
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 
     public boolean proverilajk(Integer idcoveka, Integer idoglasa) {
         PreparedStatement statement;
@@ -791,12 +808,33 @@ public class DatabaseConnector {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
-
-
         return false;
     }
 
+    public List<Tagovi> Daj_mojeprijave(Integer id){
+        PreparedStatement statement;
+        List<Tagovi> prijave = new ArrayList<Tagovi>();
+        try {
+            statement = connection.prepareStatement("Select idoglas from prijave where idcovek=?");
+            statement.setInt(1, id);
+            ResultSet result = statement.executeQuery();
+            while(result.next()){
+                statement = connection.prepareStatement("Select idoglas , ime , naslov from sveooglasu where idoglas=?");
+                statement.setInt(1,result.getInt(1));
+                ResultSet r = statement.executeQuery();
+                while(r.next()){
+                    prijave.add(new Tagovi(r.getInt(1),r.getString(2),r.getString(3)));
+                }
+            }
+            return prijave;
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+
+        return null;
+    }
 
 
 }
