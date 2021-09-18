@@ -444,15 +444,7 @@ function ucitajdetaljno() {
                 "<div id='opisPoslaDiv'>" +
                 "<h4><span style='text-align: center;'>Opis posla: <br></span></h4>" +
                 "<p id='opisPoslaTekst'>" + opis + "</p>" +
-                "</div>" +
-                "<div class='dugme'>" +
-                "<button type='button' class='btn btn-outline-primary'><a id='oglas-link' href='mailto:jefimija.stamenovic@gmail.com'>Pošalji CV </a></button>" +
-                "</div>"
+                "</div>";
             document.getElementById("stranicaOglasa").innerHTML = contentAd;
-
-
-
-
-
         });
 }
