@@ -309,7 +309,7 @@ function popuniProfil() {
                 txt = "";
                 for (i = 0; i < dataT.length; i++) {
                     telefon = dataT[i].error;
-                    txt += '<div class="form-group"> <label class="form-control-label">Telefon</label> <input type="text" id="profil-telefon' + i + '" name="telefon' + i + '" value="' + telefon + '" class="form-control"> </div>';
+                    txt += '<div class="form-group"> <label class="form-control-label">Telefon</label> <input type="text" id="profil-telefon' + i + '" name="telefon" value="' + telefon + '" class="form-control"> </div>';
                 }
             } else {
                 txt = '<div class="form-group"> <label class="form-control-label">Telefon</label> <input type="text" id="profil-telefon" name="telefon" value="" class="form-control"> </div>';
@@ -694,6 +694,14 @@ function mojiOglasi() {
             field.innerHTML = txt;
             if(sakrij) {
                 dugmici = document.getElementsByClassName("sakrijOdKorisnika");
+                document.getElementById("profil-ime").disabled = true;
+                document.getElementById("city-register").disabled = true;
+                document.getElementById("profil-email").disabled = true;
+                document.getElementById("profil-opis").disabled = true;
+                telefoni = document.getElementsByName("telefon");
+                for (i = 0; i < telefoni.length; i++) {
+                    telefoni[i].disabled = true;
+                }
                 for(i = 0; i < dugmici.length; i++){
                     dugmici[i].style.display = 'none';
                 }
