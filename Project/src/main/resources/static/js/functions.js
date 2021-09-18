@@ -419,9 +419,6 @@ function ucitajOglase() {
                 mail = ads[i].email;
                 likes = ads[i].likes;
                 dislikes = ads[i].dislikes;
-                console.log(likes);
-                console.log(dislikes);
-
 
                 contentAds += "<li class='list-group-item'>" +
                     "<div class='media align-items-lg-center flex-column flex-lg-row p-3'>" +
@@ -469,25 +466,75 @@ function ucitajdetaljno() {
             vreme = ads.radnoVreme;
             opis = ads.opis;
             mail = ads.email;
-            var contentAd = "<div id='osnovniPodaci'>" +
-                "<div id='oglasRowLeft'>" +
+            likes = ads.likes;
+            dislikes = ads.dislikes;
+            var contentAd = 
+            "<div id='osnovniPodaci'>" +
                 "<h3 id='imgOglasa' style='text-align: center;'> <span>Naziv oglasa: " + naslov + "</span></h3>" +
-                "<a href='profil.html'>" +
-                "<h5 id='poslodavac' style='text-decoration: none;'><i class='fas fa-building'></i><span>Poslodavac: " + poslodavac + "</span></h5></a><br>" +
-                "<p id='Lokacija'> <span><i class='fas fa-map-marker-alt'></i> Lokacija: " + grad + " </p></span>" +
-                "<p id='radnoVreme'><span><i class='fas fa-clock'></i> Radno vreme: " + vreme + "</p>" +
-                "<span><i class='fas fa-coins'></i> Plata :</span><span id='plata'> " + plata + " </span>" +
+                "<br>" +
+                "<div id='oglasRowLeft' style='float : left; width : 50%; margin-bottom : 30px;'>" +
+                    "<a href='profil.html'>" +
+                    "<h5 id='poslodavac' style='text-decoration: none;'><i class='fas fa-building'></i><span>Poslodavac: " + poslodavac + "</span></h5></a><br>" +
+                    "<p id='Lokacija'> <span><i class='fas fa-map-marker-alt'></i> Lokacija: " + grad + " </p></span>" +
+                    "<p id='radnoVreme'><span><i class='fas fa-clock'></i> Radno vreme: " + vreme + "</p>" +
+                    "<span><i class='fas fa-coins'></i> Plata :</span><span id='plata'> " + plata + " </span>" +
                 "</div>" +
+                "<br>" +
+                "<div id='oglasRowRight' style='float : right; width : 50%;'>" +
+                    "<div class='lajkDislajk' style='display: flex; float : right; width : 298px;'>" +
+                        "<span style='width : 145px;'> <span class='fas fa-thumbs-up' style='color : #1abc9c;'> </span>" + "<span style='margin: 0px 50px 0 5px; color : #1abc9c;'>" + likes + "</span></span>" +
+                        "<span style='width : 145px;'> <span class='fas fa-thumbs-down' style='color : #1abc9c'> </span>" + "<span style='margin-left: 5px; color : #1abc9c;'>" + dislikes + "</span></span>" +
+                    "</div>" +
+                    "<br><br>" +
+                    "<div id='LikeDislike' class='sakrijOdKorisnika' style='float : right;'>" +
+                        "<button class=' btn btn-outline-primary ' style='padding: 5px 10px;margin: 0px 5px; color : #1abc9c; border-color : #1abc9c;'><i class='fas fa-thumbs-up '></i> Sviđa mi se</button>" +
+                        "<button class=' btn btn-outline-primary ' style='padding: 5px 10px;margin: 0px 5px; color : #1abc9c; border-color : #1abc9c;'><i class='fas fa-thumbs-down '></i> Ne sviđa mi se </button>" +
+                    "</div>" +
                 "</div>" +
-                "<br><br>" +
-                "<div id='opisPoslaDiv'>" +
+            "</div>" +
+            "<br><br>" +
+            "<div id='opisPoslaDiv' style='clear : both;'>" +
                 "<h4><span style='text-align: center;'>Opis posla: <br></span></h4>" +
-                "<p id='opisPoslaTekst'>" + opis + "</p>" +
-                "</div>" +
-                "<div class='dugme'>" +
-                "</div>"
+            "<p id='opisPoslaTekst'>" + opis + "</p>" 
+            "</div>"
             document.getElementById("stranicaOglasa").innerHTML = contentAd;
         });
+
+    sakrijOdKorisnika();    
+
+    /*
+    var sakriveno = document.getElementById("sakrijOdKorisnika");
+    json = $.getJSON("http://localhost:8080/login", function() {})
+    .done(function(data) {
+        console.log(data);
+        if (data != null) {
+            if (!data.prijavljen) {
+                sakriveno.style.display = 'none';
+            }
+        }
+    });
+    */
+}
+
+function sakrijOdKorisnika(){
+    var sakriveno = document.getElementsByClassName("sakrijOdKorisnika");
+    json = $.getJSON("http://localhost:8080/login", function() {})
+    .done(function(data) {
+        console.log(data);
+        if (data != null) {
+            if (!data.prijavljen) {
+                for (i = 0; i < sakriveno.length; i++) {
+                    sakriveno[i].style.display = 'none';
+                    console.log(sakriveno[i]);
+                }
+            }
+            else {
+                for (i = 0; i < sakriveno.length; i++) {
+                    sakriveno[i].style.display = 'block';
+                }
+            }
+        }
+    });
 }
 
 function prebaciNaOglas(id) {

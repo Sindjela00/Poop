@@ -29,7 +29,8 @@
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="http://localhost:8080/oglasi?tag=0&mesto=0">Oglasi</a></li>
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="http://localhost:8080/#about">O nama</a></li>
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="http://localhost:8080/#contact">Kontakt</a></li>
-                    <li class="nav-item mx-0 mx-lg-1"><a id="login" class="nav-link py-3 px-0 px-lg-3 rounded" href="http://localhost:8080/signin">Prijavi se</a></li>
+                    <li class="nav-item mx-0 mx-lg-1"><a id="navProfil" class="nav-link py-3 px-0 px-lg-3 rounded" href="http://localhost:8080/profil">Profil</a></li>
+                    <li class="nav-item mx-0 mx-lg-1"><a id="navLogin" class="nav-link py-3 px-0 px-lg-3 rounded" href="http://localhost:8080/signin">Prijavi se</a></li>
                 </ul>
             </div>
         </div>
@@ -41,20 +42,18 @@
 
 
         </div>
-        <div id='LikeDislike' style='margin: 5px auto'>
-            <button class=' btn btn-outline-primary ' style='padding: 5px 10px;margin: 0px 5px'><i class='fas fa-thumbs-up '></i> Sviđa mi se</button>
-            <button class=' btn btn-outline-primary ' style='padding: 5px 10px;margin: 0px 5px'><i class='fas fa-thumbs-down '></i>Ne sviđa mi se </button>
-        </div>
-        <div id="dodajCV" class="cv-item">
-            <h6>Unesite Vaš CV</h6>
-            <textarea id="unesiCV" onload=""></textarea>
-            <div class='dugme'>
-                <button type='button' class='btn btn-outline-primary' id='oglas-link'>Pošalji CV</button>
+
+        <div class="sakrijOdKorisnika">
+            <div id="dodajCV" class="cv-item">
+                <h6>Unesite Vaš CV</h6>
+                <textarea id="unesiCV" onload=""></textarea>
+                <div class='dugme'>
+                    <button type='button' class='btn btn-outline-primary' id='oglas-link' style='border-color : #1abc9c;'>Pošalji CV</button>
+                </div>
             </div>
         </div>
+    </div>
 
-    </div>
-    </div>
     <footer class="footer text-center ">
         <div class="container ">
             <div class="row ">
