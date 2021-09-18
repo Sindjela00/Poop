@@ -11162,7 +11162,7 @@
             
             #unesiCV {
                 position: relative;
-                overflow: scroll;
+                overflow: auto;
                 color: #1abc9c;
                 border: 3px solid #1abc9c;
                 border-radius: 5px;
@@ -11215,3 +11215,56 @@
                 margin-top: 10px;
                 text-align: left;
             }
+			/*NOVI OGLAS*/
+			
+			.novioglas-box {
+                position: relative;
+                margin: 20px;
+                background: #2c3e50;
+                text-align: center;
+                box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+                border-radius: 20px;
+				height: 940px; 
+            }
+            
+            .novioglas-user {
+                position: relative;
+                margin-top: 20px;
+                font-size: 90px;
+                background: -webkit-linear-gradient(#27EF9F, #0DB8DE);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+            
+            .novioglas-title {
+                position: relative;
+                margin-top: 5px;
+                text-align: center;
+                font-size: 30px;
+                font-weight: bold;
+                color: #ECF0F5;
+            }
+            
+            .novioglas-form {
+                margin-top: 10px;
+                text-align: left;
+            }
+            
+            .novioglas-button {
+                padding-right: 0px;
+                text-align: right;
+                margin-bottom: 25px;
+            }
+            
+            .novioglas-text {
+                text-align: left;
+                padding-left: 0px;
+                color: #A2A4A4;
+            }
+            #novioglas-opis{
+				position: relative; 
+				width: 100%; 
+				height: 40%; 
+				border-radius: 5px; 
+				overflow: auto;
+			}

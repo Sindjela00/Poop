@@ -11,16 +11,16 @@
     <script src="/js/functions.js" type="text/javascript"></script>
 </head>
 
-<body onload="Dajgradove()" class="ostaleStrane">
+<body onload="Dajgradove();Dajtagove(); " class="ostaleStrane">
 
     <div class="container">
         <div class="row">
             <div class="col-lg-3 col-md-2"></div>
-            <div class="col-lg-6 col-md-8 login-box">
-                <div class="col-lg-12 login-title">
+            <div class="col-lg-6 col-md-8 novioglas-box">
+                <div class="col-lg-12 novioglas-title">
                     Objavi oglas
                 </div>
-                <div class="col-lg-12 login-form">
+                <div class="col-lg-12 novioglas-form">
                     <form>
                         <div class="form-group">
                             <label class="form-control-label">Naziv oglasa</label>
@@ -29,6 +29,7 @@
                         </div>
                         <div class="form-check">
                             <label class="form-control-label">Vremenski period: </label>
+                            <br>
                             <label class="form-check-label">
                                     <input type="radio" class="form-check-input" id="poslodavac" name="uloga" value="poslodavac">
                                         <b><span style="color: white">Posao na određeno vreme</span></b>
@@ -46,13 +47,23 @@
                             <div class="invalid-feedback" data-sb-feedback="city-register:required">Neophodno je da unesete mesto posla!</div>
                         </div>
                         <div class="form-group">
+                            <label class="form-control-label">Kategorija: </label>
+                            <select id="tagovi" class="form-control" data-sb-validations="required"></select>
+                            <div class="invalid-feedback" data-sb-feedback="tagovi:required">Neophodno je da odaberete kategoriju oglasa!</div>
+                        </div>
+                        <div class="form-group">
                             <label class="form-control-label">Početna plata</label>
                             <input type="text" id="plata" class="form-control" data-sb-validations="required">
                             <div class="invalid-feedback" data-sb-feedback="naziv-oglas:required" style="color: white">Neophodno je da unesete početnu platu!</div>
                         </div>
+                        <div class="form-group">
+                            <label class="form-control-label">Opis oglasa: </label><br>
+                            <textarea id="novioglas-opis"></textarea>
+                            <div class="invalid-feedback" data-sb-feedback="opisOglasa:required">Neophodno je da unesete opis oglasa!</div>
+                        </div>
+
                         <div class="col-lg-12 loginbttm">
                             <div class="col-lg-6 login-btm login-text">
-                                <!-- Error Message -->
                             </div>
                             <div class="dugme">
                                 <button type="button" class="btn btn-outline-primary" onclick="signup()">Postavi oglas</button>
