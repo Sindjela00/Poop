@@ -10982,7 +10982,7 @@
             }
             
             .form-group input[type=checkbox] {
-				position: relative; 
+                position: relative;
                 width: 15px;
                 height: 15px;
             }
@@ -10991,7 +10991,7 @@
             .form-group input[type=email],
             .form-group select,
             .form-group input[type=checkbox] {
-				position: relative; 
+                position: relative;
                 background-color: white;
                 border: none;
                 border: 3px solid #0DB8DE;
@@ -11000,7 +11000,7 @@
                 margin-bottom: 5px;
                 padding-left: 0px;
                 color: #0DB8DE;
-				border-radius: 5px;
+                border-radius: 5px;
             }
             
             .form-group input[type=password] {
@@ -11027,11 +11027,13 @@
                 outline: 0;
                 color: #ECF0F5;
             }
+            
             input:focus {
                 outline: none;
                 color: black;
                 box-shadow: 0 0 0;
             }
+            
             label {
                 margin-bottom: 5px;
             }
