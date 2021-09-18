@@ -11248,16 +11248,13 @@
                 background-color : white;
                 border : 3px solid #0DB8DE;
                 border-radius : 5px;
+                color : #0DB8DE;
             }
 
             .profile-oglas a {
                 text-decoration: none;
-                color : #0DB8DE;
             }
             
-            .profile-oglas p {
-                color : #0DB8DE;
-            }
 			/*NOVI OGLAS*/
 			
 			.novioglas-box {
