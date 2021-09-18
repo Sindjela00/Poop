@@ -190,18 +190,6 @@ function checkCity(grad) {
     return false;
 }
 
-$(document).ready(function() {
-    json = $.getJSON("http://localhost:8080/cities", function() {
-            console.log("zavrsio");
-        })
-        .done(function(data) {
-            table = "<table>";
-            for (let i = 0; i < data.length; i++) {
-                table += "<tr><td>" + data[i].error + "</td></tr>";
-            }
-            table += "</table>";
-        });
-});
 
 //  pozoves funkciju Dajgradove kad se ucita html i on ce da popuni gradovi kao json i gradove uzimas kao gradovi[i].error
 // .error jer nisam pravio posebnu klasu za ovo,mozda se promeni kasnije 
@@ -360,12 +348,43 @@ function Dajtagove() {
         });
 }
 
-function ucitajOglase() {
+var url_string = window.location.href;
+var url = new URL(url_string);
+var tag = url.searchParams.get("tag");
+var mesto = url.searchParams.get("mesto");
+
+function promeniurl() {
+    var url_string = window.location.href;
+    var url = new URL(url_string);
+    var tag = url.searchParams.get("tag");
+    var mesto = url.searchParams.get("mesto");
     selectgrad = document.getElementById("city-register").selectedIndex;
     selecttag = document.getElementById("tagovi").value;
-    console.log(selectgrad);
-    console.log(selecttag);
-    json = $.getJSON("http://localhost:8080/potrazi?tag=" + selecttag + "&mesto=" + selectgrad, function() {
+    var novurl = "http://localhost:8080/oglasi?tag=" + selecttag + "&mesto=" + selectgrad;
+    window.history.replaceState("aaaa", "bbbb", novurl);
+}
+
+
+
+
+function ucitajOglase() {
+    var url_string = window.location.href;
+    var url = new URL(url_string);
+    var tag = url.searchParams.get("tag");
+    var mesto = url.searchParams.get("mesto");
+    select = document.getElementById("tagovi");
+    options = select.getElementsByTagName("option")
+    console.log(options);
+    for (i = 0; i < options.length; i++) {
+        if (options[i].value == tag) {
+            select.selectedIndex = i;
+        }
+        console.log("aaaaaa" + i + " " + tag);
+        console.log("bbbb" + select.selectedIndex);
+    }
+    document.getElementById("city-register").selectedIndex = mesto;
+
+    json = $.getJSON("http://localhost:8080/potrazi?tag=" + tag + "&mesto=" + mesto, function() {
             console.log("zavrsio");
         })
         .done(function(ads) {
