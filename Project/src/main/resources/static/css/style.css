@@ -11179,3 +11179,39 @@
                 margin: 10px auto;
                 height: 10%;
             }
+			
+			/*PROFILE FORM*/
+			.profile-box {
+                position: relative;
+				float: left; 
+                margin-top : 130px; 
+				margin-bottom: 20px; 
+                background: #2c3e50;
+                text-align: center;
+                box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+                border-radius: 20px;
+				width: 30%; 
+            }
+            
+            .profile-user {
+                position: relative;
+                margin-top: 10px;
+                font-size: 60px;
+                background: -webkit-linear-gradient(#27EF9F, #0DB8DE);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+            
+            .profile-title {
+                position: relative;
+                margin-top: 5px;
+                text-align: center;
+                font-size: 30px;
+                font-weight: bold;
+                color: #ECF0F5;
+            }
+            
+            .profile-form {
+                margin-top: 10px;
+                text-align: left;
+            }
