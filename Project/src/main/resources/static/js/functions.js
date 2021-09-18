@@ -371,6 +371,7 @@ function ucitajOglase() {
         .done(function(ads) {
             contentAds = "<ul class='list-group shadow' id='lista'>";
             for (i = 0; i < ads.length; i++) {
+                id = ads[i].id;
                 naslov = ads[i].naslov;
                 oblast = ads[i].oblast;
                 grad = ads[i].mesto;
@@ -398,7 +399,8 @@ function ucitajOglase() {
                     "<li class='list-inline-item m-0'><i class='fa fa-star-o text-gray'></i></li>" +
                     "</ul>" +
                     "</div>" +
-                    "<button id=dugmeDetalji class='btn btn-outline-primary' style='float: right'> Detaljnije </button>" +
+                    "<button id=dugmeDetalji class='btn btn-outline-primary' style='float: right' onclick='prebaciNaOglas(" + id +
+                    ")'> Detaljnije </button>" +
                     "</div><img src='https://i.imgur.com/KFojDGa.jpg' alt='Generic placeholder image' width='200' class='ml-lg-5 order-1 order-lg-2'>" +
                     "</div>" +
                     "</li>"
@@ -447,4 +449,8 @@ function ucitajdetaljno() {
                 "</div>";
             document.getElementById("stranicaOglasa").innerHTML = contentAd;
         });
+}
+
+function prebaciNaOglas(id) {
+    window.location.replace("http://localhost:8080/oglas?id=" + id);
 }
