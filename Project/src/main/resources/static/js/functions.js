@@ -501,3 +501,10 @@ function provera() {
             data.admin;
         });
 }
+
+function filtrirajOglase() {
+    var selectgrad = document.getElementById("city-register").selectedIndex;
+    var selecttag = document.getElementById("tagovi").value;
+    var novurl = "http://localhost:8080/oglasi?tag=" + selecttag + "&mesto=" + selectgrad;
+    window.location.replace(novurl)
+}
