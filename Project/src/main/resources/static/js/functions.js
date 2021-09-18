@@ -633,12 +633,19 @@ function otvoriProfil(id) {
 function mojiOglasi() {
     field = document.getElementById("profile-oglasi");
     txt = "";
-    
+    string = "";
     url_string = window.location.href;
     url = new URL(url_string);
     userID = url.searchParams.get("user");
 
-    json = $.getJSON("http://localhost:8080/mojioglasi?user=" + userID, function() {})
+    if(userID == null) {
+        string = "http://localhost:8080/mojioglasi";
+    }
+    else {
+        string = "http://localhost:8080/mojioglasi?user=" + userID
+    }
+
+    json = $.getJSON(string, function() {})
         .done(function(data) {
             if (data != null) {
                 for (i = 0; i < data.length; i++) {
