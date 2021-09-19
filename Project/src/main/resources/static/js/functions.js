@@ -300,12 +300,22 @@ function popuniProfil() {
                 document.getElementById("dvojke").innerHTML += data.dvojke;
                 document.getElementById("jedinice").innerHTML += data.jedinice;
                 lozinke = document.getElementById("sakriveno");
-                if (data.password == null || data.password == "") {
-                    document.getElementById("promeniLozinku").style.display = 'none';
+            }
+        });
+
+        json = $.getJSON("http://localhost:8080/login", function() {})
+        .done(function(data) {
+            console.log(data);
+            if (data != null) {
+                console.log(data.id);
+                if(id == data.id || id == null){
+                    document.getElementById("sakriveno").style.display = 'block';
+                }
+                else if ((id != data.id) && data.id != -1){
                     document.getElementById("oceni").style.display = 'block';
                 }
             }
-        });
+        }); 
 
     json = $.getJSON("http://localhost:8080/telefon" + userid, function() {
             console.log("zavrsio");
@@ -458,7 +468,7 @@ function ucitajOglase() {
                     "<span class='fas fa-thumbs-down' style='color : #0DB8DE'> </span>" + "<span style='margin-left: 5px; color : #0DB8DE;'>" + dislikes + "</span>" +
                     "</div>" +
                     "</div>" +
-                    "<button id=dugmeDetalji class='btn btn-outline-primary' style='float: right' onclick='prebaciNaOglas(" + id +
+                    "<button id=dugmeDetalji class='btn btn-outline-primary' style='float: right; margin-right: 20px;' onclick='prebaciNaOglas(" + id +
                     ")'> Detaljnije </button>" +
                     "</div>" +
                     "</li>"
@@ -590,21 +600,25 @@ function srediNavbar() {
         .done(function(data) {
             console.log(data);
             if (data != null) {
+                if(data.poslodavac) {
+                    document.getElementById("navKreiraj").style.display = 'block';
+                }
                 url_string = window.location.href;
                 url = new URL(url_string);
                 if (url_string.includes("profil")) {
                     userID = url.searchParams.get("user");
-
+                    console.log(userID, data.id);
                     if (userID == null && data.prijavljen) {
                         login.href = "http://localhost:8080/signout";
                         login.innerHTML = "Odjavi se";
                         profil.style.display = 'none';
-                    } else if (userID != null && data.prijavljen) {
+                    } else if ((userID != data.id) && data.id != -1) {
                         login.href = "http://localhost:8080/signout";
                         login.innerHTML = "Odjavi se";
                         profil.style.display = 'block';
-                    } else {
-                        login.innerHTML = "Prijavi se";
+                    } else if (userID == data.id){
+                        login.href = "http://localhost:8080/signout";
+                        login.innerHTML = "Odjavi se";
                         profil.style.display = 'none';
                     }
                 } else if (data.prijavljen) {
@@ -790,6 +804,7 @@ function poslodavci() {
                         "</div>";
                 }
                 field.innerHTML = txt;
+                sakrijOdKorisnika();
             }
         });
 }
