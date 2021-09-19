@@ -239,13 +239,22 @@ function login() {
             if (response[0].error == "OK") {
                 window.location.replace("http://localhost:8080/")
             }
-            console.log(response[0].error);
+            else {
+                window.alert("Username ili sifra nisu ispravni.");
+            }
         })
 }
 
 function validateEmail(email) {
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
+}
+
+function validatePhoneNumber(input_str) 
+{
+    var re = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
+
+    return re.test(input_str);
 }
 
 function signup() {
@@ -259,11 +268,11 @@ function signup() {
     poslodavac = document.getElementById("poslodavac").checked;
 
     if((ime == "") || (ime == null)){
-        window.alert("Unesite ime i prezime.");
+        window.alert("Unesite ime.");
         return;
     }
-    if((user == "") || (user == null)){
-        window.alert("Unesite korisnicko ime.");
+    if((email == "") || (email == null)){
+        window.alert("Unesite email adresu.");
         return;
     }
     if(!validateEmail(email)){
@@ -272,6 +281,10 @@ function signup() {
     }
     if((telefon == "") || (telefon == null)){
         window.alert("Unesite broj telefona.");
+        return;
+    }
+    if(!validatePhoneNumber(telefon)){
+        window.alert("Neispravan broj telefona.");
         return;
     }
     if((pass == "") || (pass == null)){
@@ -383,7 +396,6 @@ function popuniProfil() {
 function Sacuvaj() {
     var id;
     var username;
-    var password;
 
     ime = document.getElementById("profil-ime").value;
     grad = document.getElementById("city-register");
@@ -401,12 +413,13 @@ function Sacuvaj() {
             if (data != null) {
                 id = data.id;
                 username = data.username;
-                if((lozinka1 != data.password) || (lozinka1 == lozinka2) || (lozinka1 == lozinka3) || (lozinka2 != lozinka3)) {
-                    window.alert("Neodgovarajuca sifra");
+                if(lozinka2 != lozinka3) {
+                    window.alert("Sifre nisu iste.");
                 }
                 else {
-                    password = lozinka2
-                    string = '{"id":' + id + ',"ime":"' + ime + '","username":"' + username + '","email":"' + email + '","password":"' + password + '","opis":"' + opis + '","mesto":"' + mesto + '","petice":' + data.petice + ',"cetvorke":' + data.cetvorke + ',"trojke":' + data.trojke + ',"dvojke":' + data.dvojke + ',"jedinice":' + data.jedinice + '}';
+                    oldPassword = document.getElementById("lozinka1").value
+                    newPassword = lozinka2;
+                    string = '{"id":' + id + ',"ime":"' + ime + '","username":"' + username + '","email":"' + email + '","password1":"' + oldPassword + '","password2":"' + newPassword + '","opis":"' + opis + '","mesto":"' + mesto + '","petice":' + data.petice + ',"cetvorke":' + data.cetvorke + ',"trojke":' + data.trojke + ',"dvojke":' + data.dvojke + ',"jedinice":' + data.jedinice + '}';
                     post("http://localhost:8080/update", string);
                 }    
             }
