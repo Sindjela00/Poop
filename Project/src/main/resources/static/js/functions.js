@@ -301,7 +301,7 @@ function popuniProfil() {
                 document.getElementById("jedinice").innerHTML += data.jedinice;
                 lozinke = document.getElementById("sakriveno");
                 if (data.password == "" || data.password == null) {
-                    lozinke.style.display = 'none';
+                    document.getElementById("promeniLozinku").style.display = 'none'; 
                 }
             }
         });
