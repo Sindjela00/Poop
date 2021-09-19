@@ -11084,8 +11084,8 @@
             /*SVI OGLASI*/
             
             .ostaleStrane {
-                background: linear-gradient(to right, #fff, #15967d);
-                min-height: 100vh;
+               background: linear-gradient(to right, #fff, #15967d);
+               min-height: 100vh;
             }
             
             .text-gray {
@@ -11260,6 +11260,18 @@
             .profile-oglas button:hover {
                 background-color: #0DB8DE;
             }
+
+            #ocene {
+                padding-top : 10px;
+                line-height: 0.5em;
+                background-color : white;
+                border: 3px solid #0DB8DE;
+                border-radius: 5px;
+            }
+
+            #ocene p {
+                color : #0DB8DE;
+            }
             /*NOVI OGLAS*/
             
             .novioglas-box {
@@ -11371,3 +11383,6 @@
 				width: 20%; 
 				height: 5%; 
 			}
+            .kanta:hover {
+                background-color : #0DB8DE;
+            }

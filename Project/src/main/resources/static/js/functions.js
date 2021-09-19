@@ -292,7 +292,13 @@ function popuniProfil() {
                 document.getElementsByName("email")[0].value = data.email;
                 document.getElementsByName("opis")[0].value = data.opis;
                 document.getElementsByName("lozinka1")[0].value = data.password;
-
+                prosecna = (data.petice * 5 + data.cetvorke * 4 + data.trojke * 3 + data.dvojke * 2 + data.jedinice * 1) / (data.petice + data.cetvorke + data.trojke + data.dvojke + data.jedinice);
+                document.getElementById("prosecna").innerHTML += prosecna;
+                document.getElementById("petice").innerHTML += data.petice;
+                document.getElementById("cetvorke").innerHTML += data.cetvorke;
+                document.getElementById("trojke").innerHTML += data.trojke;
+                document.getElementById("dvojke").innerHTML += data.dvojke;
+                document.getElementById("jedinice").innerHTML += data.jedinice;
                 lozinke = document.getElementById("sakriveno");
                 if (data.password == "" || data.password == null) {
                     lozinke.style.display = 'none';
@@ -412,8 +418,13 @@ function ucitajOglase() {
             console.log("zavrsio");
         })
         .done(function(ads) {
-            contentAds = "<ul class='list-group shadow' id='lista'>";
-            for (i = 0; i < ads.length; i++) {
+            var brOglasa = ads.length;
+            if (brOglasa == 0) {
+                document.getElementById("oglasi").innerHTML = "<h5 class='mt-0 font-weight-bold mb-2' style='color:#1abc9c'> Nema rezultata pretrage </h5>";
+                return;
+            }
+            contentAds = "<ul class='list-group shadow' id='lista' style='background-color: #15967d;'>";
+            for (i = 0; i < brOglasa; i++) {
                 id = ads[i].id;
                 naslov = ads[i].naslov;
                 oblast = ads[i].oblast;
@@ -427,15 +438,22 @@ function ucitajOglase() {
                 mail = ads[i].email;
                 likes = ads[i].likes;
                 dislikes = ads[i].dislikes;
-
+                radniOdnos = ads[i].tip;
+                if (radniOdnos == true)
+                    radniOdnos = "na neodređeno vreme";
+                else
+                    radniOdnos = "na određeno vreme";
                 contentAds += "<li class='list-group-item'>" +
                     "<div class='media align-items-lg-center flex-column flex-lg-row p-3'>" +
                     "<div class='media-body order-2 order-lg-1'>" +
+                    "<div style='float: left; width:85%'>" +
                     "<h5 class='mt-0 font-weight-bold mb-2' style='color:#1abc9c'>" + naslov + "</h5>" +
-                    "<p class='font-italic text-muted mb-0 small'><i class='fas fa-map-marker-alt' style='padding-top: 10px; padding-right: 5px; height:30px; width: 30px; '></i>" + grad + "</p>" +
-                    "<p class='font-italic text-muted' style='font-size: 15px; text-transform: upppercase;vertical-align: text-top;'><i class='fas fa-address-card' style='padding-top: 10px; padding-right: 5px; height:30px; width: 30px; '></i>" + poslodavac + "</p>" +
+                    "<p class='font-italic text-muted mb-0 small' style='font-size: 16px;'><i class='fas fa-map-marker-alt' style='padding-top: 10px; padding-right: 5px; height:30px; width: 30px; '></i>" + grad + "</p>" +
+                    "<p class='font-italic text-muted mb-0 small' style='font-size: 16px;'><i class='fas fa-address-card' style='padding-top: 10px; padding-right: 5px; height:30px; width: 30px; '></i>" + poslodavac + "</p>" +
+                    "<p class='font-italic text-muted mb-0 small' style='font-size: 16px;'><i class='fas fa-file-contract' style='padding-top: 10px; padding-right: 5px; height:30px; width: 30px; '></i> Radni odnos " + radniOdnos + "</p>" +
+                    "</div>" +
                     "<div class='d-flex align-items-center justify-content-between mt-1'>" +
-                    "<div class='lajkDislajk'>" +
+                    "<div class='lajkDislajk' style='float: right; margin-left: 35px; margin-bottom: 10px; '>" +
                     "<span class='fas fa-thumbs-up' style='color : #0DB8DE;'> </span>" + "<span style='margin: 0px 50px 0 5px; color : #0DB8DE;'>" + likes + "</span>" +
                     "<span class='fas fa-thumbs-down' style='color : #0DB8DE'> </span>" + "<span style='margin-left: 5px; color : #0DB8DE;'>" + dislikes + "</span>" +
                     "</div>" +
@@ -495,8 +513,8 @@ function ucitajdetaljno() {
                 "</div>" +
                 "<br><br>" +
                 "<div id='LikeDislike' class='sakrijOdKorisnika' style='float : right;'>" +
-                "<button class=' btn btn-outline-primary ' style='padding: 5px 10px;margin: 0px 5px; color : #1abc9c; border-color : #1abc9c;'><i class='fas fa-thumbs-up '></i> Sviđa mi se</button>" +
-                "<button class=' btn btn-outline-primary ' style='padding: 5px 10px;margin: 0px 5px; color : #1abc9c; border-color : #1abc9c;'><i class='fas fa-thumbs-down '></i> Ne sviđa mi se </button>" +
+                "<button id='like' class=' btn btn-outline-primary ' style='padding: 5px 10px;margin: 0px 5px; color : #1abc9c; border-color : #1abc9c;'><i class='fas fa-thumbs-up '></i> Sviđa mi se</button>" +
+                "<button id='dislike' class=' btn btn-outline-primary ' style='padding: 5px 10px;margin: 0px 5px; color : #1abc9c; border-color : #1abc9c;'><i class='fas fa-thumbs-down '></i> Ne sviđa mi se </button>" +
                 "</div>" +
                 "</div>" +
                 "</div>" +
