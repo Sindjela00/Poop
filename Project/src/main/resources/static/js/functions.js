@@ -413,7 +413,6 @@ function ucitajOglase() {
     var mesto = url.searchParams.get("mesto");
     if (tag == null) tag = 0;
     if (mesto == null) mesto = 0;
-    promeniurl();
     json = $.getJSON("http://localhost:8080/potrazi?tag=" + tag + "&mesto=" + mesto, function() {
             console.log("zavrsio");
         })
