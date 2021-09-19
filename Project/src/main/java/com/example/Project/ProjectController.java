@@ -203,7 +203,7 @@ public class ProjectController {
         try {
             js = new JSONObject(body);
                 if ( body != null) {
-                db.update(js.getInt("id"),js.getString("ime"),js.getString("username"),js.getString("password"), js.getString("email"), js.getInt("mesto"), js.getString("opis"));
+                db.update(js.getInt("id"),js.getString("ime"),js.getString("username"),js.getString("password1"),js.getString("password2"), js.getString("email"), js.getInt("mesto"), js.getString("opis"));
                 return "OK";
             }
             } catch (JSONException e) {

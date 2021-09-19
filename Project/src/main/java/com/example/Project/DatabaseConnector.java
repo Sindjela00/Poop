@@ -457,28 +457,41 @@ public class DatabaseConnector {
         return null;
     }
 
-    public boolean update(Integer id, String ime, String username, String passoword, String email, Integer mesto,
+    public boolean update(Integer id, String ime, String username, String password1,String password2, String email, Integer mesto,
             String opis) {
         PreparedStatement statement;
         try {
-            statement = connection.prepareStatement(
-                    "Update korisnik set ime=? , username=? , password=? , email=? , idmesta = ? , opis = ? where idkorisnik=?");
-            statement.setString(1, ime);
-            if ((dajId(username) != null && dajId(username) != id) || dajId(username) == null) {
-                statement.setString(2, username);
-            } else {
-                statement.setString(2, dajUser("idkorisnik", id.toString()));
-            }
-            statement.setString(3, passoword);
-            if (dajMail("email", email) != null && dajMail("idkorisnik", id.toString()) == email
-                    || dajMail("email", email) != null) {
-                statement.setString(4, email);
-            } else {
-                statement.setString(4, dajMail("idkorisnik", id.toString()));
-            }
-            statement.setInt(5, mesto);
-            statement.setString(6, opis);
+            statement = connection.prepareStatement("select * from korisnik where id=? and password=?");
+            statement.setInt(1, id);
+            statement.setString(2, password1);
             ResultSet result = statement.executeQuery();
+            if(result.next()){
+                    if(password2.compareTo("")==0){
+                        statement = connection.prepareStatement(
+                            "Update korisnik set ime=? , username=? , email=? , idmesta = ? , opis = ? where idkorisnik=?");
+                        statement.setString(1, ime);
+                        statement.setString(2, username);
+                        statement.setString(3, email);
+                        statement.setInt(4, mesto);
+                        statement.setString(5, opis);
+                        statement.setInt(6, id);
+                        statement.executeUpdate();
+                        return true;
+                    }
+                    else{
+                        PreparedStatement stat = connection.prepareStatement(
+                            "Update korisnik set ime=? , username=? , password=? , email=? , idmesta = ? , opis = ? where idkorisnik=?");
+                            stat.setString(1, ime);
+                            stat.setString(2, username);
+                            stat.setString(3, password2);
+                        stat.setString(4, email);
+                        stat.setInt(5, mesto);
+                        stat.setString(6, opis);
+                        stat.setInt(7, id);
+                        stat.executeUpdate();
+                        return true;
+                    }
+            }
             return true;
         } catch (SQLException e) {
             // TODO Auto-generated catch block
