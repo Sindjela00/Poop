@@ -558,6 +558,7 @@ function ucitajdetaljno() {
         });
 
     sakrijOdKorisnika();
+    sakrijOdPoslodavca();
 }
 
 function sakrijOdKorisnika() {
@@ -567,6 +568,25 @@ function sakrijOdKorisnika() {
             console.log(data);
             if (data != null) {
                 if (!data.prijavljen) {
+                    for (i = 0; i < sakriveno.length; i++) {
+                        sakriveno[i].style.display = 'none';
+                    }
+                } else {
+                    for (i = 0; i < sakriveno.length; i++) {
+                        sakriveno[i].style.display = 'block';
+                    }
+                }
+            }
+        });
+}
+
+function sakrijOdPoslodavca() {
+    var sakriveno = document.getElementsByClassName("sakrijOdPoslodavca");
+    json = $.getJSON("http://localhost:8080/login", function() {})
+        .done(function(data) {
+            console.log(data);
+            if (data != null) {
+                if (!data.prijavljen || data.poslodavac == true) {
                     for (i = 0; i < sakriveno.length; i++) {
                         sakriveno[i].style.display = 'none';
                     }
