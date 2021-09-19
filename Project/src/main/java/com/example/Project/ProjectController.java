@@ -241,11 +241,11 @@ public class ProjectController {
     }
 
     @GetMapping("/lajkovao")
-    public @ResponseBody String lajkovao(@RequestParam Integer id,HttpServletRequest req, HttpServletResponse res){
+    public @ResponseBody errorCode lajkovao(@RequestParam Integer id,HttpServletRequest req, HttpServletResponse res){
         if(CookieManager.getCookie(req)!=null){
             return db.proverilajk(db.dajId(CookieManager.getContent(CookieManager.getCookie(req))), id);
         }
-        return "nista";
+        return new errorCode("nista");
     }
     
 

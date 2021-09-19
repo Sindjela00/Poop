@@ -556,7 +556,7 @@ public class DatabaseConnector {
         return null;
     }
 
-    public String proverilajk(Integer idcoveka, Integer idoglasa) {
+    public errorCode proverilajk(Integer idcoveka, Integer idoglasa) {
         PreparedStatement statement;
         try {
             statement = connection.prepareStatement("SELECT * FROM lajkovi where idcoveka=? and idOglasa=?");
@@ -566,20 +566,20 @@ public class DatabaseConnector {
             ResultSet result = statement.executeQuery();
             if (result.next()){
                 if(result.getBoolean(3))
-                    return "like";
-                return "dislike";
+                    return new errorCode("like");
+                return new errorCode("dislike");
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        return "nista";
+        return new errorCode("nista");
     }
 
     public boolean lajkuj(Integer idcoveka, Integer idoglasa, String like) {
         PreparedStatement statement;
         try {
-            if (proverilajk(idcoveka, idoglasa).compareTo("nista")!=0) {
+            if (proverilajk(idcoveka, idoglasa).error.compareTo("nista")!=0) {
                 statement = connection.prepareStatement("DELETE FROM lajkovi WHERE idcoveka=? and idOglasa=?;");
                 statement.setInt(1, idcoveka);
                 statement.setInt(2, idoglasa);
