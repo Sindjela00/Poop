@@ -250,11 +250,9 @@ function validateEmail(email) {
     return re.test(String(email).toLowerCase());
 }
 
-function validatePhoneNumber(input_str) 
+function validateNumber(num) 
 {
-    var re = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
-
-    return re.test(input_str);
+    return /^\d+$/.test(num);
 }
 
 function signup() {
@@ -283,7 +281,7 @@ function signup() {
         window.alert("Unesite broj telefona.");
         return;
     }
-    if(!validatePhoneNumber(telefon)){
+    if(!validateNumber(telefon)){
         window.alert("Neispravan broj telefona.");
         return;
     }
@@ -749,7 +747,31 @@ function dodajoglas() {
     plata = document.getElementById("plata").value;
     opis = document.getElementById("novioglas-opis").value;
 
-    string = '{"naslov":"' + naziv + '","tip":' + tip + ',"plata":' + plata + ',"opis":"' + opis + '","mesto":' + grad + '}';
+    console.log(tag);
+
+    if((naziv == "") || (naziv == null)) {
+        window.alert("Unesite naziv oglasa.");
+        return;
+    }
+    if(tag == 0){
+        window.alert("Izaberite kategoriju posla.");
+        return;
+    }
+    if((plata == "") || (plata == null)) {
+        window.alert("Unesite pocetnu platu.");
+        return;
+    }
+    if(!validateNumber(plata)){
+        window.alert("Neispravano uneta plata.");
+        return;
+    }
+    if((opis == "") || (opis == null)) {
+        window.alert("Unesite opis oglasa.");
+        return;
+    }
+    
+
+    string = '{"naslov":"' + naziv + '","tip":' + tip + ',"plata":' + plata + ',"opis":"' + opis + '","mesto":' + grad + '","tag":' + tag + '}';
     post("http://localhost:8080/napravioglas", string);
 }
 
