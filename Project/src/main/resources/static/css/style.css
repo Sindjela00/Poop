@@ -11084,8 +11084,8 @@
             /*SVI OGLASI*/
             
             .ostaleStrane {
-                background: linear-gradient(to right, #fff, #15967d);
-                min-height: 100vh;
+               background: linear-gradient(to right, #fff, #15967d);
+               min-height: 100vh;
             }
             
             .text-gray {
