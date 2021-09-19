@@ -301,7 +301,7 @@ function popuniProfil() {
                 document.getElementById("jedinice").innerHTML += data.jedinice;
                 lozinke = document.getElementById("sakriveno");
                 if (data.password == "" || data.password == null) {
-                    lozinke.style.display = 'none';
+                    document.getElementById("promeniLozinku").style.display = 'none'; 
                 }
             }
         });
@@ -707,20 +707,13 @@ function mojiOglasi() {
                 for (i = 0; i < data.length; i++) {
                     naslov = data[i].naslov;
                     lokacija = data[i].mesto;
-                    radniOdnos = data[i].tip;
                     id = data[i].id;
-                    if (radniOdnos == true)
-                        radniOdnos = "na neodređeno vreme";
-                    else
-                        radniOdnos = "na određeno vreme";
                     txt +=
                         "<div class='profile-oglas'>" +
                         "<button type='button' onclick='izbrisiOglas(" + id + ");' class='btn btn-outline-primary sakrijOdKorisnika' style='float:right;'><i class='fas fa-trash'></i></button>" +
                         "<h5> Naziv oglasa: " + naslov + "</h5>" +
-                        "<p class='font-italic text-muted mb-0 small' style='font-size: 16px;'><i class='fas fa-map-marker-alt' style='padding-top: 10px; padding-right: 5px; height:30px; width: 30px; '></i>" + lokacija + "</p>" +
-                        "<p class='font-italic text-muted mb-0 small' style='font-size: 16px;'><i class='fas fa-file-contract' style='padding-top: 10px; padding-right: 5px; height:30px; width: 30px; '></i> Radni odnos " + radniOdnos + "</p>" +
-
-                        "<button type='button' onclick='otvoriOglas(" + id + ");' class='btn btn-outline-primary' style='position: relative; margin:10px auto; width : 100%; padding: auto; margin: auto; '>Detaljnije</button>" +
+                        "<p><span><i class='fas fa-map-marker-alt'></i> Lokacija: " + lokacija + "</p></span>" +
+                        "<button type='button' onclick='otvoriOglas(" + id + ");' class='btn btn-outline-primary' style='width : 100%; padding: auto; margin: auto; '>Detaljnije</button>" +
                         /*"<button type='button' onclick='izbrisiOglas(" + id + ");' class='btn btn-outline-primary sakrijOdKorisnika' style='float : right; width : 48%;'>Izbriši</button>" +*/
                         "</div>";
                 }
@@ -806,7 +799,6 @@ function lajkuj(lajk) {
     if (dugme.classList.contains("active")) {
         lajk = "izbrisi";
     }
-    //nesto = post("http://localhost:8080/like?id=" + ID + "&lajk=" + lajk, null)
     fetch("http://localhost:8080/like?id=" + ID + "&lajk=" + lajk, { method: "POST", body: null })
     .then(function(){
         window.location.replace(window.location.href);
