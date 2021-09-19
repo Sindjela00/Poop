@@ -799,8 +799,12 @@ function lajkuj(lajk) {
     if (dugme.classList.contains("active")) {
         lajk = "izbrisi";
     }
-    post("http://localhost:8080/like?id=" + ID + "&lajk=" + lajk, null);
-    window.location.replace(window.location.href);
+    //nesto = post("http://localhost:8080/like?id=" + ID + "&lajk=" + lajk, null)
+    fetch("http://localhost:8080/like?id=" + ID + "&lajk=" + lajk, { method: "POST", body: null })
+    .then(function(){
+        window.location.replace(window.location.href);
+
+    });
     lajkovao();
 }
 

@@ -233,7 +233,7 @@ public class ProjectController {
     }
     
     @PostMapping("/like")
-    public  String lajkuj(@RequestParam Integer id, @RequestParam String lajk,HttpServletRequest req, HttpServletResponse res) {
+    public @ResponseBody String lajkuj(@RequestParam Integer id, @RequestParam String lajk,HttpServletRequest req, HttpServletResponse res) {
         if(CookieManager.getCookie(req)!=null){
             db.lajkuj(db.dajId(CookieManager.getContent(CookieManager.getCookie(req))), id, lajk);
         }
