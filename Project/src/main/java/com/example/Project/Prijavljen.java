@@ -11,6 +11,18 @@ public class Prijavljen {
         this.poslodavac = poslodavac;
         this.admin = admin;
     }
+
+    
+    public Integer getId() {
+        return id;
+    }
+
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+
     public Boolean getPrijavljen() {
         return prijavljen;
     }

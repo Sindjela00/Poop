@@ -766,7 +766,7 @@ public class DatabaseConnector {
     public Prijavljen logovan(String username){
         PreparedStatement statement;
         try {
-            statement = connection.prepareStatement("SELECT idkorisik,poslodavac,admin FROM korisnik where username=?");
+            statement = connection.prepareStatement("SELECT idkorisnik,poslodavac,admin FROM korisnik where username=?");
             statement.setString(1, username);
             ResultSet result = statement.executeQuery();
             if (result.next())
