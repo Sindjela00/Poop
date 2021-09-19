@@ -799,7 +799,7 @@ function poslodavci() {
                             "<br><br>" +
                             "<button type='button' onclick='otvoriProfil(" + id + ");' class='dugme btn btn-outline-primary' style='float : left; width : 48%;'>Detaljnije</button>" +
                             "<div class='col-lg-12' id='samoZaAdmina' style='width: 100px; position: absolute; padding-right : 15px; bottom : 8px;'>" + 
-                                "<button type='button' class='btn btn-outline-primary sakrijOdKorisnika kanta'><i class='fas fa-trash'></i></button>" +
+                                "<button type='button' onclick='izbacipos("+id+")'class='btn btn-outline-primary sakrijOdKorisnika kanta'><i class='fas fa-trash'></i></button>" +
                             "</div>" +
                         "</div>";
                 }
@@ -847,4 +847,7 @@ function prijavise(){
     url = new URL(url_string);
     ID = url.searchParams.get("id");
     post("http://localhost:8080/prijavi?id="+ID,document.getElementById("unesiCV").value);
+}
+function izbacipos(id){
+    post("http://localhost:8080/izbrisiposlodavca?id="+id,null);
 }

@@ -430,13 +430,16 @@ public class ProjectController {
 
     @PostMapping("/izbrisiposlodavca")
     public String ripposlodavca(@RequestParam Integer id,HttpServletRequest req, HttpServletResponse res)
-    {
+    {   
+        System.out.println("Pocetak");
         if(id!=null && CookieManager.getCookie(req)!= null){
+            System.out.println("Prvi if");
             if(db.logovan(CookieManager.getContent(CookieManager.getCookie(req))).admin){
-                db.izbrisiPosodavca(id);
+                db.izbrisiPoslodavca(id);
+                System.out.println("Drugi if");
             }
         }
-
+        System.out.println("kraj");
         return null;
     }
 

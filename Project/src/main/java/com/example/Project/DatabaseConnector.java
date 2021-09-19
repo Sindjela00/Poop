@@ -882,7 +882,7 @@ public class DatabaseConnector {
             }
             return null;
     }
-    public boolean izbrisiPosodavca(Integer id){
+    public boolean izbrisiPoslodavca(Integer id){
         PreparedStatement statement;
 
         try {
@@ -897,6 +897,9 @@ public class DatabaseConnector {
             statement.setInt(2, id);
             statement.executeUpdate();
             statement = connection.prepareStatement("Delete from telefoni where idkorisnika=?");
+            statement.setInt(1, id);
+            statement.executeUpdate();
+            statement = connection.prepareStatement("Delete from korisnik where idkorisnik=?");
             statement.setInt(1, id);
             statement.executeUpdate();
             return true;
