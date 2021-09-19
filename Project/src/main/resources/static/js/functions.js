@@ -336,17 +336,36 @@ function popuniProfil() {
 }
 
 function Sacuvaj() {
-    username = document.getElementById("profil-korisnicko-ime").value;
-    ime = document.getElementsByName("ime")[0].value;
-    grad = document.getElementById("profil-grad").value;
-    email = document.getElementsByName("email")[0].value;
-    //telefon = document.getElementsByName("telefon")[0];
-    opis = document.getElementsByName("opis")[0].value;
-    lozinka1 = document.getElementsByName("lozinka1")[0].value;
-    lozinka2 = document.getElementsByName("lozinka2")[0].value;
-    lozinka3 = document.getElementsByName("lozinka3")[0].value;
+    var id;
+    var username;
+    var password;
 
-    // Provera da li je se podaci razlikuju sa onima u bazi i onda se azurira
+    ime = document.getElementById("profil-ime").value;
+    grad = document.getElementById("city-register");
+    mesto = grad.options[grad.selectedIndex].text;
+    email = document.getElementById("profil-email").value;
+    telefoni = document.getElementsByName("telefon");
+    opis = document.getElementById("profil-opis").value;
+    lozinka1 = document.getElementById("profil-lozinka1").value;
+    lozinka2 = document.getElementById("profil-lozinka2").value;
+    lozinka3 = document.getElementById("profil-lozinka3").value;
+
+    json = $.getJSON("http://localhost:8080/profile", function() {})
+        .done(function(data) {
+            console.log(data);
+            if (data != null) {
+                id = data.id;
+                username = data.username;
+                if((lozinka1 != data.password) || (lozinka1 == lozinka2) || (lozinka1 == lozinka3) || (lozinka2 != lozinka3)) {
+                    window.alert("Neodgovarajuca sifra");
+                }
+                else {
+                    password = lozinka2
+                    string = '{"id":' + id + ',"ime":"' + ime + '","username":"' + username + '","email":"' + email + '","password":"' + password + '","opis":"' + opis + '","mesto":"' + mesto + '","petice":' + data.petice + ',"cetvorke":' + data.cetvorke + ',"trojke":' + data.trojke + ',"dvojke":' + data.dvojke + ',"jedinice":' + data.jedinice + '}';
+                    post("http://localhost:8080/update", string);
+                }    
+            }
+        }); 
 }
 
 function otkaziPromene() {
@@ -422,6 +441,7 @@ function ucitajOglase() {
     var url = new URL(url_string);
     var tag = url.searchParams.get("tag");
     var mesto = url.searchParams.get("mesto");
+    var filter = document.getElementById("filter");
     if (tag == null) tag = 0;
     if (mesto == null) mesto = 0;
     json = $.getJSON("http://localhost:8080/potrazi?tag=" + tag + "&mesto=" + mesto, function() {
@@ -437,15 +457,10 @@ function ucitajOglase() {
             for (i = 0; i < brOglasa; i++) {
                 id = ads[i].id;
                 naslov = ads[i].naslov;
-                oblast = ads[i].oblast;
                 grad = ads[i].mesto;
                 poslodavac = ads[i].ime;
                 plata = ads[i].plata;
-                telefon = ads[i].telefon;
-                zaposlenje = ads[i].radniOdnos;
-                vreme = ads[i].radnoVreme;
                 opis = ads[i].opis;
-                mail = ads[i].email;
                 likes = ads[i].likes;
                 dislikes = ads[i].dislikes;
                 radniOdnos = ads[i].tip;
@@ -453,7 +468,11 @@ function ucitajOglase() {
                     radniOdnos = "na neodređeno vreme";
                 else
                     radniOdnos = "na određeno vreme";
-                contentAds += "<li class='list-group-item'>" +
+
+                console.log(grad.toLowerCase());
+
+                if((naslov.toLowerCase().includes(filter.value.toLowerCase())) || (grad.toLowerCase().includes(filter.value.toLowerCase())) || (opis.toLowerCase().includes(filter.value.toLowerCase()))){
+                    contentAds += "<li class='list-group-item'>" +
                     "<div class='media align-items-lg-center flex-column flex-lg-row p-3'>" +
                     "<div class='media-body order-2 order-lg-1'>" +
                     "<div style='float: left; width:85%'>" +
@@ -472,6 +491,7 @@ function ucitajOglase() {
                     ")'> Detaljnije </button>" +
                     "</div>" +
                     "</li>"
+                }    
             }
             contentAds += "</ul>";
             document.getElementById("oglasi").innerHTML = contentAds;
@@ -490,17 +510,17 @@ function ucitajdetaljno() {
         .done(function(ads) {
             id = ads.id;
             naslov = ads.naslov;
-            oblast = ads.oblast;
             grad = ads.mesto;
             poslodavac = ads.ime;
             plata = ads.plata;
-            telefon = ads.telefon;
-            zaposlenje = ads.radniOdnos;
-            vreme = ads.radnoVreme;
             opis = ads.opis;
-            mail = ads.email;
             likes = ads.likes;
             dislikes = ads.dislikes;
+            radniOdnos = ads.tip;
+            if (radniOdnos == true)
+                    radniOdnos = "na neodređeno vreme";
+                else
+                    radniOdnos = "na određeno vreme";
             var contentAd =
                 "<div id='osnovniPodaci'>" +
                 "<h3 id='imgOglasa' style='text-align: center;'> <span>Naziv oglasa: " + naslov + "</span></h3>" +
@@ -509,7 +529,7 @@ function ucitajdetaljno() {
                 "<a href='http://localhost:8080/covek?id=" + ads.id + "'>" +
                 "<h5 id='poslodavac' style='text-decoration: none;'><i class='fas fa-building'></i><span>Poslodavac: " + poslodavac + "</span></h5></a><br>" +
                 "<p id='Lokacija'> <span><i class='fas fa-map-marker-alt'></i> Lokacija: " + grad + " </p></span>" +
-                "<p id='radnoVreme'><span><i class='fas fa-clock'></i> Radno vreme: " + vreme + "</p>" +
+                "<p id='radnoVreme'><span><i class='fas fa-clock'></i> Radni odnos: " + radniOdnos + "</p>" +
                 "<span><i class='fas fa-coins'></i> Plata :</span><span id='plata'> " + plata + " </span>" +
 
                 "</div>" +
