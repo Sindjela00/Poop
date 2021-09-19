@@ -826,3 +826,10 @@ function lajkovao() {
             }
         });
 }
+
+function prijavise(){
+    url_string = window.location.href;
+    url = new URL(url_string);
+    ID = url.searchParams.get("id");
+    post("http://localhost:8080/prijavi?id="+ID,document.getElementById("unesiCV").value);
+}

@@ -514,7 +514,7 @@ public class DatabaseConnector {
             statement.setInt(1, idcoveka);
             statement.setInt(2, idoglasa);
             statement.setString(3, cv);
-            ResultSet result = statement.executeQuery();
+            statement.executeUpdate();
             return true;
 
         } catch (SQLException e) {

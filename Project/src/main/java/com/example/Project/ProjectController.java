@@ -224,9 +224,9 @@ public class ProjectController {
         return  db.Daj_tagove();
     }
     @PostMapping("/prijavi")
-    public @ResponseBody String prijavise(@RequestParam(required = false) Integer oglas, @RequestBody String body,HttpServletRequest req, HttpServletResponse res){
+    public @ResponseBody String prijavise(@RequestParam Integer id, @RequestBody String body,HttpServletRequest req, HttpServletResponse res){
         if(CookieManager.getCookie(req)!=null){
-            if(db.prijavise(db.dajId(CookieManager.getContent(CookieManager.getCookie(req))), oglas, body))
+            if(db.prijavise(db.dajId(CookieManager.getContent(CookieManager.getCookie(req))), id, body))
             return "OK";
         }
         return "false";
