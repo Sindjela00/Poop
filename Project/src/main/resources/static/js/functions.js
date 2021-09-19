@@ -243,16 +243,61 @@ function login() {
         })
 }
 
+function validateEmail(email) {
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+}
+
 function signup() {
-    var proba = '{"user":"' + document.getElementById("username-register").value + '","pass":"' + document.getElementById("password-register").value + '","email":"' + document.getElementById("email-register").value + '","mesto":' + document.getElementById("city-register").value + ',"name":"' + document.getElementById("name-register").value + '","telefon":' + document.getElementById("tel-register").value + ',"person":"' + document.getElementById("poslodavac").checked + '"}';
+    user = document.getElementById("username-register").value
+    pass = document.getElementById("password-register").value
+    ppass = document.getElementById("ppassword-register").value
+    email = document.getElementById("email-register").value;
+    mesto = document.getElementById("city-register").value;
+    ime = document.getElementById("name-register").value;
+    telefon = document.getElementById("tel-register").value;
+    poslodavac = document.getElementById("poslodavac").checked;
+
+    if((ime == "") || (ime == null)){
+        window.alert("Unesite ime i prezime.");
+        return;
+    }
+    if((user == "") || (user == null)){
+        window.alert("Unesite korisnicko ime.");
+        return;
+    }
+    if(!validateEmail(email)){
+        window.alert("Neispravna email adresa");
+        return;
+    }
+    if((telefon == "") || (telefon == null)){
+        window.alert("Unesite broj telefona.");
+        return;
+    }
+    if((pass == "") || (pass == null)){
+        window.alert("Unesite lozinku.");
+        return;
+    }
+    else if((ppass == "") || (ppass == null)){
+        window.alert("Ponovo unesite lozinku.");
+        return;
+    }
+    else if(pass != ppass){
+        window.alert("Lozinke nisu iste");
+        return;
+    }
+    
+
+    var proba = '{"user":"' + user + '","pass":"' + pass + '","email":"' + email + '","mesto":' + mesto + ',"name":"' + ime + '","telefon":' + telefon + ',"person":"' + poslodavac + '"}';
     var odgovor = post("http://localhost:8080/signup", proba);
     odgovor.then(data => data.json())
         .then(response => {
             if (response[0].error == "OK") {
                 window.location.replace("http://localhost:8080/")
             }
-            console.log(response[0].error);
+            window.alert(response[0].error);
         })
+
 }
 
 function oglasi() {
@@ -558,6 +603,7 @@ function ucitajdetaljno() {
         });
 
     sakrijOdKorisnika();
+    sakrijOdPoslodavca();
 }
 
 function sakrijOdKorisnika() {
@@ -567,6 +613,25 @@ function sakrijOdKorisnika() {
             console.log(data);
             if (data != null) {
                 if (!data.prijavljen) {
+                    for (i = 0; i < sakriveno.length; i++) {
+                        sakriveno[i].style.display = 'none';
+                    }
+                } else {
+                    for (i = 0; i < sakriveno.length; i++) {
+                        sakriveno[i].style.display = 'block';
+                    }
+                }
+            }
+        });
+}
+
+function sakrijOdPoslodavca() {
+    var sakriveno = document.getElementsByClassName("sakrijOdPoslodavca");
+    json = $.getJSON("http://localhost:8080/login", function() {})
+        .done(function(data) {
+            console.log(data);
+            if (data != null) {
+                if (!data.prijavljen || data.poslodavac == true) {
                     for (i = 0; i < sakriveno.length; i++) {
                         sakriveno[i].style.display = 'none';
                     }
