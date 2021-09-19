@@ -497,7 +497,7 @@ function ucitajdetaljno() {
                 "<span style='width : 145px;'> <span class='fas fa-thumbs-down' style='color : #1abc9c'> </span>" + "<span style='margin-left: 5px; color : #1abc9c;'>" + dislikes + "</span></span>" +
                 "</div>" +
                 "<br><br>" +
-                "<div id='LikeDislike' class='sakrijOdKorisnika' style='float : right;'>" +
+                "<div id='LikeDislike' class='sakrijOdKorisnika' style='display : none; float : right;'>" +
                 "<button id='like' onclick='lajkuj(this.id);' class=' btn btn-outline-primary ' style='padding: 5px 10px;margin: 0px 5px; border-color : #1abc9c;'><i class='fas fa-thumbs-up '></i> Sviđa mi se</button>" +
                 "<button id='dislike' onclick='lajkuj(this.id);' class=' btn btn-outline-primary ' style='padding: 5px 10px;margin: 0px 5px; border-color : #1abc9c;'><i class='fas fa-thumbs-down '></i> Ne sviđa mi se </button>" +
                 "</div>" +
@@ -526,7 +526,6 @@ function sakrijOdKorisnika() {
                 if (!data.prijavljen) {
                     for (i = 0; i < sakriveno.length; i++) {
                         sakriveno[i].style.display = 'none';
-                        console.log(sakriveno[i]);
                     }
                 } else {
                     for (i = 0; i < sakriveno.length; i++) {
