@@ -870,6 +870,8 @@ function prijavise(){
 }
 
 function izbacipos(id){
-    post("http://localhost:8080/izbrisiposlodavca?id="+id,null);
-    window.location.replace(window.location.href);
+    fetch("http://localhost:8080/izbrisiposlodavca?id="+id, { method: "POST", body: null })
+    .then(function(){
+        window.location.replace(window.location.href);
+    });
 }
