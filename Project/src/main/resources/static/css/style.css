@@ -11262,14 +11262,25 @@
                 background-color: #0DB8DE;
             }
 
-            #ocene {
+            #oceni {
+                float : left;
+                height : 130px;
+                width: 40%;
+                margin : auto;
                 padding-top : 10px;
-                line-height: 0.5em;
-                background-color : white;
-                border: 3px solid #0DB8DE;
-                border-radius: 5px;
+                display: none;
             }
 
+            #ocene {
+                float : left;
+                padding-top : 0;
+                padding : 10px;
+                line-height: 0.5em;
+                background-color : inherit;
+                margin : 0;
+                width : 55%;
+            }
+            
             #ocene p {
                 color : #0DB8DE;
             }

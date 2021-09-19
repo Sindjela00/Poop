@@ -25,7 +25,6 @@
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="http://localhost:8080/oglasi?tag=0&mesto=0">Oglasi</a></li>
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="http://localhost:8080/poslodavci">Poslodavci</a></li>
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="http://localhost:8080/#about">O nama</a></li>
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="http://localhost:8080/#contact">Kontakt</a></li>
                     <li class="nav-item mx-0 mx-lg-1"><a id="navProfil" class="nav-link py-3 px-0 px-lg-3 rounded" href="http://localhost:8080/profil">Profil</a></li>
                     <li class="nav-item mx-0 mx-lg-1">
                         <a id="navLogin" class="nav-link py-3 px-0 px-lg-3 rounded" href="http://localhost:8080/signin"></a>
@@ -53,7 +52,7 @@
                         <form>
                             <div class="form-group">
                                 <label id="prosecna" class="form-control-label" style="padding-left: 10px">Prosečna ocena : </label>
-                                <div id="ocene" style="margin: 0; padding-top: 0; padding :10px; background-color: inherit; border: none; ">
+                                <div id="ocene">
                                     <ul style="padding:0%; margin:5px;">
                                         <li style="display: inline; "><i class="fas fa-star " style="color: #1abc9c; "></i></li>
                                         <li style="display: inline; "><i class="fas fa-star " style="color: #1abc9c; "></i></li>
@@ -95,9 +94,19 @@
                                         <span id="jedinice" class="ocena"></span>
                                     </ul>
                                 </div>
+                                <div id="oceni">
+                                    <select class="form-control" id="izaberiOcenu" style="width: 100%; margin-bottom : 25px;">
+                                        <option>5</option>
+                                        <option>4</option>
+                                        <option>3</option>
+                                        <option>2</option>
+                                        <option>1</option>
+                                    </select>
+                                    <button type="button" class="btn btn-outline-primary" style="width: 100%;">Oceni</button>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label class="form-control-label">Ime i prezime</label>
+                            <div class="form-group" style="clear : both">
+                                <label class="form-control-label" >Ime i prezime</label>
                                 <input type="text" value="Ime i Prezime" id="profil-ime" name="ime" class="form-control">
                             </div>
                             <div class="form-group">

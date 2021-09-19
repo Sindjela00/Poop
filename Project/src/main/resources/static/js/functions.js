@@ -302,7 +302,9 @@ function popuniProfil() {
                 lozinke = document.getElementById("sakriveno");
                 if (data.password == "" || data.password == null) {
                     document.getElementById("promeniLozinku").style.display = 'none'; 
+                    document.getElementById("oceni").style.display = 'block';
                 }
+
             }
         });
 
@@ -783,6 +785,9 @@ function poslodavci() {
                         "<p style='clear : both;'> <b> Opis : " + opis + " </b></p>" +
                         "<br><br>" +
                         "<button type='button' onclick='otvoriProfil(" + id + ");' class='dugme btn btn-outline-primary' style='float : left; width : 48%;'>Detaljnije</button>" +
+                        "<div class='col-lg-12' id='samoZaAdmina'>" + 
+                        "<button type='button' class='btn btn-outline-primary sakrijOdKorisnika kanta'><i class='fas fa-trash'></i></button>" +
+                        "</div>" +
                         "</div>";
                 }
                 field.innerHTML = txt;
