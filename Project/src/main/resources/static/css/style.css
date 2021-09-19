@@ -11246,7 +11246,7 @@
                 margin: 1%;
                 padding: 10px;
                 width: 48%;
-                height: 160px;
+                height: auto;
                 background-color: white;
                 border: 3px solid #0DB8DE;
                 border-radius: 5px;
@@ -11258,6 +11258,7 @@
             }
             
             .profile-oglas button:hover {
+				position: relative; 
                 background-color: #0DB8DE;
             }
 
