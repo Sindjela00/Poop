@@ -292,7 +292,13 @@ function popuniProfil() {
                 document.getElementsByName("email")[0].value = data.email;
                 document.getElementsByName("opis")[0].value = data.opis;
                 document.getElementsByName("lozinka1")[0].value = data.password;
-
+                prosecna = (data.petice * 5 + data.cetvorke * 4 + data.trojke * 3 + data.dvojke * 2 + data.jedinice * 1) / (data.petice + data.cetvorke + data.trojke + data.dvojke + data.jedinice);
+                document.getElementById("prosecna").innerHTML += prosecna;
+                document.getElementById("petice").innerHTML += data.petice;
+                document.getElementById("cetvorke").innerHTML += data.cetvorke;
+                document.getElementById("trojke").innerHTML += data.trojke;
+                document.getElementById("dvojke").innerHTML += data.dvojke;
+                document.getElementById("jedinice").innerHTML += data.jedinice;
                 lozinke = document.getElementById("sakriveno");
                 if (data.password == "" || data.password == null) {
                     lozinke.style.display = 'none';
@@ -495,8 +501,8 @@ function ucitajdetaljno() {
                 "</div>" +
                 "<br><br>" +
                 "<div id='LikeDislike' class='sakrijOdKorisnika' style='float : right;'>" +
-                "<button class=' btn btn-outline-primary ' style='padding: 5px 10px;margin: 0px 5px; color : #1abc9c; border-color : #1abc9c;'><i class='fas fa-thumbs-up '></i> Sviđa mi se</button>" +
-                "<button class=' btn btn-outline-primary ' style='padding: 5px 10px;margin: 0px 5px; color : #1abc9c; border-color : #1abc9c;'><i class='fas fa-thumbs-down '></i> Ne sviđa mi se </button>" +
+                "<button id='like' class=' btn btn-outline-primary ' style='padding: 5px 10px;margin: 0px 5px; color : #1abc9c; border-color : #1abc9c;'><i class='fas fa-thumbs-up '></i> Sviđa mi se</button>" +
+                "<button id='dislike' class=' btn btn-outline-primary ' style='padding: 5px 10px;margin: 0px 5px; color : #1abc9c; border-color : #1abc9c;'><i class='fas fa-thumbs-down '></i> Ne sviđa mi se </button>" +
                 "</div>" +
                 "</div>" +
                 "</div>" +
