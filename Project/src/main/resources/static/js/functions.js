@@ -868,6 +868,8 @@ function prijavise(){
     ID = url.searchParams.get("id");
     post("http://localhost:8080/prijavi?id="+ID,document.getElementById("unesiCV").value);
 }
+
 function izbacipos(id){
     post("http://localhost:8080/izbrisiposlodavca?id="+id,null);
+    window.location.replace(window.location.href);
 }
