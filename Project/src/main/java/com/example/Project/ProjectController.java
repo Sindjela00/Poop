@@ -237,7 +237,7 @@ public class ProjectController {
         if(CookieManager.getCookie(req)!=null){
             db.lajkuj(db.dajId(CookieManager.getContent(CookieManager.getCookie(req))), id, lajk);
         }
-        return "/oglas?id="+id;
+        return "redirect:/oglas?id="+id;
     }
 
     @GetMapping("/lajkovao")
