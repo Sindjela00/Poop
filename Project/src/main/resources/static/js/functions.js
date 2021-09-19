@@ -366,6 +366,12 @@ function popuniProfil() {
             console.log(data);
             if (data != null) {
                 console.log(data.id);
+                if(data.poslodavac){
+                    document.getElementById("imeLabel").innerHTML = "Ime kompanije";
+                }
+                else {
+                    document.getElementById("imeLabel").innerHTML = "Ime i Prezime";
+                }
                 if(id == data.id || id == null){
                     document.getElementById("sakriveno").style.display = 'block';
                 }
