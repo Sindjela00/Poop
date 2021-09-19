@@ -566,8 +566,8 @@ public class DatabaseConnector {
             ResultSet result = statement.executeQuery();
             if (result.next()){
                 if(result.getBoolean(3))
-                    return "lajk";
-                return "dislajk";
+                    return "like";
+                return "dislike";
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block
