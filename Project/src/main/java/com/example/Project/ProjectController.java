@@ -153,6 +153,9 @@ public class ProjectController {
             return "redirect:/";
         else {
             if(cookie!=null){
+                if(user == null){
+                    return "profil";
+                }
                 if(db.dajId(CookieManager.getContent(cookie))== user)
                 return "profil";
                 Prijavljen pr = db.logovan(CookieManager.getContent(cookie));

@@ -785,12 +785,6 @@ public class DatabaseConnector {
             statement= connection.prepareStatement("Delete from prijave where idoglas=?");
             statement.setInt(1, id);
             statement.executeUpdate();
-            statement= connection.prepareStatement("Delete from poruke where idoglasa=? and odgovor<>0");
-            statement.setInt(1, id);
-            statement.executeUpdate();
-            statement= connection.prepareStatement("Delete from poruke where idoglasa=?");
-            statement.setInt(1, id);
-            statement.executeUpdate();
             statement= connection.prepareStatement("Delete from lajkovi where idoglasa=?");
             statement.setInt(1, id);
             statement.executeUpdate();
