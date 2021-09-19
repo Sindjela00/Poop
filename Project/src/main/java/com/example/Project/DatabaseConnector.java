@@ -882,6 +882,30 @@ public class DatabaseConnector {
             }
             return null;
     }
+    public boolean izbrisiPosodavca(Integer id){
+        PreparedStatement statement;
 
+        try {
+            statement = connection.prepareStatement("Select idOglas from oglas where idcoveka=?");
+            statement.setInt(1, id);
+            ResultSet result = statement.executeQuery();
+            while(result.next()){
+                IzbrisiOglas(result.getInt(1));
+            }
+            statement = connection.prepareStatement("Delete from ocena where idocenjenog=? or idcoveka=?");
+            statement.setInt(1, id);
+            statement.setInt(2, id);
+            statement.executeUpdate();
+            statement = connection.prepareStatement("Delete from telefoni where idkorisnika=?");
+            statement.setInt(1, id);
+            statement.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        return false;
+    }
 
 }

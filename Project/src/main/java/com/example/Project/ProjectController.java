@@ -427,6 +427,22 @@ public class ProjectController {
         }
         return db.logovan(db.dajUsername(id));
     }
+
+    @PostMapping("/izbrisiposlodavca")
+    public String ripposlodavca(@RequestParam Integer id,HttpServletRequest req, HttpServletResponse res)
+    {
+        if(id!=null && CookieManager.getCookie(req)!= null){
+            if(db.logovan(CookieManager.getContent(CookieManager.getCookie(req))).admin){
+                db.izbrisiPosodavca(id);
+            }
+        }
+
+        return null;
+    }
+
+
+
+
 }
 
 
