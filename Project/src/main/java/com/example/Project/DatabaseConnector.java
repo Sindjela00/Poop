@@ -766,16 +766,16 @@ public class DatabaseConnector {
     public Prijavljen logovan(String username){
         PreparedStatement statement;
         try {
-            statement = connection.prepareStatement("SELECT poslodavac,admin FROM korisnik where username=?");
+            statement = connection.prepareStatement("SELECT idkorisik,poslodavac,admin FROM korisnik where username=?");
             statement.setString(1, username);
             ResultSet result = statement.executeQuery();
             if (result.next())
-                return new Prijavljen(true, result.getBoolean(1), result.getBoolean(2));
+                return new Prijavljen(result.getInt(1),true, result.getBoolean(2), result.getBoolean(3));
             } catch (SQLException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            return new Prijavljen(false,false,false);
+            return new Prijavljen(-1,false,false,false);
     }
 
     public boolean IzbrisiOglas(Integer id){

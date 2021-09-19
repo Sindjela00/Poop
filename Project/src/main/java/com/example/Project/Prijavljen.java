@@ -1,10 +1,12 @@
 package com.example.Project;
 
 public class Prijavljen {
+    Integer id;
     Boolean prijavljen;
     Boolean poslodavac;
     Boolean admin;
-    public Prijavljen(Boolean prijavljen, Boolean poslodavac, Boolean admin) {
+    public Prijavljen(Integer id, Boolean prijavljen, Boolean poslodavac, Boolean admin) {
+        this.id = id;
         this.prijavljen = prijavljen;
         this.poslodavac = poslodavac;
         this.admin = admin;

@@ -348,7 +348,7 @@ public class ProjectController {
     public @ResponseBody Prijavljen login(HttpServletRequest req, HttpServletResponse res){
         Cookie cookie = CookieManager.getCookie(req);
         if(cookie == null || !db.proveriCoveka(CookieManager.getContent(cookie)))
-            return new Prijavljen(false,false,false);
+            return new Prijavljen(-1,false,false,false);
 
 
         return db.logovan(CookieManager.getContent(cookie));
