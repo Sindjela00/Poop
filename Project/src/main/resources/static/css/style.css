@@ -11246,7 +11246,7 @@
                 margin: 1%;
                 padding: 10px;
                 width: 48%;
-                height: auto;
+                height: 160px;
                 background-color: white;
                 border: 3px solid #0DB8DE;
                 border-radius: 5px;
@@ -11272,6 +11272,11 @@
 
             #ocene p {
                 color : #0DB8DE;
+            }
+
+            .ocena {
+                color : #1abc9c; 
+                padding-left: 10px;
             }
             /*NOVI OGLAS*/
             
