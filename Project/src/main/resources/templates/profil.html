@@ -26,7 +26,9 @@
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="http://localhost:8080/#about">O nama</a></li>
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="http://localhost:8080/#contact">Kontakt</a></li>
                     <li class="nav-item mx-0 mx-lg-1"><a id="navProfil" class="nav-link py-3 px-0 px-lg-3 rounded" href="http://localhost:8080/profil">Profil</a></li>
-                    <li class="nav-item mx-0 mx-lg-1"><a id="navLogin" class="nav-link py-3 px-0 px-lg-3 rounded" href="http://localhost:8080/signin"></a></li>
+                    <li class="nav-item mx-0 mx-lg-1">
+                        <a id="navLogin" class="nav-link py-3 px-0 px-lg-3 rounded" href="http://localhost:8080/signin"></a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -36,7 +38,10 @@
         <div class="row">
 
             <div class="col-lg-6 col-md-8 profile-box">
-                <div class="col-lg-12 profile-user">
+                <div class="col-lg-12" id="samoZaAdmina">
+                    <button type='button' class='btn btn-outline-primary sakrijOdKorisnika kanta'><i class='fas fa-trash'></i></button>
+                </div>
+                <div class="col-lg-12 profile-user" style="clear: both;">
                     <i class="far fa-user" aria-hidden="true"></i>
                 </div>
                 <div class="col-lg-12 profile-title">
@@ -64,10 +69,10 @@
                                 <input type="text" id="profil-opis" name="opis" value="Kratak opis" class="form-control">
                             </div>
                             <div id="sakriveno">
-                                <div id="promeniLozinku"class="dugme">
-                                    <button type="button" class="btn btn-outline-primary" onclick="promeniLozinku();">Promeni Lozinku</button>
+                                <div id="promeniLozinku" class="dugme" style="position: relative; margin: auto;">
+                                    <button type="button" class="btn btn-outline-primary" style="position: relative; margin: 0px auto; width: 100%;" onclick="promeniLozinku();">Promeni lozinku</button>
                                 </div>
-                                <div id="lozinke" style="display : none;">   
+                                <div id="lozinke" style="display : none;">
                                     <div class="form-group">
                                         <label class="form-control-label">Lozinka</label>
                                         <input type="password" id="profil-lozinka1" name="lozinka1" class="form-control">
@@ -80,9 +85,14 @@
                                         <label class="form-control-label">Ponovite novu lozinku</label>
                                         <input type="password" id="profil-lozinka3" name="lozinka3" class="form-control">
                                     </div>
-                                </div>
-                                <div class="dugme">
-                                    <button type="button" class="btn btn-outline-primary">Sačuvaj</button>
+                                    <div class="form-group">
+                                        <div class="dugme" style="position: relative; display: inline-block;width: 45%; margin: 5px;">
+                                            <button type="button" class="btn btn-outline-primary" style="width: 100%;" onclick="Sacuvaj()"><i class="fas fa-save" style="padding-right: 10px;"></i>Sačuvaj</button>
+                                        </div>
+                                        <div class="dugme" style="position: relative; display: inline-block;width: 45%;margin: 5px;">
+                                            <button type="button" class="btn btn-outline-primary" style="width: 100%;" onclick="otkaziPromene()"><i class="fas fa-times" style="padding-right: 10px;"></i>Otkaži</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </form>
@@ -90,12 +100,12 @@
                 </div>
                 <div class="col-lg-3 col-md-2"></div>
             </div>
-            
+
             <div id="profile-oglasi">
-                
+
             </div>
         </div>
-        
+
     </div>
 
     <div class="space"> </div>

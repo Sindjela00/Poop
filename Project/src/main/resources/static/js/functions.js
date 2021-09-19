@@ -332,6 +332,14 @@ function Sacuvaj() {
     // Provera da li je se podaci razlikuju sa onima u bazi i onda se azurira
 }
 
+function otkaziPromene() {
+    document.getElementById("lozinke").style.display = 'none';
+    document.getElementsByName("lozinka2")[0].value = '';
+    document.getElementsByName("lozinka3")[0].value = '';
+    document.getElementById("promeniLozinku").style.display = 'inline';
+}
+
+
 function dodajOglase() {
     txt = "";
     lista = document.getElementById("lista");
@@ -423,11 +431,10 @@ function ucitajOglase() {
                 contentAds += "<li class='list-group-item'>" +
                     "<div class='media align-items-lg-center flex-column flex-lg-row p-3'>" +
                     "<div class='media-body order-2 order-lg-1'>" +
-                    "<h5 class='mt-0 font-weight-bold mb-2'>" + naslov + "</h5>" +
-                    "<p class='font-italic text-muted mb-0 small'>" + grad + "</p>" +
-                    "<p class='font-italic text-muted mb-0 small'>" + poslodavac + "</p>" +
+                    "<h5 class='mt-0 font-weight-bold mb-2' style='color:#1abc9c'>" + naslov + "</h5>" +
+                    "<p class='font-italic text-muted mb-0 small'><i class='fas fa-map-marker-alt' style='padding-top: 10px; padding-right: 5px; height:30px; width: 30px; '></i>" + grad + "</p>" +
+                    "<p class='font-italic text-muted' style='font-size: 15px; text-transform: upppercase;vertical-align: text-top;'><i class='fas fa-address-card' style='padding-top: 10px; padding-right: 5px; height:30px; width: 30px; '></i>" + poslodavac + "</p>" +
                     "<div class='d-flex align-items-center justify-content-between mt-1'>" +
-                    "<h6 class='font-weight-bold my-2'>Opis: </h6>" + /*opis + da se sredi opis*/
                     "<div class='lajkDislajk'>" +
                     "<span class='fas fa-thumbs-up' style='color : #0DB8DE;'> </span>" + "<span style='margin: 0px 50px 0 5px; color : #0DB8DE;'>" + likes + "</span>" +
                     "<span class='fas fa-thumbs-down' style='color : #0DB8DE'> </span>" + "<span style='margin-left: 5px; color : #0DB8DE;'>" + dislikes + "</span>" +
@@ -435,7 +442,6 @@ function ucitajOglase() {
                     "</div>" +
                     "<button id=dugmeDetalji class='btn btn-outline-primary' style='float: right' onclick='prebaciNaOglas(" + id +
                     ")'> Detaljnije </button>" +
-                    "</div><img src='https://i.imgur.com/KFojDGa.jpg' alt='Generic placeholder image' width='200' class='ml-lg-5 order-1 order-lg-2'>" +
                     "</div>" +
                     "</li>"
             }
@@ -508,22 +514,21 @@ function ucitajdetaljno() {
 function sakrijOdKorisnika() {
     var sakriveno = document.getElementsByClassName("sakrijOdKorisnika");
     json = $.getJSON("http://localhost:8080/login", function() {})
-    .done(function(data) {
-        console.log(data);
-        if (data != null) {
-            if (!data.prijavljen) {
-                for (i = 0; i < sakriveno.length; i++) {
-                    sakriveno[i].style.display = 'none';
-                    console.log(sakriveno[i]);
+        .done(function(data) {
+            console.log(data);
+            if (data != null) {
+                if (!data.prijavljen) {
+                    for (i = 0; i < sakriveno.length; i++) {
+                        sakriveno[i].style.display = 'none';
+                        console.log(sakriveno[i]);
+                    }
+                } else {
+                    for (i = 0; i < sakriveno.length; i++) {
+                        sakriveno[i].style.display = 'block';
+                    }
                 }
             }
-            else {
-                for (i = 0; i < sakriveno.length; i++) {
-                    sakriveno[i].style.display = 'block';
-                }
-            }
-        }
-    });
+        });
 }
 
 function prebaciNaOglas(id) {
@@ -544,13 +549,19 @@ function provera() {
 function filtrirajOglase() {
     var selectgrad = document.getElementById("city-register").selectedIndex;
     var selecttag = document.getElementById("tagovi").value;
+    /*var novurl = "http://localhost:8080/oglasi?tag=" + selecttag + "&mesto=" + selectgrad;
+    window.location.replace(novurl);*/
+    filtriraj(selectgrad, selecttag)
+}
+
+function filtriraj(selectgrad, selecttag) {
     var novurl = "http://localhost:8080/oglasi?tag=" + selecttag + "&mesto=" + selectgrad;
-    window.location.replace(novurl)
+    window.location.replace(novurl);
 }
 
 function usmeri(id) {
     var novurl = "http://localhost:8080/oglasi?tag=" + id + "&mesto=0";
-    window.location.replace(novurl)
+    window.location.replace(novurl);
 }
 
 function srediNavbar() {
@@ -559,38 +570,34 @@ function srediNavbar() {
     var userID;
     json = $.getJSON("http://localhost:8080/login", function() {})
         .done(function(data) {
-        console.log(data);
-        if (data != null) {
-            url_string = window.location.href;
-            url = new URL(url_string);
-            if(url_string.includes("profil")){
-                userID = url.searchParams.get("user");
+            console.log(data);
+            if (data != null) {
+                url_string = window.location.href;
+                url = new URL(url_string);
+                if (url_string.includes("profil")) {
+                    userID = url.searchParams.get("user");
 
-                if(userID == null && data.prijavljen) {
+                    if (userID == null && data.prijavljen) {
+                        login.href = "http://localhost:8080/signout";
+                        login.innerHTML = "Odjavi se";
+                        profil.style.display = 'none';
+                    } else if (userID != null && data.prijavljen) {
+                        login.href = "http://localhost:8080/signout";
+                        login.innerHTML = "Odjavi se";
+                        profil.style.display = 'block';
+                    } else {
+                        login.innerHTML = "Prijavi se";
+                        profil.style.display = 'none';
+                    }
+                } else if (data.prijavljen) {
                     login.href = "http://localhost:8080/signout";
                     login.innerHTML = "Odjavi se";
-                    profil.style.display = 'none';
-                }
-                else if(userID != null && data.prijavljen) {
-                    login.href = "http://localhost:8080/signout";
-                    login.innerHTML = "Odjavi se";
-                    profil.style.display = 'block';
-                }
-                else {
+                } else {
                     login.innerHTML = "Prijavi se";
                     profil.style.display = 'none';
                 }
             }
-            else if (data.prijavljen){
-                login.href = "http://localhost:8080/signout";
-                login.innerHTML = "Odjavi se";
-            }
-            else {
-                login.innerHTML = "Prijavi se";
-                profil.style.display = 'none';
-            }
-        }
-    });
+        });
 }
 
 function dodajoglas() {
@@ -677,39 +684,40 @@ function mojiOglasi() {
     }
 
     json = $.getJSON(string, function() {})
-    .done(function(data) {
-        if (data != null) {
-            for (i = 0; i < data.length; i++) {
-                naslov = data[i].naslov;
-                lokacija = data[i].mesto;
-                id = data[i].id;
-                txt +=
-                    "<div class='profile-oglas'>" +
-                    "<h5> Naziv oglasa: " + naslov + "</h5>" +
-                    "<p><span><i class='fas fa-map-marker-alt'></i> Lokacija: " + lokacija + "</p></span>" +
-                    "<button type='button' onclick='otvoriOglas(" + id + ");' class='btn btn-outline-primary' style='float : left; width : 48%;'>Detaljnije</button>" +
-                    "<button type='button' onclick='izbrisiOglas(" + id + ");' class='btn btn-outline-primary sakrijOdKorisnika' style='float : right; width : 48%;'>Izbriši</button>" +
-                    "</div>";
-            }
-            field.innerHTML = txt;
-            if(sakrij) {
-                dugmici = document.getElementsByClassName("sakrijOdKorisnika");
-                document.getElementById("profil-ime").disabled = true;
-                document.getElementById("city-register").disabled = true;
-                document.getElementById("profil-email").disabled = true;
-                document.getElementById("profil-opis").disabled = true;
-                telefoni = document.getElementsByName("telefon");
-                for (i = 0; i < telefoni.length; i++) {
-                    telefoni[i].disabled = true;
+        .done(function(data) {
+            if (data != null) {
+                for (i = 0; i < data.length; i++) {
+                    naslov = data[i].naslov;
+                    lokacija = data[i].mesto;
+                    id = data[i].id;
+                    txt +=
+                        "<div class='profile-oglas'>" +
+                        "<button type='button' onclick='izbrisiOglas(" + id + ");' class='btn btn-outline-primary sakrijOdKorisnika' style='float:right;'><i class='fas fa-trash'></i></button>" +
+                        "<h5> Naziv oglasa: " + naslov + "</h5>" +
+                        "<p><span><i class='fas fa-map-marker-alt'></i> Lokacija: " + lokacija + "</p></span>" +
+                        "<button type='button' onclick='otvoriOglas(" + id + ");' class='btn btn-outline-primary' style='width : 100%; padding: auto; margin: auto; '>Detaljnije</button>" +
+                        /*"<button type='button' onclick='izbrisiOglas(" + id + ");' class='btn btn-outline-primary sakrijOdKorisnika' style='float : right; width : 48%;'>Izbriši</button>" +*/
+                        "</div>";
                 }
-                for(i = 0; i < dugmici.length; i++){
-                    dugmici[i].style.display = 'none';
+                field.innerHTML = txt;
+                if (sakrij) {
+                    dugmici = document.getElementsByClassName("sakrijOdKorisnika");
+                    document.getElementById("profil-ime").disabled = true;
+                    document.getElementById("city-register").disabled = true;
+                    document.getElementById("profil-email").disabled = true;
+                    document.getElementById("profil-opis").disabled = true;
+                    telefoni = document.getElementsByName("telefon");
+                    for (i = 0; i < telefoni.length; i++) {
+                        telefoni[i].disabled = true;
+                    }
+                    for (i = 0; i < dugmici.length; i++) {
+                        dugmici[i].style.display = 'none';
+                    }
                 }
             }
-        }
-    });
-    
-    
+        });
+
+
 }
 
 function mojePrijave() {
