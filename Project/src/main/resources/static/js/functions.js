@@ -300,11 +300,10 @@ function popuniProfil() {
                 document.getElementById("dvojke").innerHTML += data.dvojke;
                 document.getElementById("jedinice").innerHTML += data.jedinice;
                 lozinke = document.getElementById("sakriveno");
-                if (data.password == "" || data.password == null) {
-                    document.getElementById("promeniLozinku").style.display = 'none'; 
+                if (data.password == null || data.password == "") {
+                    document.getElementById("promeniLozinku").style.display = 'none';
                     document.getElementById("oceni").style.display = 'block';
                 }
-
             }
         });
 
@@ -780,14 +779,14 @@ function poslodavci() {
                     id = data[i].id;
                     txt +=
                         "<div class='poslodavac'>" +
-                        "<span style='float : left;'><h5> Poslodavac : " + ime + "</h5></span>" +
-                        "<span style='float : right;'> <i class='fas fa-map-marker-alt'></i> Lokacija: " + lokacija + "</span>" +
-                        "<p style='clear : both;'> <b> Opis : " + opis + " </b></p>" +
-                        "<br><br>" +
-                        "<button type='button' onclick='otvoriProfil(" + id + ");' class='dugme btn btn-outline-primary' style='float : left; width : 48%;'>Detaljnije</button>" +
-                        "<div class='col-lg-12' id='samoZaAdmina'>" + 
-                        "<button type='button' class='btn btn-outline-primary sakrijOdKorisnika kanta'><i class='fas fa-trash'></i></button>" +
-                        "</div>" +
+                            "<span style='float : left;'><h5> Poslodavac : " + ime + "</h5></span>" +
+                            "<span style='float : right;'> <i class='fas fa-map-marker-alt'></i> Lokacija: " + lokacija + "</span>" +
+                            "<p style='clear : both;'> <b> Opis : " + opis + " </b></p>" +
+                            "<br><br>" +
+                            "<button type='button' onclick='otvoriProfil(" + id + ");' class='dugme btn btn-outline-primary' style='float : left; width : 48%;'>Detaljnije</button>" +
+                            "<div class='col-lg-12' id='samoZaAdmina' style='width: 100px; position: absolute; padding-right : 15px; bottom : 8px;'>" + 
+                                "<button type='button' class='btn btn-outline-primary sakrijOdKorisnika kanta'><i class='fas fa-trash'></i></button>" +
+                            "</div>" +
                         "</div>";
                 }
                 field.innerHTML = txt;
