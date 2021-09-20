@@ -328,13 +328,13 @@ public class ProjectController implements ErrorController{
 
     @PostMapping("/izmenitelefone")
     public @ResponseBody String tel(@RequestBody String brojevi,HttpServletRequest req, HttpServletResponse res){
+        Cookie cookie= CookieManager.getCookie(req);
         JSONObject js;
         try {
             js = new JSONObject(brojevi);
             JSONArray niz = js.getJSONArray("telefoni");
             for(int i=0;i<niz.length();i++){
-
-                System.out.println(niz.getString(i));
+                db.ubaciTelefon(db.dajId(CookieManager.getContent(cookie)),niz.getString(i));
             }
 
 

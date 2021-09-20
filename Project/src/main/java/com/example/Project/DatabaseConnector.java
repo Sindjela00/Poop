@@ -150,12 +150,16 @@ public class DatabaseConnector {
         return false;
     }
 
-    public boolean ubaciTelefon(Integer id, Integer broj) {
+    public boolean ubaciTelefon(Integer id, String broj) {
         try {
             PreparedStatement statement;
+            statement = connection.prepareStatement("DELETE FROM telefoni where idkorisnika=? and broj=?");
+            statement.setInt(1, id);
+            statement.setString(2, broj);
+            statement.executeUpdate();
             statement = connection.prepareStatement("INSERT INTO telefoni  values (?,?)");
             statement.setInt(1, id);
-            statement.setInt(2, broj);
+            statement.setString(2, broj);
             statement.executeUpdate();
             return true;
         } catch (SQLException e) {
