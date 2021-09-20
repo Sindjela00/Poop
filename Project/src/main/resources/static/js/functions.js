@@ -690,7 +690,7 @@ function ucitajPrijavljene() {
                             "<h5>" + data[i].ime + "</h5>" +
                             "<textarea> " + data[i].opis + " </textarea> <br>" +
                             "<button type='button' class='btn btn-outline-primary ' onclick='otvoriProfil("+data[i].id+")'>Poseti profil</button>" +
-                            "<button type='button' class='btn btn-outline-primary samoZaAdmina' onclick='otkaziPrijavu(" + oglasID + ");'><i class='fas fa-trash'></i></button>" +
+                            "<button type='button' class='btn btn-outline-primary samoZaAdmina' onclick='otkaziprijavu(" + data[i].id + "," + oglasID + ");'><i class='fas fa-trash'></i></button>" +
                             "</div>";
                 }
                 field.innerHTML = txt;
