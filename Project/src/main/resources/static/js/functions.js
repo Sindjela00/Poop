@@ -832,6 +832,7 @@ function srediNavbar() {
                                 dugmici[i].style.display = 'block';
                             }
                             document.getElementById("kontakt").style.display = "none";
+                            document.getElementById("profil-korisnicko-ime").style.display = "block";
                         } else {
                             document.getElementById("kontakt").style.display = "block";
                             profil.style.display = 'block';
