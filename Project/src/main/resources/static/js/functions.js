@@ -961,11 +961,17 @@ function izbrisiOglas(id) {
 }
 
 function otkaziPrijavu(id) {
-    post('http://localhost:8080/izbaci?id=' + id, null);
+    fetch('http://localhost:8080/izbaci?id=' + id, { method: "POST", body: null })
+        .then(function() {
+            window.location.replace(window.location.href);
+        });
 }
 
 function otkaziprijavu(covek, id) {
-    post('http://localhost:8080/izbaci?idcoveka=' + covek + '&id=' + id, null);
+    fetch('http://localhost:8080/izbaci?idcoveka=' + covek + '&id=' + id, { method: "POST", body: null })
+        .then(function() {
+            window.location.replace(window.location.href);
+        });
 }
 
 function otvoriProfil(id) {
@@ -1122,6 +1128,10 @@ function prijavise() {
     url_string = window.location.href;
     url = new URL(url_string);
     ID = url.searchParams.get("id");
+    fetch("http://localhost:8080/prijavi?id=" + ID, { method: "POST", body: document.getElementById("unesiCV").value })
+        .then(function() {
+            window.location.replace("http//localhost:8080/oglasi");
+        });
     post("http://localhost:8080/prijavi?id=" + ID, document.getElementById("unesiCV").value);
 }
 
