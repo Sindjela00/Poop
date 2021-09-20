@@ -209,13 +209,6 @@ public class DatabaseConnector {
         return lista;
     }
 
-    public boolean proveriString(String string) {
-        if (string.matches(".*[\\\0\'\"\b\n\r\t].*"))
-            return false;
-
-        return true;
-    }
-
 
     public List<Oglas> Daj_Oglase(Integer tagovi, Integer mesto) {
         List<Oglas> lista = new ArrayList<Oglas>();
@@ -876,6 +869,9 @@ public class DatabaseConnector {
             statement = connection.prepareStatement("Delete from ocena where idocenjenog=? or idcoveka=?");
             statement.setInt(1, id);
             statement.setInt(2, id);
+            statement.executeUpdate();
+            statement = connection.prepareStatement("Delete from prijave where idcovek=?");
+            statement.setInt(1, id);
             statement.executeUpdate();
             statement = connection.prepareStatement("Delete from telefoni where idkorisnika=?");
             statement.setInt(1, id);
