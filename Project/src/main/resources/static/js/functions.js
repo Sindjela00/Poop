@@ -329,6 +329,7 @@ function skloniTelefon(i) {
     dugme = document.getElementById("skloniTelefon" + i);
 
     document.getElementById("profil-telefon" + i).value = "";
+    console.log("eeee" + document.getElementById("profil-telefon" + i).value);
 
     telefon.style.display = 'none';
     dugme.style.display = 'none';
@@ -1143,7 +1144,12 @@ function sacuvajTelefone() {
     telefoni = document.getElementById("telefoni").getElementsByTagName("input");
     string = "{'telefoni':["
     for (i = 0; i < telefoni.length; i++) {
+<<<<<<< HEAD
         string += "'" + telefoni[i].value + "'";
+=======
+        string += "'" + telefoni.value + "'";
+        console.log("eee" + telefoni.value);
+>>>>>>> 3c4eaf9af882549a69897e47bf87b62c306871ed
     }
     string += "]}"
     fetch("http://localhost:8080/izmenitelefone", { method: "POST", body: string })
