@@ -843,11 +843,11 @@ function mojiOglasi() {
                     lokacija = data[i].mesto;
                     id = data[i].id;
                     txt +=
-                        "<div class='profile-oglas'>" +
+                        "<div class='profile-oglas' >" +
                         "<button type='button' onclick='izbrisiOglas(" + id + ");' class='btn btn-outline-primary sakrijOdKorisnika' style='float:right;'><i class='fas fa-trash'></i></button>" +
                         "<h5> Naziv oglasa: " + naslov + "</h5>" +
                         "<p><span><i class='fas fa-map-marker-alt'></i> Lokacija: " + lokacija + "</p></span>" +
-                        "<button type='button' onclick='otvoriOglas(" + id + ");' class='btn btn-outline-primary' style='width : 100%; padding: auto; margin: auto; '>Detaljnije</button>" +
+                        "<button type='button' onclick='otvoriOglas(" + id + ");' class='btn btn-outline-primary' style='position: absolute; bottom: 5px; width : 90%; padding: auto; margin: auto; '>Detaljnije</button>" +
                         /*"<button type='button' onclick='izbrisiOglas(" + id + ");' class='btn btn-outline-primary sakrijOdKorisnika' style='float : right; width : 48%;'>Izbriši</button>" +*/
                         "</div>";
                 }
