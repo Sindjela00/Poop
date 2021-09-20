@@ -384,12 +384,12 @@ function popuniProfil() {
                 txt = "";
                 for (i = 0; i < dataT.length; i++) {
                     telefon = dataT[i].error;
-                    txt += '<div class="form-group"> <label class="form-control-label">Telefon</label> <input type="text" id="profil-telefon' + i + '" name="telefon" value="' + telefon + '" class="form-control"> </div>';
+                    txt += '<input type="text" id="profil-telefon' + i + '" name="telefon" value="' + telefon + '" class="form-control">';
                 }
             } else {
                 txt = '<div class="form-group"> <label class="form-control-label">Telefon</label> <input type="text" id="profil-telefon" name="telefon" value="" class="form-control"> </div>';
             }
-            telefoni.innerHTML = txt;
+            telefoni.innerHTML += txt;
         });
 }
 
