@@ -579,15 +579,14 @@ function ucitajdetaljno() {
                 radniOdnos = "na određeno vreme";
             var contentAd =
                 "<div id='osnovniPodaci'>" +
-                "<h3 id='imgOglasa' style='text-align: center;'> <span>Naziv oglasa: " + naslov + "</span></h3>" +
+                "<h3 id='imgOglasa' style='text-align: center;margin: 0; padding: 0;'> <span>Naziv oglasa: " + naslov + "</span></h3>" +
                 "<br>" +
                 "<div id='oglasRowLeft' style='float : left; width : 50%; margin-bottom : 30px;'>" +
                 "<a href='http://localhost:8080/covek?id=" + ads.id + "'>" +
                 "<h5 id='poslodavac' style='text-decoration: none;'><i class='fas fa-building'></i><span>Poslodavac: " + poslodavac + "</span></h5></a><br>" +
                 "<p id='Lokacija'> <span><i class='fas fa-map-marker-alt'></i> Lokacija: " + grad + " </p></span>" +
-                "<p id='radnoVreme'><span><i class='fas fa-clock'></i> Radni odnos: " + radniOdnos + "</p>" +
+                "<p id='radnoVreme'><span><i class='fas fa-clock'></i> Radni odnos: " + radniOdnos + "</p></span>" +
                 "<span><i class='fas fa-coins'></i> Plata :</span><span id='plata'> " + plata + " </span>" +
-
                 "</div>" +
                 "<br>" +
                 "<div id='oglasRowRight' style='float : right; width : 50%;'>" +
@@ -845,12 +844,16 @@ function mojiOglasi() {
                     naslov = data[i].naslov;
                     lokacija = data[i].mesto;
                     id = data[i].id;
+                    plata = data[i].plata;
                     txt +=
-                        "<div class='profile-oglas' >" +
+                        "<div class='profile-oglas' style='padding: 5px 10px; background-color:#e3fffb ' >" +
                         "<button type='button' onclick='izbrisiOglas(" + id + ");' class='btn btn-outline-primary sakrijOdKorisnika' style='float:right;'><i class='fas fa-trash'></i></button>" +
+                        "<div style='position:relative; margin-bottom: 5px; height: 70%;'>" +
                         "<h5> Naziv oglasa: " + naslov + "</h5>" +
-                        "<p><span><i class='fas fa-map-marker-alt'></i> Lokacija: " + lokacija + "</p></span>" +
-                        "<button type='button' onclick='otvoriOglas(" + id + ");' class='btn btn-outline-primary' style='position: absolute; bottom: 5px; width : 90%; padding: auto; margin: auto; '>Detaljnije</button>" +
+                        "<p><i class='fas fa-map-marker-alt'></i> <b>Lokacija:</b> " + lokacija + "<br>" +
+                        "<i class='fas fa-coins'></i><b> Plata : </b>" + plata + " </p>" +
+                        "</div>" +
+                        "<button type='button' onclick='otvoriOglas(" + id + ");' class='btn btn-outline-primary' style='width : 100%; padding: auto; margin: auto;'>Detaljnije</button>" +
                         /*"<button type='button' onclick='izbrisiOglas(" + id + ");' class='btn btn-outline-primary sakrijOdKorisnika' style='float : right; width : 48%;'>Izbriši</button>" +*/
                         "</div>";
                 }
@@ -887,6 +890,7 @@ function mojePrijave() {
                     poslodavac = data[i].kategorija;
                     //lokacija = data[i].mesto;
                     id = data[i].id;
+                    plata = data[i].plata;
                     txt +=
                         "<div class='profile-oglas'>" +
                         "<h5> Naziv oglasa: " + naslov + "</h5>" +
@@ -894,6 +898,8 @@ function mojePrijave() {
                         "<p> Poslodavac: " + poslodavac + "</p>" +
                         "</a>" +
                         //"<p><span><i class='fas fa-map-marker-alt'></i> Lokacija: " + lokacija + "</p></span>" +
+                        "<p><i class='fas fa-map-marker-alt'></i> <b>Lokacija:</b> " + lokacija + "<br>" +
+                        "<i class='fas fa-coins'></i><b> Plata : </b>" + plata + " </p>" +
                         "<button type='button' onclick='otvoriOglas(" + id + ");' class='btn btn-outline-primary' style='float : left; width : 48%;'>Detaljnije</button>" +
                         "<button type='button' onclick='otkaziPrijavu(" + id + ");' class='btn btn-outline-primary' style='float : right; width : 48%;'>Otkaži prijavu</button>" +
                         "</div>";
