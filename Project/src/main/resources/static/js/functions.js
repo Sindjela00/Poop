@@ -1036,10 +1036,22 @@ function mojiOglasi() {
 }
 
 function mojePrijave() {
+    url_string = window.location.href;
+    url = new URL(url_string);
+    userID = url.searchParams.get("user");
+
+    if (userID == null) {
+        string = "http://localhost:8080/mojeprijave";
+        sakrij = false;
+    } else {
+        string = "http://localhost:8080/mojeprijave?id=" + userID;
+        sakrij = true;
+    }
+
     field = document.getElementById("profile-oglasi");
     txt = "";
 
-    json = $.getJSON("http://localhost:8080/mojeprijave", function() {})
+    json = $.getJSON(string, function() {})
         .done(function(data) {
             if (data != null) {
                 for (i = 0; i < data.length; i++) {
