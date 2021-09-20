@@ -11128,12 +11128,15 @@
             #stranicaOglasa span {
                 color: #1abc9c;
                 font-weight: bold;
+				padding: 0; 
+				margin: 0; 
+				line-height: 1; 
             }
             
             #stranicaOglasa img {
                 position: relative;
                 float: right;
-                top: -200px;
+                
                 width: 150px;
                 height: 150px;
             }
