@@ -55,9 +55,7 @@ public class DatabaseConnector {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM Korisnik WHERE " + tip + "=?");
             statement.setString(1, ime);
             ResultSet result = statement.executeQuery();
-            System.out.println(statement.toString());
             if (result.next()) {
-                System.out.println(result.getString(tip));
                 if (result.getString(tip) != null)
                     return true;
             }
@@ -72,9 +70,7 @@ public class DatabaseConnector {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM Korisnik WHERE " + tip + "=?");
             statement.setString(1, ime);
             ResultSet result = statement.executeQuery();
-            System.out.println(statement.toString());
             if (result.next()) {
-                System.out.println(result.getString(tip));
                 if (result.getString(tip) != null)
                     return result.getString(2);
             }
@@ -84,16 +80,6 @@ public class DatabaseConnector {
         return null;
     }
 
-    /*
-     * public boolean nadjifirmu(String tip, String ime) { try { PreparedStatement
-     * statement = connection.prepareStatement("SELECT * FROM firma WHERE " + tip +
-     * "=?"); statement.setString(1, ime); ResultSet result =
-     * statement.executeQuery(); System.out.println(statement.toString()); if
-     * (result.next()) { System.out.println(result.getString(tip)); if
-     * (result.getString(tip) != null) return true; } } catch (SQLException e) {
-     * e.printStackTrace(); } return false; }
-     */
-
     public Integer dajId(String ime) {
         try {
             PreparedStatement statement = connection
@@ -101,7 +87,6 @@ public class DatabaseConnector {
             statement.setString(1, ime);
             ResultSet result = statement.executeQuery();
             if (result.next()) {
-                System.out.println(result.getInt(1));
                 return result.getInt(1);
             }
         } catch (SQLException e) {
@@ -433,7 +418,7 @@ public class DatabaseConnector {
                 ResultSet res = stm.executeQuery();
                 while (res.next()) {
                     lista.add(new Korisnik(res.getInt(1), res.getString(2), res.getString(4), res.getString(3), "",
-                            result.getString(3), res.getString(7), res.getInt(8), res.getInt(9), res.getInt(10),
+                            res.getString(6), res.getString(7), res.getInt(8), res.getInt(9), res.getInt(10),
                             res.getInt(11), res.getInt(12)));
                 }
             }
@@ -515,7 +500,6 @@ public class DatabaseConnector {
             ResultSet result = statement.executeQuery();
             
             if (result.next()){
-                System.out.println(result.getInt(1));
                 return true;
             }
             return false;
@@ -531,7 +515,6 @@ public class DatabaseConnector {
         try {
             if (proveriprijavu(idcoveka, idoglasa))
                 return false;
-                System.out.println(cv);
             statement = connection.prepareStatement("INSERT INTO prijave values (?,?,?)");
             statement.setInt(1, idcoveka);
             statement.setInt(2, idoglasa);
@@ -614,7 +597,6 @@ public class DatabaseConnector {
             statement.setInt(1, idcoveka);
             statement.setInt(2, idoglasa);
             if (like.compareTo("like")==0) {
-                System.out.println(like);
                 statement.setBoolean(3, true);
             } else if (like.compareTo("dislike")==0)
                 statement.setBoolean(3, false);
@@ -651,7 +633,6 @@ public class DatabaseConnector {
     public boolean oceni(Integer idcoveka, Integer idoglasa, Integer ocena) {
         PreparedStatement statement;
         try {
-            System.out.println(idcoveka+" "+idoglasa+" "+ocena);
             if (proveriocenu(idcoveka, idoglasa)) {
                 statement = connection.prepareStatement("DELETE FROM ocena WHERE idcoveka=? and idocenjenog=?;");
                 statement.setInt(1, idcoveka);

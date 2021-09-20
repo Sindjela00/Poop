@@ -179,12 +179,10 @@ public class ProjectController implements ErrorController{
     @GetMapping("/profile")
     public @ResponseBody Korisnik nazivProfila(@RequestParam(required = false) Integer user,HttpServletRequest req, HttpServletResponse res){
         Cookie cookie= CookieManager.getCookie(req);
-        //Korisnik k =  db.Daj_Korisnika(user);
         if (cookie == null && user == null)
             return null;
         if (cookie != null && user == null){
             Korisnik k =  db.Daj_Korisnika(db.dajId(CookieManager.getContent(cookie)));
-            System.out.println(k.ime);
             return k;
         }
         if(cookie!=null){
@@ -442,7 +440,7 @@ public class ProjectController implements ErrorController{
             if(idcoveka != null){
                 if(db.proveriprijavu(idcoveka, id))
                 if(db.izbaciprijavu(idcoveka, id))
-                return "redirect:/profil";
+                return "redirect:/oglas?id="+id;
             }
             if(db.proveriprijavu(db.dajId(CookieManager.getContent(cookie)), id))
             if(db.izbaciprijavu(db.dajId(CookieManager.getContent(cookie)), id))
@@ -471,15 +469,11 @@ public class ProjectController implements ErrorController{
     @PostMapping("/izbrisiposlodavca")
     public String ripposlodavca(@RequestParam Integer id,HttpServletRequest req, HttpServletResponse res)
     {   
-        System.out.println("Pocetak");
         if(id!=null && CookieManager.getCookie(req)!= null){
-            System.out.println("Prvi if");
             if(db.logovan(CookieManager.getContent(CookieManager.getCookie(req))).admin){
                 db.izbrisiPoslodavca(id);
-                System.out.println("Drugi if");
             }
         }
-        System.out.println("kraj");
         return null;
     }
 

@@ -347,7 +347,7 @@ function samoZaAdmina() {
                     for (i = 0; i < elementi.length; i++) {
                         elementi[i].style.display = 'block';
                     }
-                    if(((url_string.includes("profil")) && (id == 1)) || ((url_string.includes("profil")) && (id == null)) ){                        
+                    if (((url_string.includes("profil")) && (id == 1)) || ((url_string.includes("profil")) && (id == null))) {
                         document.getElementById("brisanjeProfila").style.display = 'none';
                     }
                 }
@@ -366,11 +366,8 @@ function popuniProfil() {
     if (id != null) {
         userid = "?user=" + id;
     }
-
-    console.log("zavrsio");
     json = $.getJSON("http://localhost:8080/profile" + userid, function() {})
         .done(function(data) {
-            console.log(data);
             if (data != null) {
                 document.getElementById("profil-korisnicko-ime").innerHTML = data.username;
                 document.getElementsByName("ime")[0].value = data.ime;
@@ -686,12 +683,12 @@ function ucitajPrijavljene() {
                 field.style.display = 'block';
                 for (i = 0; i < data.length; i++) {
                     txt +=
-                        "<div class='prijavljenKorisnik'>" + 
-                            "<h5>" + data[i].ime + "</h5>" +
-                            "<textarea> " + data[i].opis + " </textarea> <br>" +
-                            "<button type='button' class='btn btn-outline-primary ' onclick='otvoriProfil("+data[i].id+")'>Poseti profil</button>" +
-                            "<button type='button' class='btn btn-outline-primary samoZaAdmina' onclick='otkaziprijavu(" + data[i].id + "," + oglasID + ");'><i class='fas fa-trash'></i></button>" +
-                            "</div>";
+                        "<div class='prijavljenKorisnik'>" +
+                        "<h5>" + data[i].ime + "</h5>" +
+                        "<textarea> " + data[i].opis + " </textarea> <br>" +
+                        "<button type='button' class='btn btn-outline-primary ' onclick='otvoriProfil(" + data[i].id + ")'>Poseti profil</button>" +
+                        "<button type='button' class='btn btn-outline-primary samoZaAdmina' onclick='otkaziprijavu(" + data[i].id + "," + oglasID + ");'><i class='fas fa-trash'></i></button>" +
+                        "</div>";
                 }
                 field.innerHTML = txt;
             }
@@ -938,7 +935,7 @@ function otkaziPrijavu(id) {
 }
 
 function otkaziprijavu(covek, id) {
-    post('http://localhost:8080/izbaci?user=' + covek + '&id=' + id, null);
+    post('http://localhost:8080/izbaci?idcoveka=' + covek + '&id=' + id, null);
 }
 
 function otvoriProfil(id) {
