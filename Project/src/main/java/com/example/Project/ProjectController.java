@@ -179,24 +179,16 @@ public class ProjectController implements ErrorController{
     @GetMapping("/profile")
     public @ResponseBody Korisnik nazivProfila(@RequestParam(required = false) Integer user,HttpServletRequest req, HttpServletResponse res){
         Cookie cookie= CookieManager.getCookie(req);
-        if (cookie == null && user == null)
-            return null;
-        if (cookie != null && user == null){
-            Korisnik k =  db.Daj_Korisnika(db.dajId(CookieManager.getContent(cookie)));
-            return k;
-        }
-        if(cookie!=null){
-            if (db.dajId(CookieManager.getContent(cookie)) == user){
-                Korisnik k =  db.Daj_Korisnika(user);
-                return k;
-            }
-        }
-        if (user != null){
+        if(user!=null){
             Korisnik k =  db.Daj_Korisnika(user);
-            if(k!=null)
-                k.password="";
+            k.password="";
             return k;
-        } 
+        }
+        else if(cookie != null && db.proveriCoveka(CookieManager.getContent(cookie))){
+            Korisnik k =  db.Daj_Korisnika(db.dajId(CookieManager.getContent(cookie)));
+            k.password="";
+            return k;
+        }
             
         return null;
     }
@@ -331,6 +323,7 @@ public class ProjectController implements ErrorController{
         try {
             js = new JSONObject(brojevi);
             JSONArray niz = js.getJSONArray("telefoni");
+            db.izbrisiTelefone(db.dajId(CookieManager.getContent(cookie)));
             for(int i=0;i<niz.length();i++){
                 db.ubaciTelefon(db.dajId(CookieManager.getContent(cookie)),niz.getString(i));
             }

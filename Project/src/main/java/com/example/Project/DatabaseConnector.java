@@ -703,7 +703,19 @@ public class DatabaseConnector {
         }
         return null;
     }
+    public void izbrisiTelefone(Integer covek){
+        PreparedStatement statement;
+        List<errorCode> telefoni = new ArrayList<errorCode>();
+        try {
+            statement = connection.prepareStatement("DELETE FROM telefoni where idkorisnika=?");
+            statement.setInt(1, covek);
 
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
     public List<errorCode> Daj_telefone(Integer covek) {
         PreparedStatement statement;
         List<errorCode> telefoni = new ArrayList<errorCode>();
