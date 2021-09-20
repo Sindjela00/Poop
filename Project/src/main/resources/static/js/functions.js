@@ -362,7 +362,7 @@ function posaljiMail(email) {
 
 var ind = 0;
 
-function dodajTelefon(){
+function dodajTelefon() {
     ind++
     telefoni = document.getElementById("telefoni");
     stil = "style='width : 80%; float : left;'";
@@ -438,8 +438,7 @@ function popuniProfil() {
                     btn = "";
                     if (i > 0) {
                         btn = "<button type='button' class='btn btn-outline-primary dugmeTelefon' id='skloniTelefon" + i + "' onclick='skloniTelefon(" + i + ")' style='width: 15%; height: 42px; float : right; display : none;'> X </button>"
-                    }
-                    else {
+                    } else {
                         btn = "<button type='button' class='btn btn-outline-primary dugmeTelefon' id='skloniTelefon" + i + "' onclick='dodajTelefon(" + id + ")' style='width: 15%; height: 42px; float : right; display : none;'> + </button>"
                     }
                     txt += '<input type="text" id="profil-telefon' + i + '" name="telefon" value="' + telefon + '" class="form-control" ' + stil + '> ' + btn + '';
@@ -823,34 +822,30 @@ function srediNavbar() {
                 if (url_string.includes("profil")) {
                     userID = url.searchParams.get("user");
                     console.log(userID, data.id);
-                    if(data.prijavljen){
+                    if (data.prijavljen) {
                         login.href = "http://localhost:8080/signout";
                         login.innerHTML = "Odjavi se";
-                        if(userID == data.id || userID == null){
+                        if (userID == data.id || userID == null) {
                             profil.style.display = 'none';
                             dugmici = document.getElementsByClassName("dugmeTelefon");
                             for (i = 0; i < dugmici.length; i++) {
                                 dugmici[i].style.display = 'block';
                             }
                             document.getElementById("kontakt").style.display = "none";
-                        }
-                        else {
+                        } else {
                             document.getElementById("kontakt").style.display = "block";
                             profil.style.display = 'block';
                         }
-                    }
-                    else {
+                    } else {
                         login.href = "http://localhost:8080/signin";
                         login.innerHTML = "Prijavi se";
                         profil.style.display = 'none';
                     }
-                }
-                else if (!data.prijavljen) {
+                } else if (!data.prijavljen) {
                     login.href = "http://localhost:8080/signin";
                     login.innerHTML = "Prijavi se";
                     profil.style.display = 'none';
-                }
-                else {
+                } else {
                     login.href = "http://localhost:8080/signout";
                     login.innerHTML = "Odjavi se";
                     profil.style.display = 'block';
@@ -1134,10 +1129,9 @@ function prijavise() {
         .then(function() {
             window.location.replace("http//localhost:8080/oglasi");
         });
-    post("http://localhost:8080/prijavi?id=" + ID, document.getElementById("unesiCV").value);
 }
 
-function izbrisiKorisnika(){
+function izbrisiKorisnika() {
     url_string = window.location.href;
     url = new URL(url_string);
     ID = url.searchParams.get("user");
