@@ -876,8 +876,7 @@ function dodajoglas() {
     if (tag == 0) {
         window.alert("Izaberite kategoriju posla.");
         return;
-    }
-    else if(tag < 0){
+    } else if (tag < 0) {
         window.alert("Izaberite podkategoriju posla.");
         return;
     }
@@ -893,7 +892,7 @@ function dodajoglas() {
         window.alert("Unesite opis oglasa.");
         return;
     }
-    
+
 
     string = '{"naslov":"' + naziv + '","tip":' + tip + ',"plata":' + plata + ',"opis":"' + opis + '","mesto":' + grad + ',"tag":' + tag + '}';
     fetch("http://localhost:8080/napravioglas", { method: "POST", body: string })
@@ -1187,7 +1186,7 @@ function sacuvajTelefone() {
     for (i = 0; i < telefoni.length; i++) {
         if (telefoni[i].value != "") {
             string += "'" + telefoni[i].value + "'";
-            if (i + 1 == telefoni.length) string += ",";
+            if (i + 1 < telefoni.length) string += ",";
         }
     }
     string += "]}"
