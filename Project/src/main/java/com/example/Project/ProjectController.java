@@ -26,11 +26,6 @@ public class ProjectController implements ErrorController{
 
     @GetMapping("/")
     public String home(HttpServletRequest req, HttpServletResponse res) {
-        Cookie cookie;
-        if ((cookie = CookieManager.getCookie(req)) != null) {
-            if (db.nadjiUser("username", CookieManager.getContent(cookie)))
-                return "index";
-        }
         return "index";
     }
 
@@ -41,11 +36,6 @@ public class ProjectController implements ErrorController{
 
     @GetMapping("/oglasi")
     public String oglasi(HttpServletRequest req, HttpServletResponse res){
-        Cookie cookie;
-        if ((cookie = CookieManager.getCookie(req)) != null) {
-            if (db.nadjiUser("username", CookieManager.getContent(cookie)))
-                return "sviOglasi";
-        }
         return "sviOglasi";
     }
 
@@ -57,17 +47,10 @@ public class ProjectController implements ErrorController{
         }
         return oglasi;
     }
-    
-
-
-    @GetMapping("/all")
-    public @ResponseBody List<Oglas> all() {
-        return db.sviOglasi();
-    }
 
     @GetMapping("/signup")
     public String signup(HttpServletRequest req, HttpServletResponse res) {
-        if (CookieManager.getCookie(req) != null) {
+        if (CookieManager.getCookie(req) != null && db.proveriCoveka(CookieManager.getContent(CookieManager.getCookie(req)))) {
             return "redirect:/signin";
         }
         return "signup";
@@ -93,7 +76,6 @@ public class ProjectController implements ErrorController{
                     lista.add(new errorCode("nemabroj"));
                 if (js.getString("person") == null)
                     lista.add(new errorCode("nijeseoznacio"));
-
                 if (lista.isEmpty()) {
                     lista.add(new errorCode("OK"));
                     db.ubaciUsera(js.getString("user"), js.getString("pass"), js.getString("name"), js.getString("email"),js.getInt("mesto"),js.getInt("telefon"),js.getBoolean("person"));
@@ -234,7 +216,7 @@ public class ProjectController implements ErrorController{
     
     @PostMapping("/like")
     public @ResponseBody String lajkuj(@RequestParam Integer id, @RequestParam String lajk,HttpServletRequest req, HttpServletResponse res) {
-        if(CookieManager.getCookie(req)!=null){
+        if(CookieManager.getCookie(req)!=null && db.proveriCoveka(CookieManager.getContent(CookieManager.getCookie(req)))){
             db.lajkuj(db.dajId(CookieManager.getContent(CookieManager.getCookie(req))), id, lajk);
         }
         return "redirect:/oglas?id="+id;
@@ -242,7 +224,7 @@ public class ProjectController implements ErrorController{
 
     @GetMapping("/lajkovao")
     public @ResponseBody errorCode lajkovao(@RequestParam Integer id,HttpServletRequest req, HttpServletResponse res){
-        if(CookieManager.getCookie(req)!=null){
+        if(CookieManager.getCookie(req)!=null && db.proveriCoveka(CookieManager.getContent(CookieManager.getCookie(req)))){
             return db.proverilajk(db.dajId(CookieManager.getContent(CookieManager.getCookie(req))), id);
         }
         return new errorCode("nista");
@@ -252,7 +234,7 @@ public class ProjectController implements ErrorController{
 
     @PostMapping("/oceni")
     public @ResponseBody String oceni(@RequestParam Integer id,@RequestParam Integer ocena,HttpServletRequest req, HttpServletResponse res){
-        if(CookieManager.getCookie(req)!=null){
+        if(CookieManager.getCookie(req)!=null && db.proveriCoveka(CookieManager.getContent(CookieManager.getCookie(req)))){
             if(db.oceni(db.dajId(CookieManager.getContent(CookieManager.getCookie(req))), id, ocena))
             return "OK";
         }
@@ -261,7 +243,7 @@ public class ProjectController implements ErrorController{
     @GetMapping("/ocena")
     public @ResponseBody errorCode ocena(@RequestParam(required = false) Integer id,HttpServletRequest req, HttpServletResponse res){
         Integer ocena = -1;
-        if(CookieManager.getCookie(req)!=null){
+        if(CookieManager.getCookie(req)!=null && db.proveriCoveka(CookieManager.getContent(CookieManager.getCookie(req)))){
             ocena= db.dataOcena(db.dajId(CookieManager.getContent(CookieManager.getCookie(req))), id);
             if(ocena == null){
                 ocena=-1;
@@ -287,7 +269,7 @@ public class ProjectController implements ErrorController{
         List<Oglas> k;
         if (cookie == null && user == null)
             return null;
-        if (cookie != null && user == null){
+        if (cookie != null && user == null && db.proveriCoveka(CookieManager.getContent(CookieManager.getCookie(req)))){
             k =  db.Daj_Mojeoglase(db.dajId(CookieManager.getContent(cookie)));
         }
         else{
@@ -304,7 +286,7 @@ public class ProjectController implements ErrorController{
         List<errorCode> k;
         if (cookie == null && user == null)
             return null;
-        if (cookie != null && user == null){
+        if (cookie != null && user == null && db.proveriCoveka(CookieManager.getContent(CookieManager.getCookie(req)))){
             k =  db.Daj_telefone(db.dajId(CookieManager.getContent(cookie)));
         }
         else{
@@ -320,6 +302,7 @@ public class ProjectController implements ErrorController{
     public @ResponseBody String tel(@RequestBody String brojevi,HttpServletRequest req, HttpServletResponse res){
         Cookie cookie= CookieManager.getCookie(req);
         JSONObject js;
+        if(cookie!= null && db.proveriCoveka(CookieManager.getContent(CookieManager.getCookie(req)))){
         try {
             js = new JSONObject(brojevi);
             JSONArray niz = js.getJSONArray("telefoni");
@@ -329,12 +312,13 @@ public class ProjectController implements ErrorController{
             }
 
 
-            return "";
+            return "OK";
         } catch (JSONException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        return "";
+    }
+        return "bad";
     }
 
 
@@ -342,7 +326,7 @@ public class ProjectController implements ErrorController{
     @GetMapping("/prijavljeni")
     public @ResponseBody List<Korisnik> prijavljeni(@RequestParam Integer id,HttpServletRequest req, HttpServletResponse res){
         Cookie cookie = CookieManager.getCookie(req);
-        if(cookie!=null){
+        if(cookie!=null && db.proveriCoveka(CookieManager.getContent(CookieManager.getCookie(req)))){
             if(db.jelovomoje(db.dajId(CookieManager.getContent(cookie)), id) || db.logovan(CookieManager.getContent(cookie)).admin){
                 return db.prijavljeni(id);
             }
