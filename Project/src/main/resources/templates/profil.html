@@ -27,9 +27,7 @@
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="http://localhost:8080/#about">O nama</a></li>
                     <li class="nav-item mx-0 mx-lg-1"><a id="navProfil" class="nav-link py-3 px-0 px-lg-3 rounded" href="http://localhost:8080/profil">Profil</a></li>
                     <li class="nav-item mx-0 mx-lg-1"><a id="navKreiraj" class="nav-link py-3 px-0 px-lg-3 rounded sakrijOdKorisnika" href="http://localhost:8080/novoglas" style="display : none;">Kreiraj oglas</a></li>
-                    <li class="nav-item mx-0 mx-lg-1">
-                        <a id="navLogin" class="nav-link py-3 px-0 px-lg-3 rounded" href="http://localhost:8080/signin"></a>
-                    </li>
+                    <li class="nav-item mx-0 mx-lg-1"><a id="navLogin" class="nav-link py-3 px-0 px-lg-3 rounded" href="http://localhost:8080/signin"></a></li>
                 </ul>
             </div>
         </div>
@@ -40,7 +38,7 @@
 
             <div class="col-lg-6 col-md-8 profile-box">
                 <div class="col-lg-12 samoZaAdmina" id="brisanjeProfila">
-                    <button type='button' class='btn btn-outline-primary sakrijOdKorisnika kanta'><i class='fas fa-trash'></i></button>
+                    <button type='button' onclick="izbrisiKorisnika();" class='btn btn-outline-primary sakrijOdKorisnika kanta'><i class='fas fa-trash'></i></button>
                 </div>
 
                 <div class="col-lg-12 profile-user" style="clear: both;">
@@ -121,7 +119,7 @@
                                 <button type='button' id="kontakt" class='btn btn-outline-primary' style='position:relative; float:right; height: 40px;'><i class='fas fa-envelope'></i></button>
                             </div>
                             <div class="form-group" id="telefoni">
-                                <label class="form-control-label">Telefoni</label>
+                                <label class="form-control-label" style="width: 100%;">Telefoni</label>
 
                             </div>
                             <div class="form-group" style="clear : both;">
