@@ -511,10 +511,13 @@ public class DatabaseConnector {
             statement = connection.prepareStatement("SELECT * FROM prijave where idcovek=? and idoglas=?");
             statement.setInt(1, idcoveka);
             statement.setInt(2, idoglasa);
-
+            
             ResultSet result = statement.executeQuery();
-            if (result.next())
+            
+            if (result.next()){
+                System.out.println(result.getInt(1));
                 return true;
+            }
             return false;
         } catch (SQLException e) {
             // TODO Auto-generated catch block

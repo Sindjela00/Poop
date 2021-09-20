@@ -234,12 +234,12 @@ public class ProjectController implements ErrorController{
         return  db.Daj_tagove();
     }
     @PostMapping("/prijavi")
-    public @ResponseBody String prijavise(@RequestParam Integer id, @RequestBody String body,HttpServletRequest req, HttpServletResponse res){
+    public String prijavise(@RequestParam Integer id, @RequestBody String body,HttpServletRequest req, HttpServletResponse res){
         if(CookieManager.getCookie(req)!=null){
             if(db.prijavise(db.dajId(CookieManager.getContent(CookieManager.getCookie(req))), id, body))
-            return "OK";
+            return "redirect:/profil";
         }
-        return "false";
+        return "redirect:/profil";
     }
     
     @PostMapping("/like")
@@ -352,7 +352,7 @@ public class ProjectController implements ErrorController{
     public @ResponseBody List<Korisnik> prijavljeni(@RequestParam Integer id,HttpServletRequest req, HttpServletResponse res){
         Cookie cookie = CookieManager.getCookie(req);
         if(cookie!=null){
-            if(db.jelovomoje(db.dajId(CookieManager.getContent(cookie)), id)){
+            if(db.jelovomoje(db.dajId(CookieManager.getContent(cookie)), id) || db.logovan(CookieManager.getContent(cookie)).admin){
                 return db.prijavljeni(id);
             }
         }
@@ -400,7 +400,7 @@ public class ProjectController implements ErrorController{
                     db.IzbrisiOglas(id);
             }
         }
-        return "redirect:/";
+        return "redirect:/profil";
     }
     
     @GetMapping("/novoglas")
@@ -436,13 +436,20 @@ public class ProjectController implements ErrorController{
     }
 
     @PostMapping("/izbaci")
-    public @ResponseBody String izbrisiPrijavu(@RequestParam Integer id, HttpServletRequest req, HttpServletResponse res){
+    public String izbrisiPrijavu(@RequestParam(required = false) Integer idcoveka,@RequestParam Integer id, HttpServletRequest req, HttpServletResponse res){
         Cookie cookie = CookieManager.getCookie(req);
-        if(cookie!=null && db.proveriCoveka(CookieManager.getContent(cookie)))
-        if(db.proveriprijavu(db.dajId(CookieManager.getContent(cookie)), id))
-        if(db.izbaciprijavu(db.dajId(CookieManager.getContent(cookie)), id))
-            return "Ok";
-        return "Bad";
+        if(cookie!=null && db.proveriCoveka(CookieManager.getContent(cookie))){
+            if(idcoveka != null){
+                if(db.proveriprijavu(idcoveka, id))
+                if(db.izbaciprijavu(idcoveka, id))
+                return "redirect:/profil";
+            }
+            if(db.proveriprijavu(db.dajId(CookieManager.getContent(cookie)), id))
+            if(db.izbaciprijavu(db.dajId(CookieManager.getContent(cookie)), id))
+            return "redirect:/profil";
+
+        }
+        return "redirect:/profil";
     }
     @GetMapping("/covek")
     public String posaljinacoveka(@RequestParam Integer id, HttpServletRequest req, HttpServletResponse res){
