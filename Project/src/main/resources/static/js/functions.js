@@ -322,6 +322,18 @@ function selectCity(grad) {
     }
 }
 
+function skloniTelefon(i){
+    console.log(i);
+
+    telefon = document.getElementById("profil-telefon" + i);
+    dugme = document.getElementById("skloniTelefon" + i);
+
+    telefon.value = "";
+
+    telefon.style.display = 'none';
+    dugme.style.display = 'none';
+}
+
 function popuniProfil() {
     var url_string = window.location.href;
     var url = new URL(url_string);
@@ -383,8 +395,15 @@ function popuniProfil() {
                 telefoni = document.getElementById("telefoni");
                 txt = "";
                 for (i = 0; i < dataT.length; i++) {
+                    console.log(dataT[i].error);
                     telefon = dataT[i].error;
-                    txt += '<input type="text" id="profil-telefon' + i + '" name="telefon" value="' + telefon + '" class="form-control">';
+                    stil = "";
+                    btn = "";
+                    if(i > 0) {
+                        stil = "style='width : 80%; float : left;'";
+                    btn = "<button type='button' class='btn btn-outline-primary' id='skloniTelefon" + i + "' onclick='skloniTelefon("+i+")' style='width: 15%; height: 42px; float : right;'> X </button>"
+                    }    
+                    txt += '<input type="text" id="profil-telefon' + i + '" name="telefon" value="' + telefon + '" class="form-control" ' + stil + '> ' + btn + '';
                 }
             } else {
                 txt = '<div class="form-group"> <label class="form-control-label">Telefon</label> <input type="text" id="profil-telefon" name="telefon" value="" class="form-control"> </div>';
@@ -418,7 +437,10 @@ function Sacuvaj() {
                     oldPassword = lozinka1;
                     newPassword = lozinka2;
                     string = '{"id":' + id + ',"ime":"' + ime + '","username":"' + username + '","email":"' + email + '","password1":"' + oldPassword + '","password2":"' + newPassword + '","opis":"' + opis + '","mesto":' + grad + '}';
-                    post("http://localhost:8080/update", string);
+                    fetch("http://localhost:8080/update", { method: "POST", body: string })
+                        .then(function() {
+                        sacuvajTelefone();
+                    });
                 }
             }
         });
@@ -1014,4 +1036,17 @@ function ocena(){
         }
     });
 
+}
+
+function sacuvajTelefone(){
+    telefoni = document.getElementById("telefoni").getElementsByTagName("input");
+    string="{'telefoni':["
+    for(i=0;i<telefoni.length;i++){
+        string+="'"+telefoni.value+"'";
+    }
+    string+="]}"
+    fetch("http://localhost:8080/izmenitelefone", { method: "POST", body: string })
+        .then(function() {
+            window.location.replace(window.location.href);
+        });
 }
