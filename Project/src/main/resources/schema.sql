@@ -505,7 +505,7 @@ INSERT INTO MESTO(ime) values('Ub');
 INSERT INTO MESTO(ime) values('Sabac');
 INSERT INTO MESTO(ime) values('Sid');
 
-INSERT INTO KORISNIK(Ime,Username,Password,Email,idmesta,Poslodavac,Admin,Opis) values ("admin","admin","admin","admin@admin.admin",1,true,true,'admin');
+INSERT INTO KORISNIK(Ime,Username,Password,Email,idmesta,Poslodavac,Admin,Opis) values ("admin","admin","admin","admin@admin.admin",1,false,true,'admin');
 INSERT INTO KORISNIK(Ime,Username,Password,Email,idmesta,Poslodavac,Admin,Opis) values ('UBISOFT - Novi Sad', 'MilicaM', 'milica01', 'milica.medakovic@gmail.com', 1, true, false,'Ubisoft developing center in Serbia(Novi Sad)');
 INSERT INTO KORISNIK(Ime,Username,Password,Email,idmesta,Poslodavac,Admin,Opis) values ('Xtechno', 'MladenK', 'mladen02', 'mladen.krstic@gmail.com', 2, true, false,'Novonastala firma smestana Novi Sad');
 INSERT INTO KORISNIK(Ime,Username,Password,Email,idmesta,Poslodavac,Admin,Opis) values ('Marko Pavlovic', 'MarkoP', 'marko03', 'marko.pavlovic@gmail.com', 3, false, false,'Dipl. informatica - Fin Kragujevac(Softversko inzenjerstvo)');
