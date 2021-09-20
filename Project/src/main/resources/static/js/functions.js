@@ -832,8 +832,10 @@ function srediNavbar() {
                             for (i = 0; i < dugmici.length; i++) {
                                 dugmici[i].style.display = 'block';
                             }
+                            document.getElementById("kontakt").style.display = "none";
                         }
                         else {
+                            document.getElementById("kontakt").style.display = "block";
                             profil.style.display = 'block';
                         }
                     }
