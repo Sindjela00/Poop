@@ -11116,9 +11116,9 @@
             
             #stranicaOglasa {
                 position: relative;
-                background-color: white;
+                background-color: #e3fffb;
                 margin-top: 70px;
-                padding: 50px;
+                padding: 20px;
                 height: auto;
                 width: auto;
                 border: 3px solid #1abc9c;
@@ -11293,12 +11293,13 @@
             
             .novioglas-box {
                 position: relative;
-                margin: 20px;
+                margin: 20px auto;
                 background: #2c3e50;
                 text-align: center;
                 box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
                 border-radius: 20px;
-                height: 940px;
+                height: auto;
+				width: 800px; 
             }
             
             .novioglas-user {
@@ -11339,20 +11340,24 @@
             #novioglas-opis {
                 position: relative;
                 width: 100%;
-                height: 40%;
+                height: 100%;
                 border-radius: 5px;
                 overflow: auto;
+				border:3px solid #0DB8DE ; 
             }
-            
+            #novioglas-opis:hover{
+				color: #0DB8DE; 
+			}
             #novOglasBack {
                 position: relative;
                 float: left;
             }
             
             #novOglasBack button {
+				position: relative; 
                 width : 60px;
-                height : 40px;
-                font-size : 40px;
+                height : 50px;
+                font-size : 30px;
                 line-height: 0.1em;
                 padding-bottom : 10px;
             }

@@ -16,55 +16,57 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-lg-3 col-md-2"></div>
+
             <div class="col-lg-6 col-md-8 novioglas-box">
                 <div class="col-lg-12 novioglas-title">
-                    <span id="novOglasBack"><button class="btn btn-outline-primary" onclick="history.back();"> ← </button></span>
-                    <span id="novOglasTitle"> Objavi oglas </span>
+                    <span id="novOglasBack"><button class="btn btn-outline-primary" onclick="history.back();"><i class="fas fa-arrow-left" style="position: relative; width:10px; height: 10px; top:-10px;left:-10px;"></i></button></span>
+                    <span id="novOglasTitle"> OBJAVI OGLAS </span>
                 </div>
                 <div class="col-lg-12 novioglas-form">
                     <form>
-                        <div class="form-group">
-                            <label class="form-control-label">Naziv oglasa</label>
-                            <input type="text" id="naziv-oglasa" class="form-control" data-sb-validations="required">
-                            <div class="invalid-feedback" data-sb-feedback="naziv-oglas:required" style="color: white">Neophodno je da unesete naziv oglasa!</div>
-                        </div>
-                        <div class="form-check">
-                            <label class="form-control-label">Vremenski period: </label>
-                            <br>
-                            <label class="form-check-label">
+                        <div style="position: relative;float: left; width: 48%; margin: auto 1%;">
+                            <div class="form-group">
+                                <label class="form-control-label">Naziv oglasa</label>
+                                <input type="text" id="naziv-oglasa" class="form-control" data-sb-validations="required">
+                                <div class="invalid-feedback" data-sb-feedback="naziv-oglas:required" style="color: white">Neophodno je da unesete naziv oglasa!</div>
+                            </div>
+                            <div class="form-check">
+                                <label class="form-control-label">Vremenski period: </label>
+                                <br>
+                                <label class="form-check-label">
                                     <input type="radio" class="form-check-input" id="poslodavac" name="uloga" value="poslodavac">
                                         <b><span style="color: white">Posao na određeno vreme</span></b>
                             </label>
-                        </div>
-                        <div class="form-check">
-                            <label class="form-check-label">
+                            </div>
+                            <div class="form-check">
+                                <label class="form-check-label">
                                         <input type="radio" class="form-check-input" name="uloga" value="radnik" checked>
                                         <b><span style="color: white">Posao na neodređeno vreme</span></b>
                                     </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label">Mesto posla</label>
+                                <select id="city-register" class="form-control" data-sb-validations="required"></select>
+                                <div class="invalid-feedback" data-sb-feedback="city-register:required">Neophodno je da unesete mesto posla!</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label">Kategorija: </label>
+                                <select id="tagovi" class="form-control" data-sb-validations="required"></select>
+                                <div class="invalid-feedback" data-sb-feedback="tagovi:required">Neophodno je da odaberete kategoriju oglasa!</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label">Početna plata</label>
+                                <input type="text" id="plata" class="form-control" data-sb-validations="required">
+                                <div class="invalid-feedback" data-sb-feedback="naziv-oglas:required" style="color: white">Neophodno je da unesete početnu platu!</div>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label class="form-control-label">Mesto posla</label>
-                            <select id="city-register" class="form-control" data-sb-validations="required"></select>
-                            <div class="invalid-feedback" data-sb-feedback="city-register:required">Neophodno je da unesete mesto posla!</div>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-control-label">Kategorija: </label>
-                            <select id="tagovi" class="form-control" data-sb-validations="required"></select>
-                            <div class="invalid-feedback" data-sb-feedback="tagovi:required">Neophodno je da odaberete kategoriju oglasa!</div>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-control-label">Početna plata</label>
-                            <input type="text" id="plata" class="form-control" data-sb-validations="required">
-                            <div class="invalid-feedback" data-sb-feedback="naziv-oglas:required" style="color: white">Neophodno je da unesete početnu platu!</div>
-                        </div>
-                        <div class="form-group">
+                        <div class="form-group" style="position: relative; float: right;margin: auto 1%; width: 48%;height: 70%;">
                             <label class="form-control-label">Opis oglasa: </label><br>
-                            <textarea id="novioglas-opis"></textarea>
+                            <textarea id="novioglas-opis" class="form-control"></textarea>
                             <div class="invalid-feedback" data-sb-feedback="opisOglasa:required">Neophodno je da unesete opis oglasa!</div>
                         </div>
 
-                        <div class="col-lg-12 loginbttm">
+                        <div class="col-lg-12 loginbttm" style="clear: both;">
                             <div class="col-lg-6 login-btm login-text">
                             </div>
                             <div class="dugme">

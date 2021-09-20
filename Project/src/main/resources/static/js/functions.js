@@ -102,6 +102,7 @@ function loadJobs() {
     document.getElementById("radnaOblast").innerHTML = contentJobsCat;
 }
 
+
 function loadAdsJSON() {
     let path = "files/oglasi.json";
     jsonAds = new XMLHttpRequest();
@@ -238,8 +239,7 @@ function login() {
         .then(response => {
             if (response[0].error == "OK") {
                 window.location.replace("http://localhost:8080/")
-            }
-            else {
+            } else {
                 window.alert("Username ili sifra nisu ispravni.");
             }
         })
@@ -250,8 +250,7 @@ function validateEmail(email) {
     return re.test(String(email).toLowerCase());
 }
 
-function validateNumber(num) 
-{
+function validateNumber(num) {
     return /^\d+$/.test(num);
 }
 
@@ -265,39 +264,37 @@ function signup() {
     telefon = document.getElementById("tel-register").value;
     poslodavac = document.getElementById("poslodavac").checked;
 
-    if((ime == "") || (ime == null)){
+    if ((ime == "") || (ime == null)) {
         window.alert("Unesite ime.");
         return;
     }
-    if((email == "") || (email == null)){
+    if ((email == "") || (email == null)) {
         window.alert("Unesite email adresu.");
         return;
     }
-    if(!validateEmail(email)){
+    if (!validateEmail(email)) {
         window.alert("Neispravna email adresa");
         return;
     }
-    if((telefon == "") || (telefon == null)){
+    if ((telefon == "") || (telefon == null)) {
         window.alert("Unesite broj telefona.");
         return;
     }
-    if(!validateNumber(telefon)){
+    if (!validateNumber(telefon)) {
         window.alert("Neispravan broj telefona.");
         return;
     }
-    if((pass == "") || (pass == null)){
+    if ((pass == "") || (pass == null)) {
         window.alert("Unesite lozinku.");
         return;
-    }
-    else if((ppass == "") || (ppass == null)){
+    } else if ((ppass == "") || (ppass == null)) {
         window.alert("Ponovo unesite lozinku.");
         return;
-    }
-    else if(pass != ppass){
+    } else if (pass != ppass) {
         window.alert("Lozinke nisu iste");
         return;
     }
-    
+
 
     var proba = '{"user":"' + user + '","pass":"' + pass + '","email":"' + email + '","mesto":' + mesto + ',"name":"' + ime + '","telefon":' + telefon + ',"person":"' + poslodavac + '"}';
     var odgovor = post("http://localhost:8080/signup", proba);
@@ -359,25 +356,23 @@ function popuniProfil() {
             }
         });
 
-        json = $.getJSON("http://localhost:8080/login", function() {})
+    json = $.getJSON("http://localhost:8080/login", function() {})
         .done(function(data) {
             console.log(data);
             if (data != null) {
                 console.log(data.id);
-                if(data.poslodavac){
+                if (data.poslodavac) {
                     document.getElementById("imeLabel").innerHTML = "Ime kompanije";
-                }
-                else {
+                } else {
                     document.getElementById("imeLabel").innerHTML = "Ime i Prezime";
                 }
-                if(id == data.id || id == null){
+                if (id == data.id || id == null) {
                     document.getElementById("sakriveno").style.display = 'block';
-                }
-                else if ((id != data.id) && data.id != -1){
+                } else if ((id != data.id) && data.id != -1) {
                     document.getElementById("oceni").style.display = 'block';
                 }
             }
-        }); 
+        });
 
     json = $.getJSON("http://localhost:8080/telefon" + userid, function() {
             console.log("zavrsio");
@@ -417,17 +412,16 @@ function Sacuvaj() {
             if (data != null) {
                 id = data.id;
                 username = data.username;
-                if(lozinka2 != lozinka3) {
+                if (lozinka2 != lozinka3) {
                     window.alert("Sifre nisu iste.");
-                }
-                else {
+                } else {
                     oldPassword = document.getElementById("lozinka1").value
                     newPassword = lozinka2;
                     string = '{"id":' + id + ',"ime":"' + ime + '","username":"' + username + '","email":"' + email + '","password1":"' + oldPassword + '","password2":"' + newPassword + '","opis":"' + opis + '","mesto":"' + mesto + '","petice":' + data.petice + ',"cetvorke":' + data.cetvorke + ',"trojke":' + data.trojke + ',"dvojke":' + data.dvojke + ',"jedinice":' + data.jedinice + '}';
                     post("http://localhost:8080/update", string);
-                }    
+                }
             }
-        }); 
+        });
 }
 
 function otkaziPromene() {
@@ -533,27 +527,27 @@ function ucitajOglase() {
 
                 console.log(grad.toLowerCase());
 
-                if((naslov.toLowerCase().includes(filter.value.toLowerCase())) || (grad.toLowerCase().includes(filter.value.toLowerCase())) || (opis.toLowerCase().includes(filter.value.toLowerCase()))){
+                if ((naslov.toLowerCase().includes(filter.value.toLowerCase())) || (grad.toLowerCase().includes(filter.value.toLowerCase())) || (opis.toLowerCase().includes(filter.value.toLowerCase()))) {
                     contentAds += "<li class='list-group-item'>" +
-                    "<div class='media align-items-lg-center flex-column flex-lg-row p-3'>" +
-                    "<div class='media-body order-2 order-lg-1'>" +
-                    "<div style='float: left; width:85%'>" +
-                    "<h5 class='mt-0 font-weight-bold mb-2' style='color:#1abc9c'>" + naslov + "</h5>" +
-                    "<p class='font-italic text-muted mb-0 small' style='font-size: 16px;'><i class='fas fa-map-marker-alt' style='padding-top: 10px; padding-right: 5px; height:30px; width: 30px; '></i>" + grad + "</p>" +
-                    "<p class='font-italic text-muted mb-0 small' style='font-size: 16px;'><i class='fas fa-address-card' style='padding-top: 10px; padding-right: 5px; height:30px; width: 30px; '></i>" + poslodavac + "</p>" +
-                    "<p class='font-italic text-muted mb-0 small' style='font-size: 16px;'><i class='fas fa-file-contract' style='padding-top: 10px; padding-right: 5px; height:30px; width: 30px; '></i> Radni odnos " + radniOdnos + "</p>" +
-                    "</div>" +
-                    "<div class='d-flex align-items-center justify-content-between mt-1'>" +
-                    "<div class='lajkDislajk' style='float: right; margin-left: 35px; margin-bottom: 10px; '>" +
-                    "<span class='fas fa-thumbs-up' style='color : #0DB8DE;'> </span>" + "<span style='margin: 0px 50px 0 5px; color : #0DB8DE;'>" + likes + "</span>" +
-                    "<span class='fas fa-thumbs-down' style='color : #0DB8DE'> </span>" + "<span style='margin-left: 5px; color : #0DB8DE;'>" + dislikes + "</span>" +
-                    "</div>" +
-                    "</div>" +
-                    "<button id=dugmeDetalji class='btn btn-outline-primary' style='float: right; margin-right: 20px;' onclick='prebaciNaOglas(" + id +
-                    ")'> Detaljnije </button>" +
-                    "</div>" +
-                    "</li>"
-                }    
+                        "<div class='media align-items-lg-center flex-column flex-lg-row p-3'>" +
+                        "<div class='media-body order-2 order-lg-1'>" +
+                        "<div style='float: left; width:85%'>" +
+                        "<h5 class='mt-0 font-weight-bold mb-2' style='color:#1abc9c'>" + naslov + "</h5>" +
+                        "<p class='font-italic text-muted mb-0 small' style='font-size: 16px;'><i class='fas fa-map-marker-alt' style='padding-top: 10px; padding-right: 5px; height:30px; width: 30px; '></i>" + grad + "</p>" +
+                        "<p class='font-italic text-muted mb-0 small' style='font-size: 16px;'><i class='fas fa-address-card' style='padding-top: 10px; padding-right: 5px; height:30px; width: 30px; '></i>" + poslodavac + "</p>" +
+                        "<p class='font-italic text-muted mb-0 small' style='font-size: 16px;'><i class='fas fa-file-contract' style='padding-top: 10px; padding-right: 5px; height:30px; width: 30px; '></i> Radni odnos " + radniOdnos + "</p>" +
+                        "</div>" +
+                        "<div class='d-flex align-items-center justify-content-between mt-1'>" +
+                        "<div class='lajkDislajk' style='float: right; margin-left: 35px; margin-bottom: 10px; '>" +
+                        "<span class='fas fa-thumbs-up' style='color : #0DB8DE;'> </span>" + "<span style='margin: 0px 50px 0 5px; color : #0DB8DE;'>" + likes + "</span>" +
+                        "<span class='fas fa-thumbs-down' style='color : #0DB8DE'> </span>" + "<span style='margin-left: 5px; color : #0DB8DE;'>" + dislikes + "</span>" +
+                        "</div>" +
+                        "</div>" +
+                        "<button id=dugmeDetalji class='btn btn-outline-primary' style='float: right; margin-right: 20px;' onclick='prebaciNaOglas(" + id +
+                        ")'> Detaljnije </button>" +
+                        "</div>" +
+                        "</li>"
+                }
             }
             contentAds += "</ul>";
             document.getElementById("oglasi").innerHTML = contentAds;
@@ -580,9 +574,9 @@ function ucitajdetaljno() {
             dislikes = ads.dislikes;
             radniOdnos = ads.tip;
             if (radniOdnos == true)
-                    radniOdnos = "na neodređeno vreme";
-                else
-                    radniOdnos = "na određeno vreme";
+                radniOdnos = "na neodređeno vreme";
+            else
+                radniOdnos = "na određeno vreme";
             var contentAd =
                 "<div id='osnovniPodaci'>" +
                 "<h3 id='imgOglasa' style='text-align: center;'> <span>Naziv oglasa: " + naslov + "</span></h3>" +
@@ -702,7 +696,7 @@ function srediNavbar() {
         .done(function(data) {
             console.log(data);
             if (data != null) {
-                if(data.poslodavac) {
+                if (data.poslodavac) {
                     document.getElementById("navKreiraj").style.display = 'block';
                 }
                 url_string = window.location.href;
@@ -718,7 +712,7 @@ function srediNavbar() {
                         login.href = "http://localhost:8080/signout";
                         login.innerHTML = "Odjavi se";
                         profil.style.display = 'block';
-                    } else if (userID == data.id){
+                    } else if (userID == data.id) {
                         login.href = "http://localhost:8080/signout";
                         login.innerHTML = "Odjavi se";
                         profil.style.display = 'none';
@@ -749,27 +743,27 @@ function dodajoglas() {
 
     console.log(tag);
 
-    if((naziv == "") || (naziv == null)) {
+    if ((naziv == "") || (naziv == null)) {
         window.alert("Unesite naziv oglasa.");
         return;
     }
-    if(tag == 0){
+    if (tag == 0) {
         window.alert("Izaberite kategoriju posla.");
         return;
     }
-    if((plata == "") || (plata == null)) {
+    if ((plata == "") || (plata == null)) {
         window.alert("Unesite pocetnu platu.");
         return;
     }
-    if(!validateNumber(plata)){
+    if (!validateNumber(plata)) {
         window.alert("Neispravano uneta plata.");
         return;
     }
-    if((opis == "") || (opis == null)) {
+    if ((opis == "") || (opis == null)) {
         window.alert("Unesite opis oglasa.");
         return;
     }
-    
+
 
     string = '{"naslov":"' + naziv + '","tip":' + tip + ',"plata":' + plata + ',"opis":"' + opis + '","mesto":' + grad + '","tag":' + tag + '}';
     post("http://localhost:8080/napravioglas", string);
@@ -919,14 +913,14 @@ function poslodavci() {
                     id = data[i].id;
                     txt +=
                         "<div class='poslodavac'>" +
-                            "<span style='float : left;'><h5> Poslodavac : " + ime + "</h5></span>" +
-                            "<span style='float : right;'> <i class='fas fa-map-marker-alt'></i> Lokacija: " + lokacija + "</span>" +
-                            "<p style='clear : both;'> <b> Opis : " + opis + " </b></p>" +
-                            "<br><br>" +
-                            "<button type='button' onclick='otvoriProfil(" + id + ");' class='dugme btn btn-outline-primary' style='float : left; width : 48%;'>Detaljnije</button>" +
-                            "<div class='col-lg-12' id='samoZaAdmina' style='width: 100px; position: absolute; padding-right : 15px; bottom : 8px;'>" + 
-                                "<button type='button' onclick='izbacipos("+id+")'class='btn btn-outline-primary sakrijOdKorisnika kanta'><i class='fas fa-trash'></i></button>" +
-                            "</div>" +
+                        "<span style='float : left;'><h5> Poslodavac : " + ime + "</h5></span>" +
+                        "<span style='float : right;'> <i class='fas fa-map-marker-alt'></i> Lokacija: " + lokacija + "</span>" +
+                        "<p style='clear : both;'> <b> Opis : " + opis + " </b></p>" +
+                        "<br><br>" +
+                        "<button type='button' onclick='otvoriProfil(" + id + ");' class='dugme btn btn-outline-primary' style='float : left; width : 48%;'>Detaljnije</button>" +
+                        "<div class='col-lg-12' id='samoZaAdmina' style='width: 100px; position: absolute; padding-right : 15px; bottom : 8px;'>" +
+                        "<button type='button' onclick='izbacipos(" + id + ")'class='btn btn-outline-primary sakrijOdKorisnika kanta'><i class='fas fa-trash'></i></button>" +
+                        "</div>" +
                         "</div>";
                 }
                 field.innerHTML = txt;
@@ -944,10 +938,10 @@ function lajkuj(lajk) {
         lajk = "izbrisi";
     }
     fetch("http://localhost:8080/like?id=" + ID + "&lajk=" + lajk, { method: "POST", body: null })
-    .then(function(){
-        window.location.replace(window.location.href);
+        .then(function() {
+            window.location.replace(window.location.href);
 
-    });
+        });
     lajkovao();
 }
 
@@ -968,16 +962,16 @@ function lajkovao() {
         });
 }
 
-function prijavise(){
+function prijavise() {
     url_string = window.location.href;
     url = new URL(url_string);
     ID = url.searchParams.get("id");
-    post("http://localhost:8080/prijavi?id="+ID,document.getElementById("unesiCV").value);
+    post("http://localhost:8080/prijavi?id=" + ID, document.getElementById("unesiCV").value);
 }
 
-function izbacipos(id){
-    fetch("http://localhost:8080/izbrisiposlodavca?id="+id, { method: "POST", body: null })
-    .then(function(){
-        window.location.replace(window.location.href);
-    });
+function izbacipos(id) {
+    fetch("http://localhost:8080/izbrisiposlodavca?id=" + id, { method: "POST", body: null })
+        .then(function() {
+            window.location.replace(window.location.href);
+        });
 }
