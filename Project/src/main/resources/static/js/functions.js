@@ -366,7 +366,7 @@ function dodajTelefon() {
     ind++
     telefoni = document.getElementById("telefoni");
     stil = "style='width : 80%; float : left;'";
-    btn = "<button type='button' class='btn btn-outline-primary dugmeTelefon' id='skloniTelefon" + ind + "' onclick='skloniTelefon(" + ind + ")' style='width: 15%; height: 42px; float : right; display : none;'> X </button>"
+    btn = "<button type='button' class='btn btn-outline-primary' id='skloniTelefon" + ind + "' onclick='skloniTelefon(" + ind + ")' style='width: 15%; height: 42px; float : right;'> X </button>"
     txt = '<input type="text" id="profil-telefon' + ind + '" name="telefon" class="form-control" ' + stil + '> ' + btn + '';
     telefoni.innerHTML += txt;
 }
@@ -437,7 +437,7 @@ function popuniProfil() {
                     stil = "style='width : 80%; float : left;'";
                     btn = "";
                     if (i > 0) {
-                        btn = "<button type='button' class='btn btn-outline-primary dugmeTelefon' id='skloniTelefon" + i + "' onclick='skloniTelefon(" + i + ")' style='width: 15%; height: 42px; float : right; display : none;'> X </button>"
+                        btn = "<button type='button' class='btn btn-outline-primary' id='skloniTelefon" + i + "' onclick='skloniTelefon(" + i + ")' style='width: 15%; height: 42px; float : right;'> X </button>"
                     } else {
                         btn = "<button type='button' class='btn btn-outline-primary dugmeTelefon' id='skloniTelefon" + i + "' onclick='dodajTelefon(" + id + ")' style='width: 15%; height: 42px; float : right; display : none;'> + </button>"
                     }
@@ -877,6 +877,10 @@ function dodajoglas() {
         window.alert("Izaberite kategoriju posla.");
         return;
     }
+    else if(tag < 0){
+        window.alert("Izaberite podkategoriju posla.");
+        return;
+    }
     if ((plata == "") || (plata == null)) {
         window.alert("Unesite pocetnu platu.");
         return;
@@ -889,7 +893,7 @@ function dodajoglas() {
         window.alert("Unesite opis oglasa.");
         return;
     }
-
+    
 
     string = '{"naslov":"' + naziv + '","tip":' + tip + ',"plata":' + plata + ',"opis":"' + opis + '","mesto":' + grad + ',"tag":' + tag + '}';
     fetch("http://localhost:8080/napravioglas", { method: "POST", body: string })
