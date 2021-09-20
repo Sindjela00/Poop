@@ -322,33 +322,27 @@ function selectCity(grad) {
     }
 }
 
-function skloniTelefon(i){
+function skloniTelefon(i) {
     console.log(i);
 
     telefon = document.getElementById("profil-telefon" + i);
     dugme = document.getElementById("skloniTelefon" + i);
 
-    document.getElementById("profil-telefon"+i).value = "";
+    document.getElementById("profil-telefon" + i).value = "";
 
     telefon.style.display = 'none';
     dugme.style.display = 'none';
 }
 
-function samoZaAdmina(){
-    var url_string = window.location.href;
-    var url = new URL(url_string);
-    var id = url.searchParams.get("user");
+function samoZaAdmina() {
     json = $.getJSON("http://localhost:8080/login", function() {})
         .done(function(data) {
             console.log(data);
             if (data != null) {
-                if(data.admin){
+                if (data.admin) {
                     elementi = document.getElementsByClassName("samoZaAdmina");
-                    for (i = 0; i < elementi.length; i++){
+                    for (i = 0; i < elementi.length; i++) {
                         elementi[i].style.display = 'block';
-                    }
-                    if(((url_string.includes("profil")) && (id == 1)) || ((url_string.includes("profil")) && (id == null)) ){                        
-                        document.getElementById("brisanjeProfila").style.display = 'none';
                     }
                 }
             }
@@ -420,10 +414,10 @@ function popuniProfil() {
                     telefon = dataT[i].error;
                     stil = "";
                     btn = "";
-                    if(i > 0) {
+                    if (i > 0) {
                         stil = "style='width : 80%; float : left;'";
-                    btn = "<button type='button' class='btn btn-outline-primary' id='skloniTelefon" + i + "' onclick='skloniTelefon("+i+")' style='width: 15%; height: 42px; float : right;'> X </button>"
-                    }    
+                        btn = "<button type='button' class='btn btn-outline-primary' id='skloniTelefon" + i + "' onclick='skloniTelefon(" + i + ")' style='width: 15%; height: 42px; float : right;'> X </button>"
+                    }
                     txt += '<input type="text" id="profil-telefon' + i + '" name="telefon" value="' + telefon + '" class="form-control" ' + stil + '> ' + btn + '';
                 }
             } else {
@@ -462,8 +456,8 @@ function Sacuvaj() {
                     string = '{"id":' + id + ',"ime":"' + ime + '","username":"' + username + '","email":"' + email + '","password1":"' + oldPassword + '","password2":"' + newPassword + '","opis":"' + opis + '","mesto":' + grad + '}';
                     fetch("http://localhost:8080/update", { method: "POST", body: string })
                         .then(function() {
-                        sacuvajTelefone();
-                    });
+                            sacuvajTelefone();
+                        });
                 }
             }
         });
@@ -535,6 +529,8 @@ function promeniurl() {
 }
 
 
+
+
 function ucitajOglase() {
     var url_string = window.location.href;
     var url = new URL(url_string);
@@ -588,12 +584,16 @@ function ucitajOglase() {
                         "</div>" +
                         "<button id=dugmeDetalji class='btn btn-outline-primary' style='float: right; margin-right: 20px;' onclick='prebaciNaOglas(" + id +
                         ")'> Detaljnije </button>" +
+                        "<div>" +
+                        "<button onclick='izbrisiOglas(" + id + ");' class='btn btn-outline-primary samoZaAdmina' style='position: relative; float: right; bottom:-10px; '><i class='fas fa-trash'></i></button>" +
+                        "</div>" +
                         "</div>" +
                         "</li>"
                 }
             }
             contentAds += "</ul>";
             document.getElementById("oglasi").innerHTML = contentAds;
+            samoZaAdmina();
         });
 }
 
@@ -621,6 +621,10 @@ function ucitajdetaljno() {
             else
                 radniOdnos = "na određeno vreme";
             var contentAd =
+                "<div>" +
+                "<button onclick='izbrisiOglas(" + id + ");' class='btn btn-outline-primary samoZaAdmina' style='position: relative; float: right; bottom:-10px; '><i class='fas fa-trash'></i></button>" +
+                "</div>" +
+
                 "<div id='osnovniPodaci'>" +
                 "<h3 id='imgOglasa' style='text-align: center;margin: 0; padding: 0;'> <span>Naziv oglasa: " + naslov + "</span></h3>" +
                 "<br>" +
@@ -654,13 +658,14 @@ function ucitajdetaljno() {
         .then(function() {
             lajkovao();
         });
-    
+
     ucitajPrijavljene();
     sakrijOdKorisnika();
     sakrijOdPoslodavca();
+    samoZaAdmina();
 }
 
-function ucitajPrijavljene(){
+function ucitajPrijavljene() {
     field = document.getElementById("prijavljeniKorisnici");
     url_string = window.location.href;
     url = new URL(url_string);
@@ -672,20 +677,16 @@ function ucitajPrijavljene(){
             console.log(data);
             if (data != null) {
                 field.style.display = 'block';
-                for (i = 0; i < data.length; i++){
-                    txt += 
-                    "<div class='prijavljenKorisnik'>" + 
+                for (i = 0; i < data.length; i++) {
+                    txt +=
+                        "<div class='prijavljenKorisnik'>" +
                         "<h5>" + data[i].ime + "</h5>" +
-                        "<textarea> " + data[i].opis + " </textarea> <br>" +
-                        "<button type='button' class='btn btn-outline-primary ' onclick='otvoriProfil("+data[i].id+")'>Poseti profil</button>" +
-                        "<button type='button' class='btn btn-outline-primary samoZaAdmina' onclick='otkaziPrijavu(" + oglasID + ");'>Izbrisi prijavu</button>" +
-                    "</div>";
+                        "<button type='button' class='btn btn-outline-primary' onclick='otvoriProfil(" + data[i].id + ")'>Poseti profil</button>" +
+                        "</div>";
                 }
                 field.innerHTML = txt;
             }
         });
-
-    samoZaAdmina();
 }
 
 function sakrijOdKorisnika() {
@@ -838,9 +839,9 @@ function dodajoglas() {
 
     string = '{"naslov":"' + naziv + '","tip":' + tip + ',"plata":' + plata + ',"opis":"' + opis + '","mesto":' + grad + ',"tag":' + tag + '}';
     fetch("http://localhost:8080/napravioglas", { method: "POST", body: string })
-    .then(function(){
-        window.location.replace("http://localhost:8080/profil");
-    });
+        .then(function() {
+            window.location.replace("http://localhost:8080/profil");
+        });
 }
 
 function dodajcv() {
@@ -877,16 +878,16 @@ function oglasiPrijave() {
         });
 }
 
-function sakrijOdDrugih(){
+function sakrijOdDrugih() {
     var url_string = window.location.href;
     var url = new URL(url_string);
     var id = url.searchParams.get("user");
     json = $.getJSON("http://localhost:8080/login", function() {})
         .done(function(data) {
             if (data != null) {
-                if((data.prijavljen && ((id == data.id) || (id == null))) || data.admin){
+                if ((data.prijavljen && ((id == data.id) || (id == null))) || data.admin) {
                     elementi = document.getElementsByClassName("sakrijOdDrugih");
-                    for (i = 0; i < elementi.length; i++){
+                    for (i = 0; i < elementi.length; i++) {
                         elementi[i].style.display = 'block';
                     }
                 }
@@ -963,7 +964,7 @@ function mojiOglasi() {
                 }
             }
         });
-        sakrijOdDrugih();
+    sakrijOdDrugih();
 }
 
 function mojePrijave() {
@@ -1073,12 +1074,12 @@ function izbacipos(id) {
         });
 }
 
-function oceni(){
+function oceni() {
     url_string = window.location.href;
     url = new URL(url_string);
     ID = url.searchParams.get("user");
-    
-    fetch("http://localhost:8080/oceni?id=" + ID+"&ocena="+document.getElementById("izaberiOcenu").value, { method: "POST", body: null })
+
+    fetch("http://localhost:8080/oceni?id=" + ID + "&ocena=" + document.getElementById("izaberiOcenu").value, { method: "POST", body: null })
         .then(function() {
             window.location.replace(window.location.href);
         });
@@ -1086,32 +1087,32 @@ function oceni(){
 
 
 
-function ocena(){
+function ocena() {
     url_string = window.location.href;
     url = new URL(url_string);
     ID = url.searchParams.get("user");
 
     json = $.getJSON("http://localhost:8080/ocena?id=" + ID, function() {})
-    .done(function(data) {
-        if (data != null) {
-            if (data.error == "-1") {
-                return null;
-            } else {
-                document.getElementById("izaberiOcenu").innerHTML += "<option value='-1'>Izbrisi ocenu</option>";
-                document.getElementById("izaberiOcenu").selectedIndex = 5-data.error;
+        .done(function(data) {
+            if (data != null) {
+                if (data.error == "-1") {
+                    return null;
+                } else {
+                    document.getElementById("izaberiOcenu").innerHTML += "<option value='-1'>Izbrisi ocenu</option>";
+                    document.getElementById("izaberiOcenu").selectedIndex = 5 - data.error;
+                }
             }
-        }
-    });
+        });
 
 }
 
-function sacuvajTelefone(){
+function sacuvajTelefone() {
     telefoni = document.getElementById("telefoni").getElementsByTagName("input");
-    string="{'telefoni':["
-    for(i=0;i<telefoni.length;i++){
-        string+="'"+telefoni.value+"'";
+    string = "{'telefoni':["
+    for (i = 0; i < telefoni.length; i++) {
+        string += "'" + telefoni.value + "'";
     }
-    string+="]}"
+    string += "]}"
     fetch("http://localhost:8080/izmenitelefone", { method: "POST", body: string })
         .then(function() {
             window.location.replace(window.location.href);
