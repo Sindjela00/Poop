@@ -42,6 +42,7 @@
                 <div class="col-lg-12 samoZaAdmina" id="brisanjeProfila">
                     <button type='button' class='btn btn-outline-primary sakrijOdKorisnika kanta'><i class='fas fa-trash'></i></button>
                 </div>
+
                 <div class="col-lg-12 profile-user" style="clear: both;">
                     <i class="far fa-user" aria-hidden="true"></i>
                 </div>
@@ -115,8 +116,9 @@
                                 <select class="form-control" id="city-register" ata-sb-validations="required"></select>
                             </div>
                             <div class="form-group">
-                                <label class="form-control-label">Email</label>
-                                <input type="text" id="profil-email" name="email" value="imeprezime@email.com" class="form-control">
+                                <label class="form-control-label" style="width: 100%;">Email</label>
+                                <input type="text" id="profil-email" name="email" value="imeprezime@email.com" class="form-control" style="float: left;width:85%;">
+                                <button type='button' onclick="posaljiMail()" class='btn btn-outline-primary' style='position:relative; float:right; height: 40px;'><i class='fas fa-envelope'></i></button>
                             </div>
                             <div class="form-group" id="telefoni">
                                 <label class="form-control-label">Telefoni</label>

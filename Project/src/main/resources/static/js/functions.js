@@ -1019,9 +1019,6 @@ function mojePrijave() {
                         "<a href='http://localhost:8080/covek?id=" + id + "'>" +
                         "<p> Poslodavac: " + poslodavac + "</p>" +
                         "</a>" +
-                        //"<p><span><i class='fas fa-map-marker-alt'></i> Lokacija: " + lokacija + "</p></span>" +
-                        //"<p><i class='fas fa-map-marker-alt'></i> <b>Lokacija:</b> " + lokacija + "<br>" +
-                        //"<i class='fas fa-coins'></i><b> Plata : </b>" + plata + " </p>" +
                         "<button type='button' onclick='otvoriOglas(" + id + ");' class='btn btn-outline-primary' style='float : left; width : 48%;'>Detaljnije</button>" +
                         "<button type='button' onclick='otkaziPrijavu(" + id + ");' class='btn btn-outline-primary' style='float : right; width : 48%;'>Otkaži prijavu</button>" +
                         "</div>";
