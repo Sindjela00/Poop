@@ -355,8 +355,8 @@ function samoZaAdmina() {
         });
 }
 
-function posaljiMail(email){
-    location.href="mailto:" + email;
+function posaljiMail(email) {
+    location.href = "mailto:" + email;
 }
 
 function popuniProfil() {
@@ -1143,7 +1143,7 @@ function sacuvajTelefone() {
     telefoni = document.getElementById("telefoni").getElementsByTagName("input");
     string = "{'telefoni':["
     for (i = 0; i < telefoni.length; i++) {
-        string += "'" + telefoni.value + "'";
+        string += "'" + telefoni[i].value + "'";
     }
     string += "]}"
     fetch("http://localhost:8080/izmenitelefone", { method: "POST", body: string })
