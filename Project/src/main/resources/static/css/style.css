@@ -11113,6 +11113,31 @@
                 width: 130px;
             }
             /*OGLAS*/
+
+            #prijavljeniKorisnici {
+                position: relative;
+                background-color: #e3fffb;
+                margin-top: 20px;
+                padding: 20px;
+                height: auto;
+                width: 100%;
+                margin-left : 0px;
+                border: 3px solid #1abc9c;
+                border-radius: 10px;
+                text-align: center;
+                color : #1abc9c;
+                overflow: hidden;
+            }
+
+            .prijavljenKorisnik {
+                position : relative;
+                float : left;
+                padding-left : 20px;
+                border: 3px solid #1abc9c;
+                border-radius: 5px;
+                width : 20%;
+                height : 90px;
+            }
             
             #stranicaOglasa {
                 position: relative;
@@ -11120,7 +11145,7 @@
                 margin-top: 70px;
                 padding: 20px;
                 height: auto;
-                width: auto;
+                width: 100%;
                 border: 3px solid #1abc9c;
                 border-radius: 10px;
             }
@@ -11413,4 +11438,8 @@
             #like:active {
                 color : white;
                 background-color : #1abc9c;
+            }
+
+            .samoZaAdmina {
+                display : none;
             }
