@@ -1066,7 +1066,7 @@ function mojePrijave() {
                         "<p> Poslodavac: " + poslodavac + "</p>" +
                         "</a>" +
                         "<button type='button' onclick='otvoriOglas(" + id + ");' class='btn btn-outline-primary' style='float : left; width : 48%;'>Detaljnije</button>" +
-                        "<button type='button' onclick='otkaziPrijavu(" + id + ");' class='btn btn-outline-primary' style='float : right; width : 48%;'>Otkaži prijavu</button>" +
+                        "<button type='button' onclick='otkaziprijavu(" + userID + ',' + id + ");' class='btn btn-outline-primary' style='float : right; width : 48%;'>Otkaži prijavu</button>" +
                         "</div>";
                 }
                 field.innerHTML = txt;
