@@ -672,6 +672,7 @@ function ucitajPrijavljene(){
                     txt += 
                     "<div class='prijavljenKorisnik'>" + 
                         "<h5>" + data[i].ime + "</h5>" +
+                        "<textarea> " + data[i].opis + " </textarea> <br>" +
                         "<button type='button' class='btn btn-outline-primary' onclick='otvoriProfil("+data[i].id+")'>Poseti profil</button>" +
                     "</div>";
                 }
