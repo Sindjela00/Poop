@@ -355,6 +355,10 @@ function samoZaAdmina() {
         });
 }
 
+function posaljiMail(email){
+    location.href="mailto:" + email;
+}
+
 function popuniProfil() {
     var url_string = window.location.href;
     var url = new URL(url_string);
@@ -384,6 +388,7 @@ function popuniProfil() {
                 document.getElementById("jedinice").innerHTML += data.jedinice;
                 ocena();
                 lozinke = document.getElementById("sakriveno");
+                document.getElementById("kontakt").onclick = function() { posaljiMail(data.email); }
             }
         });
 
