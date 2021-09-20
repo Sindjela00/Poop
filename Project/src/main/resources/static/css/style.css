@@ -11143,6 +11143,13 @@
 
             .prijavljenKorisnik textarea {
                 width : 80%;
+                color : #1abc9c;
+                border : 2px solid #1abc9c;
+                border-radius : 5px;
+            }
+
+            .prijavljenKorisnik button {
+                margin : 10px;
             }
             
             #stranicaOglasa {
