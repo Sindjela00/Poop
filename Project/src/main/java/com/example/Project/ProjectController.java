@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.boot.configurationprocessor.json.JSONArray;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.boot.web.servlet.error.ErrorController;
@@ -324,6 +325,29 @@ public class ProjectController implements ErrorController{
         }
         return null;
     }
+
+    @PostMapping("/izmenitelefone")
+    public @ResponseBody String tel(@RequestBody String brojevi,HttpServletRequest req, HttpServletResponse res){
+        JSONObject js;
+        try {
+            js = new JSONObject(brojevi);
+            JSONArray niz = js.getJSONArray("telefoni");
+            for(int i=0;i<niz.length();i++){
+
+                System.out.println(niz.getString(i));
+            }
+
+
+            return "";
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+
+
     @GetMapping("/prijavljeni")
     public @ResponseBody List<Korisnik> prijavljeni(@RequestParam Integer id,HttpServletRequest req, HttpServletResponse res){
         Cookie cookie = CookieManager.getCookie(req);
