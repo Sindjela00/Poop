@@ -890,7 +890,6 @@ function mojePrijave() {
                     poslodavac = data[i].kategorija;
                     //lokacija = data[i].mesto;
                     id = data[i].id;
-                    plata = data[i].plata;
                     txt +=
                         "<div class='profile-oglas'>" +
                         "<h5> Naziv oglasa: " + naslov + "</h5>" +
@@ -898,8 +897,8 @@ function mojePrijave() {
                         "<p> Poslodavac: " + poslodavac + "</p>" +
                         "</a>" +
                         //"<p><span><i class='fas fa-map-marker-alt'></i> Lokacija: " + lokacija + "</p></span>" +
-                        "<p><i class='fas fa-map-marker-alt'></i> <b>Lokacija:</b> " + lokacija + "<br>" +
-                        "<i class='fas fa-coins'></i><b> Plata : </b>" + plata + " </p>" +
+                        //"<p><i class='fas fa-map-marker-alt'></i> <b>Lokacija:</b> " + lokacija + "<br>" +
+                        //"<i class='fas fa-coins'></i><b> Plata : </b>" + plata + " </p>" +
                         "<button type='button' onclick='otvoriOglas(" + id + ");' class='btn btn-outline-primary' style='float : left; width : 48%;'>Detaljnije</button>" +
                         "<button type='button' onclick='otkaziPrijavu(" + id + ");' class='btn btn-outline-primary' style='float : right; width : 48%;'>Otkaži prijavu</button>" +
                         "</div>";
