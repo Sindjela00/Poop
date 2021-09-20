@@ -335,6 +335,9 @@ function skloniTelefon(i) {
 }
 
 function samoZaAdmina() {
+    var url_string = window.location.href;
+    var url = new URL(url_string);
+    var id = url.searchParams.get("user");
     json = $.getJSON("http://localhost:8080/login", function() {})
         .done(function(data) {
             console.log(data);
@@ -343,6 +346,9 @@ function samoZaAdmina() {
                     elementi = document.getElementsByClassName("samoZaAdmina");
                     for (i = 0; i < elementi.length; i++) {
                         elementi[i].style.display = 'block';
+                    }
+                    if(((url_string.includes("profil")) && (id == 1)) || ((url_string.includes("profil")) && (id == null)) ){                        
+                        document.getElementById("brisanjeProfila").style.display = 'none';
                     }
                 }
             }
@@ -679,14 +685,17 @@ function ucitajPrijavljene() {
                 field.style.display = 'block';
                 for (i = 0; i < data.length; i++) {
                     txt +=
-                        "<div class='prijavljenKorisnik'>" +
-                        "<h5>" + data[i].ime + "</h5>" +
-                        "<button type='button' class='btn btn-outline-primary' onclick='otvoriProfil(" + data[i].id + ")'>Poseti profil</button>" +
-                        "</div>";
+                        "<div class='prijavljenKorisnik'>" + 
+                            "<h5>" + data[i].ime + "</h5>" +
+                            "<textarea> " + data[i].opis + " </textarea> <br>" +
+                            "<button type='button' class='btn btn-outline-primary ' onclick='otvoriProfil("+data[i].id+")'>Poseti profil</button>" +
+                            "<button type='button' class='btn btn-outline-primary samoZaAdmina' onclick='otkaziPrijavu(" + oglasID + ");'>Izbrisi prijavu</button>" +
+                            "</div>";
                 }
                 field.innerHTML = txt;
             }
         });
+    samoZaAdmina();
 }
 
 function sakrijOdKorisnika() {
