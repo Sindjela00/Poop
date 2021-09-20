@@ -344,7 +344,7 @@ function popuniProfil() {
                 selectCity(data.mesto);
                 document.getElementsByName("email")[0].value = data.email;
                 document.getElementsByName("opis")[0].value = data.opis;
-                document.getElementsByName("lozinka1")[0].value = data.password;
+                document.getElementsByName("lozinka1")[0].value = "";
                 prosecna = (data.petice * 5 + data.cetvorke * 4 + data.trojke * 3 + data.dvojke * 2 + data.jedinice * 1) / (data.petice + data.cetvorke + data.trojke + data.dvojke + data.jedinice);
                 document.getElementById("prosecna").innerHTML += prosecna;
                 document.getElementById("petice").innerHTML += data.petice;
@@ -352,6 +352,7 @@ function popuniProfil() {
                 document.getElementById("trojke").innerHTML += data.trojke;
                 document.getElementById("dvojke").innerHTML += data.dvojke;
                 document.getElementById("jedinice").innerHTML += data.jedinice;
+                ocena();
                 lozinke = document.getElementById("sakriveno");
             }
         });
@@ -397,8 +398,7 @@ function Sacuvaj() {
     var username;
 
     ime = document.getElementById("profil-ime").value;
-    grad = document.getElementById("city-register");
-    mesto = grad.options[grad.selectedIndex].text;
+    grad = document.getElementById("city-register").value;
     email = document.getElementById("profil-email").value;
     telefoni = document.getElementsByName("telefon");
     opis = document.getElementById("profil-opis").value;
@@ -415,9 +415,9 @@ function Sacuvaj() {
                 if (lozinka2 != lozinka3) {
                     window.alert("Sifre nisu iste.");
                 } else {
-                    oldPassword = document.getElementById("lozinka1").value
+                    oldPassword = lozinka1;
                     newPassword = lozinka2;
-                    string = '{"id":' + id + ',"ime":"' + ime + '","username":"' + username + '","email":"' + email + '","password1":"' + oldPassword + '","password2":"' + newPassword + '","opis":"' + opis + '","mesto":"' + mesto + '","petice":' + data.petice + ',"cetvorke":' + data.cetvorke + ',"trojke":' + data.trojke + ',"dvojke":' + data.dvojke + ',"jedinice":' + data.jedinice + '}';
+                    string = '{"id":' + id + ',"ime":"' + ime + '","username":"' + username + '","email":"' + email + '","password1":"' + oldPassword + '","password2":"' + newPassword + '","opis":"' + opis + '","mesto":' + grad + '}';
                     post("http://localhost:8080/update", string);
                 }
             }
@@ -765,8 +765,11 @@ function dodajoglas() {
     }
 
 
-    string = '{"naslov":"' + naziv + '","tip":' + tip + ',"plata":' + plata + ',"opis":"' + opis + '","mesto":' + grad + '","tag":' + tag + '}';
-    post("http://localhost:8080/napravioglas", string);
+    string = '{"naslov":"' + naziv + '","tip":' + tip + ',"plata":' + plata + ',"opis":"' + opis + '","mesto":' + grad + ',"tag":' + tag + '}';
+    fetch("http://localhost:8080/napravioglas", { method: "POST", body: string })
+    .then(function(){
+        window.location.replace("http://localhost:8080/profil");
+    });
 }
 
 function dodajcv() {
@@ -876,13 +879,13 @@ function mojePrijave() {
     field = document.getElementById("profile-oglasi");
     txt = "";
 
-    json = $.getJSON("http://localhost:8080/mojioglasi?user=" + userID, function() {})
+    json = $.getJSON("http://localhost:8080/mojeprijave", function() {})
         .done(function(data) {
             if (data != null) {
                 for (i = 0; i < data.length; i++) {
-                    naslov = data[i].naslov;
-                    poslodavac = data[i].poslodavac;
-                    lokacija = data[i].mesto;
+                    naslov = data[i].podkategorija;
+                    poslodavac = data[i].kategorija;
+                    //lokacija = data[i].mesto;
                     id = data[i].id;
                     txt +=
                         "<div class='profile-oglas'>" +
@@ -890,7 +893,7 @@ function mojePrijave() {
                         "<a href='http://localhost:8080/covek?id=" + id + "'>" +
                         "<p> Poslodavac: " + poslodavac + "</p>" +
                         "</a>" +
-                        "<p><span><i class='fas fa-map-marker-alt'></i> Lokacija: " + lokacija + "</p></span>" +
+                        //"<p><span><i class='fas fa-map-marker-alt'></i> Lokacija: " + lokacija + "</p></span>" +
                         "<button type='button' onclick='otvoriOglas(" + id + ");' class='btn btn-outline-primary' style='float : left; width : 48%;'>Detaljnije</button>" +
                         "<button type='button' onclick='otkaziPrijavu(" + id + ");' class='btn btn-outline-primary' style='float : right; width : 48%;'>Otkaži prijavu</button>" +
                         "</div>";
@@ -974,4 +977,36 @@ function izbacipos(id) {
         .then(function() {
             window.location.replace(window.location.href);
         });
+}
+
+function oceni(){
+    url_string = window.location.href;
+    url = new URL(url_string);
+    ID = url.searchParams.get("user");
+    
+    fetch("http://localhost:8080/oceni?id=" + ID+"&ocena="+document.getElementById("izaberiOcenu").value, { method: "POST", body: null })
+        .then(function() {
+            window.location.replace(window.location.href);
+        });
+}
+
+
+
+function ocena(){
+    url_string = window.location.href;
+    url = new URL(url_string);
+    ID = url.searchParams.get("user");
+
+    json = $.getJSON("http://localhost:8080/ocena?id=" + ID, function() {})
+    .done(function(data) {
+        if (data != null) {
+            if (data.error == "-1") {
+                return null;
+            } else {
+                document.getElementById("izaberiOcenu").innerHTML += "<option value='-1'>Izbrisi ocenu</option>";
+                document.getElementById("izaberiOcenu").selectedIndex = 5-data.error;
+            }
+        }
+    });
+
 }

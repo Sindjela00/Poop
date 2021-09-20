@@ -461,12 +461,13 @@ public class DatabaseConnector {
             String opis) {
         PreparedStatement statement;
         try {
-            statement = connection.prepareStatement("select * from korisnik where id=? and password=?");
+            statement = connection.prepareStatement("select * from korisnik where idkorisnik=? and password=?");
             statement.setInt(1, id);
             statement.setString(2, password1);
             ResultSet result = statement.executeQuery();
             if(result.next()){
                     if(password2.compareTo("")==0){
+                        System.out.println("TEsT");
                         statement = connection.prepareStatement(
                             "Update korisnik set ime=? , username=? , email=? , idmesta = ? , opis = ? where idkorisnik=?");
                         statement.setString(1, ime);
@@ -523,6 +524,7 @@ public class DatabaseConnector {
         try {
             if (proveriprijavu(idcoveka, idoglasa))
                 return false;
+                System.out.println(cv);
             statement = connection.prepareStatement("INSERT INTO prijave values (?,?,?)");
             statement.setInt(1, idcoveka);
             statement.setInt(2, idoglasa);
@@ -624,7 +626,7 @@ public class DatabaseConnector {
     public boolean proveriocenu(Integer idcoveka, Integer idcoveka2) {
         PreparedStatement statement;
         try {
-            statement = connection.prepareStatement("SELECT * FROM ocene where idcoveka=? and idocenjenog=?");
+            statement = connection.prepareStatement("SELECT * FROM ocena where idcoveka=? and idocenjenog=?");
             statement.setInt(1, idcoveka);
             statement.setInt(2, idcoveka2);
 
@@ -642,11 +644,12 @@ public class DatabaseConnector {
     public boolean oceni(Integer idcoveka, Integer idoglasa, Integer ocena) {
         PreparedStatement statement;
         try {
+            System.out.println(idcoveka+" "+idoglasa+" "+ocena);
             if (proveriocenu(idcoveka, idoglasa)) {
                 statement = connection.prepareStatement("DELETE FROM ocena WHERE idcoveka=? and idocenjenog=?;");
                 statement.setInt(1, idcoveka);
                 statement.setInt(2, idoglasa);
-                ResultSet result = statement.executeQuery();
+                statement.executeUpdate();
                 if (ocena == -1) {
                     return true;
                 }
@@ -658,7 +661,7 @@ public class DatabaseConnector {
                 return false;
             }
             statement.setInt(3, ocena);
-            ResultSet result = statement.executeQuery();
+            statement.executeUpdate();
             return true;
 
         } catch (SQLException e) {
@@ -671,7 +674,7 @@ public class DatabaseConnector {
     public Integer dataOcena(Integer idcoveka, Integer idcoveka2) {
         PreparedStatement statement;
         try {
-            statement = connection.prepareStatement("SELECT * FROM ocene where idcoveka=? and idocenjenog=?");
+            statement = connection.prepareStatement("SELECT * FROM ocena where idcoveka=? and idocenjenog=?");
             statement.setInt(1, idcoveka);
             statement.setInt(2, idcoveka2);
 

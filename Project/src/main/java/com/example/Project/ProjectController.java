@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
+import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-public class ProjectController {
+public class ProjectController implements ErrorController{
 
     DatabaseConnector db = new DatabaseConnector();
 
@@ -30,6 +31,11 @@ public class ProjectController {
                 return "index";
         }
         return "index";
+    }
+
+    @GetMapping("/error")
+    public String greska(){
+        return "redirect:/";
     }
 
     @GetMapping("/oglasi")
@@ -253,24 +259,24 @@ public class ProjectController {
     
 
 
-    @GetMapping("/oceni")
-    public @ResponseBody String oceni(@RequestParam Integer id,@RequestParam String lajk,HttpServletRequest req, HttpServletResponse res){
+    @PostMapping("/oceni")
+    public @ResponseBody String oceni(@RequestParam Integer id,@RequestParam Integer ocena,HttpServletRequest req, HttpServletResponse res){
         if(CookieManager.getCookie(req)!=null){
-            if(db.lajkuj(db.dajId(CookieManager.getContent(CookieManager.getCookie(req))), id, lajk))
+            if(db.oceni(db.dajId(CookieManager.getContent(CookieManager.getCookie(req))), id, ocena))
             return "OK";
         }
         return "false";
     }
     @GetMapping("/ocena")
-    public @ResponseBody String ocena(@RequestParam(required = false) Integer covek, @RequestBody String body,HttpServletRequest req, HttpServletResponse res){
+    public @ResponseBody errorCode ocena(@RequestParam(required = false) Integer id,HttpServletRequest req, HttpServletResponse res){
         Integer ocena = -1;
         if(CookieManager.getCookie(req)!=null){
-            ocena= db.dataOcena(db.dajId(CookieManager.getContent(CookieManager.getCookie(req))), covek);
+            ocena= db.dataOcena(db.dajId(CookieManager.getContent(CookieManager.getCookie(req))), id);
             if(ocena == null){
                 ocena=-1;
             }
         }
-        return ocena.toString();
+        return new errorCode(ocena.toString());
     }
 
     @GetMapping("/oglas")
