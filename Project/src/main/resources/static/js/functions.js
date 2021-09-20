@@ -1144,12 +1144,10 @@ function sacuvajTelefone() {
     telefoni = document.getElementById("telefoni").getElementsByTagName("input");
     string = "{'telefoni':["
     for (i = 0; i < telefoni.length; i++) {
-<<<<<<< HEAD
-        string += "'" + telefoni[i].value + "'";
-=======
-        string += "'" + telefoni.value + "'";
-        console.log("eee" + telefoni.value);
->>>>>>> 3c4eaf9af882549a69897e47bf87b62c306871ed
+        if (telefoni[i].value != "") {
+            string += "'" + telefoni[i].value + "'";
+            if (i + 1 == telefoni.length) string += ",";
+        }
     }
     string += "]}"
     fetch("http://localhost:8080/izmenitelefone", { method: "POST", body: string })
