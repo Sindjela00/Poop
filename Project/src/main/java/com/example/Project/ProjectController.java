@@ -403,8 +403,11 @@ public class ProjectController implements ErrorController{
         return "BAD";
     }
     @GetMapping("/mojeprijave")
-    public @ResponseBody List<Tagovi> mojeprijave(HttpServletRequest req, HttpServletResponse res){
+    public @ResponseBody List<Tagovi> mojeprijave(@RequestParam Integer id, HttpServletRequest req, HttpServletResponse res){
         Cookie cookie = CookieManager.getCookie(req);
+        if(id!=null){
+            return db.Daj_mojeprijave(id);
+        }
         if(cookie!=null && db.proveriCoveka(CookieManager.getContent(cookie)))
         return db.Daj_mojeprijave(db.dajId(CookieManager.getContent(cookie)));
         return null;
