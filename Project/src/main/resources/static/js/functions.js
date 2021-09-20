@@ -648,7 +648,7 @@ function ucitajdetaljno() {
                 "<span style='width : 145px;'> <span class='fas fa-thumbs-down' style='color : #1abc9c'> </span>" + "<span style='margin-left: 5px; color : #1abc9c;'>" + dislikes + "</span></span>" +
                 "</div>" +
                 "<br><br>" +
-                "<div id='LikeDislike' class='sakrijOdKorisnika' style='display : none; float : right;'>" +
+                "<div id='LikeDislike' class='sakrij' style='display : none; float : right;'>" +
                 "<button id='like' onclick='lajkuj(this.id);' class=' btn btn-outline-primary ' style='padding: 5px 10px;margin: 0px 5px; border-color : #1abc9c;'><i class='fas fa-thumbs-up '></i> Sviđa mi se</button>" +
                 "<button id='dislike' onclick='lajkuj(this.id);' class=' btn btn-outline-primary ' style='padding: 5px 10px;margin: 0px 5px; border-color : #1abc9c;'><i class='fas fa-thumbs-down '></i> Ne sviđa mi se </button>" +
                 "</div>" +
@@ -668,6 +668,7 @@ function ucitajdetaljno() {
     ucitajPrijavljene();
     sakrijOdKorisnika();
     sakrijOdPoslodavca();
+    sakrij();
     samoZaAdmina();
 }
 
@@ -697,6 +698,26 @@ function ucitajPrijavljene() {
         });
     samoZaAdmina();
 }
+
+function sakrij() {
+    var sakriveno = document.getElementsByClassName("sakrij");
+    json = $.getJSON("http://localhost:8080/login", function() {})
+        .done(function(data) {
+            console.log(data);
+            if (data != null) {
+                if (!data.prijavljen) {
+                    for (i = 0; i < sakriveno.length; i++) {
+                        sakriveno[i].style.display = 'none';
+                    }
+                } else {
+                    for (i = 0; i < sakriveno.length; i++) {
+                        sakriveno[i].style.display = 'block';
+                    }
+                }
+            }
+        });
+}
+
 
 function sakrijOdKorisnika() {
     var sakriveno = document.getElementsByClassName("sakrijOdKorisnika");
@@ -913,7 +934,11 @@ function izbrisiOglas(id) {
 }
 
 function otkaziPrijavu(id) {
-    location.href = 'http://localhost:8080/izbaci?id=' + id;
+    post('http://localhost:8080/izbaci?id=' + id, null);
+}
+
+function otkaziprijavu(covek, id) {
+    post('http://localhost:8080/izbaci?user=' + covek + '&id=' + id, null);
 }
 
 function otvoriProfil(id) {
