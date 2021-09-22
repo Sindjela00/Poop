@@ -1198,7 +1198,7 @@ function sacuvajTelefone() {
     string = "{'telefoni':["
     for (i = 0; i < telefoni.length; i++) {
         if (telefoni[i].value != "") {
-            if (i + 1 < telefoni.length && i != 1) string += ",";
+            if (i != 0) string += ",";
             string += "'" + telefoni[i].value + "'";
         }
     }
